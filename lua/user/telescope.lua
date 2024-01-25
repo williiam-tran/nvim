@@ -42,6 +42,9 @@ telescope.setup({
 		},
 
 		mappings = {
+			i = {
+				["<Esc>"] = actions.close,
+			},
 			n = {
 				["q"] = actions.close,
 			},

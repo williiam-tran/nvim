@@ -15,13 +15,21 @@ keymap("v", "T", "<Plug>Sneak_S", opts)
 keymap("n", "<Leader>k", "<Plug>(easymotion-k)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-j)", opts)
 
-keymap("i", "<C-k>", "<cmd>lua require'luasnip'.jump(-1)<cr>", opts)
-keymap("i", "<C-i>", "<cmd>lua require'luasnip'.jump(1)<cr>", opts)
-keymap("s", "<C-i>", "<cmd>lua require'luasnip'.jump(1)<cr>", opts)
-keymap("s", "<C-i>", "<cmd>lua require'luasnip'.jump(-1)<cr>", opts)
+-- navigate between options
+keymap("s", "<M-i>", "<C-p>", opts)
+keymap("c", "<M-i>", "<C-p>", opts)
+keymap("o", "<M-i>", "<C-p>", opts)
+keymap("s", "<M-k>", "<C-n>", opts)
+keymap("c", "<M-k>", "<C-n>", opts)
+keymap("o", "<M-k>", "<C-n>", opts)
+
 -- keymap("s", "<Tab>", "<Plug>luasnip-expand-or-jump<cr>", opts)
 -- keymap("i", "<Tab>", "<Plug>luasnip-expand-or-jump<cr>", opts)
 
+vim.keymap.set("c", "<tab>", "<C-z>", { silent = false })
+vim.keymap.set("c", "<C-k>", "<cmd>lua require('cmp').mapping.select_next_item()<cr>", { silent = true })
+vim.keymap.set("o", "<C-k>", "<cmd>lua require('cmp').mapping.select_next_item()<cr>", { silent = true })
+vim.keymap.set("s", "<C-k>", "<cmd>lua require('cmp').mapping.select_next_item()<cr>", { silent = true })
 -- vim.cmd([[
 -- imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
 -- ]])
@@ -153,7 +161,7 @@ keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 
-keymap("c", "<C-i>", "", opts)
+-- keymap("c", "<C-i>", "", opts)
 keymap("c", "gi", "", opts)
 
 -- Lua
