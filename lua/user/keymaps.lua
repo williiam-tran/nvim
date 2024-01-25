@@ -15,6 +15,17 @@ keymap("v", "T", "<Plug>Sneak_S", opts)
 keymap("n", "<Leader>k", "<Plug>(easymotion-k)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-j)", opts)
 
+keymap("i", "<C-k>", "<cmd>lua require'luasnip'.jump(-1)<cr>", opts)
+keymap("i", "<C-i>", "<cmd>lua require'luasnip'.jump(1)<cr>", opts)
+keymap("s", "<C-i>", "<cmd>lua require'luasnip'.jump(1)<cr>", opts)
+keymap("s", "<C-i>", "<cmd>lua require'luasnip'.jump(-1)<cr>", opts)
+-- keymap("s", "<Tab>", "<Plug>luasnip-expand-or-jump<cr>", opts)
+-- keymap("i", "<Tab>", "<Plug>luasnip-expand-or-jump<cr>", opts)
+
+-- vim.cmd([[
+-- imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
+-- ]])
+
 keymap("n", "j", "h", opts)
 keymap("n", "k", "j", opts)
 keymap("n", "i", "k", opts)
@@ -84,17 +95,13 @@ keymap("n", "<M-r>", "<Cmd>Telescope live_grep<CR>", opts)
 keymap("n", "<A-r>", "<Cmd>Telescope live_grep<CR>", opts)
 
 -- Comment Toggle
-keymap("n", "<C-_>", "<Cmd>CommentToggle<CR>", opts)
-keymap("i", "<C-_>", "<Cmd>CommentToggle<CR>", opts)
--- keymap("v", "<C-_>", "gc", opts)
--- keymap("x", "<C-_>", "gc", opts)
+keymap("n", "<C-_>", "<Plug>(comment_toggle_linewise_current)", opts)
+keymap("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", opts)
 
 -- keymap("n", "cm", "<Cmd>CommentToggle<CR>", opts)
 -- keymap("v", "cm", "<Cmd>CommentToggle<CR>", opts)
 -- keymap("x", "cm", "<Cmd>CommentToggle<CR>", opts)
 -- keymap("o", "cm", "<Cmd>CommentToggle<CR>", opts)
-
-keymap("c", "<C-_>", "gc", opts)
 
 -- navigate between occurences of selected variable.
 -- keymap('n', '<a-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
@@ -123,7 +130,12 @@ keymap("n", "rn", '<cmd>lua require("renamer").rename()<cr>', opts)
 keymap("v", "rn", '<cmd>lua require("renamer").rename()<cr>', opts)
 
 -- Telescope
-keymap("n", "<A-p>", '<cmd>lua require("telescope.builtin").find_files()<cr>', opts)
+keymap(
+	"n",
+	"<A-p>",
+	'<cmd>lua require("telescope.builtin").find_files(require"telescope.themes".get_dropdown({previewer=false}))<CR>',
+	opts
+)
 
 -- Lazy
 keymap("n", "<C-S-x>", "<cmd>Lazy<cr>", opts)
@@ -140,6 +152,9 @@ keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+
+keymap("c", "<C-i>", "", opts)
+keymap("c", "gi", "", opts)
 
 -- Lua
 vim.keymap.set("n", "<leader>xx", function()

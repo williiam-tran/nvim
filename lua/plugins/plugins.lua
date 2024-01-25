@@ -76,16 +76,20 @@ return {
 	{
 		"wellle/targets.vim",
 		priority = 1000,
-		event = "BufReadPre",
+		event = { "VimEnter" },
 	},
 
 	{
 		"justinmk/vim-sneak",
-		event = { "BufReadPre" },
+		event = { "VimEnter" },
 	},
 
 	{
-		"terrortylor/nvim-comment",
+		"numToStr/Comment.nvim",
+		opts = {
+			-- add any options here
+		},
+		lazy = false,
 	},
 
 	"folke/neodev.nvim",
@@ -142,7 +146,10 @@ return {
 	"norcalli/nvim-colorizer.lua",
 
 	-- cmp plugns
-	"hrsh7th/nvim-cmp", -- The completion plugin
+	{
+		"hrsh7th/nvim-cmp", -- The completion plugin
+		event = { "InsertEnter", "CmdlineEnter" },
+	},
 	"hrsh7th/cmp-buffer", -- buffer completions
 	"hrsh7th/cmp-path", -- path completions
 	"hrsh7th/cmp-cmdline", -- cmdline completions
@@ -187,18 +194,37 @@ return {
 	-- Telescope
 	{
 		"nvim-telescope/telescope.nvim",
-		-- dependencies = {
-		-- 	"nvim-telescope/telescope-media-files.nvim",
-		-- 	event = "VeryLazy",
-		-- 	lazy = true,
-		-- 	module = "telescope",
-		-- 	config = function()
-		-- 		require("telescope").load_extension("media_files")
-		-- 	end,
-		-- },
+		dependencies = {
+			"nvim-telescope/telescope-media-files.nvim",
+			event = "VeryLazy",
+			lazy = true,
+			module = "telescope",
+			config = function()
+				require("telescope").load_extension("media_files")
+			end,
+		},
 		-- event = "VeryLazy",
 		-- lazy = true,
 	},
+
+	-- lazy.nvim
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- add any options here
+		},
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			-- "rcarriga/nvim-notify",
+		},
+	},
+
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
 	-- Treesitter
 	{
@@ -254,16 +280,14 @@ return {
 	-- nerdtree
 	"tpope/vim-eunuch",
 
-	-- notification
-	"rcarriga/nvim-notify",
-
 	-- dashboard
 	"mhinz/vim-startify",
 
 	{
 		"easymotion/vim-easymotion",
 		priority = 1200,
-		event = { "BufReadPre" },
+		-- event = { "InsertEnter", "CmdlineEnter" },
+		event = { "VimEnter" },
 	},
 
 	-- Todo plugins

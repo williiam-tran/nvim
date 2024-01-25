@@ -1,5 +1,6 @@
 local telescope = require("telescope")
 local actions = require("telescope.actions")
+-- local builtin = require("telescope.builtin")
 
 telescope.setup({
 	-- lazy load this plugin
@@ -14,8 +15,32 @@ telescope.setup({
 				vim.notify("The image path has been copied to system clipboard!")
 			end,
 		},
+		fzf = {
+			fuzzy = true,
+			override_generic_sorter = true,
+			override_file_sorter = true,
+			case_mod = "smart_case",
+		},
 	},
 	defaults = {
+		vimgrep_arguments = {
+			"rg",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+			"--trim", -- add this value
+		},
+
+		pickers = {
+			previewer = false,
+			find_files = {
+				previewer = false,
+			},
+		},
+
 		mappings = {
 			n = {
 				["q"] = actions.close,
@@ -23,9 +48,11 @@ telescope.setup({
 		},
 		layout_config = {
 			horizontal = {
+				preview_cutoff = 1,
 				width_padding = 0.04,
-				height_padding = 0.1,
+				height_padding = 0.01,
 				preview_width = 0.6,
+				prompt_position = "top",
 			},
 			vertical = {
 				width_padding = 0.05,
@@ -35,3 +62,10 @@ telescope.setup({
 		},
 	},
 })
+
+-- builtin.find_files({
+-- 	previewer = false,
+-- 	shorten_path = true,
+-- })
+
+require("telescope").load_extension("fzf")

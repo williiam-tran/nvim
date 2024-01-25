@@ -1,19 +1,32 @@
-require('nvim_comment').setup {
-  -- Linters prefer comment and line to have a space in between markers
-  marker_padding = true,
-  -- should comment out empty or whitespace only lines
-  comment_empty = true,
+require("Comment").setup({
 
-  -- trim empty comment whitespace
-  comment_empty_trim_whitespace = true,
-  -- Should key mappings be created
-  create_mappings = true,
-  -- Normal mode mapping left hand side
-  line_mapping = "<C-_>",
-  -- Visual/Operator mapping left hand side
-  operator_mappingi= "<C-_>",
-  -- text object mapping, comment chunk,,
-  comment_chunk_text_object = "xc",
-  -- Hook function to call before commenting takes place
-  hook = nil
-}
+	padding = true,
+	sticky = true,
+	ignore = nil,
+
+	toggler = {
+		---Line-comment toggle keymap
+		line = "<C-_>",
+		---Block-comment toggle keymap
+		block = "gbc",
+	},
+
+	opleader = {
+		line = "gc",
+		block = "gb",
+	},
+
+	extra = {
+		above = "gcO",
+		below = "gco",
+		eol = "gcA",
+	},
+
+	mappings = {
+		basic = true,
+		extra = true,
+	},
+
+	pre_hook = nil,
+	post_hook = nil,
+})
