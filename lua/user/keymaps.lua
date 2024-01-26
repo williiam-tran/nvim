@@ -154,7 +154,7 @@ if not vim.g.vscode then
 
 	keymap("n", "gi", "<cmd>lua vim.lsp.bui.implementation()<CR>", opts)
 
-	keymap("n", "ri'", "ci'<Escape>p", opts)
+	keymap("n", "ri'", "ci'<Esc>p", opts)
 
 	keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 else

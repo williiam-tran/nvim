@@ -1,16 +1,15 @@
 require("user.lazy")
 require("user.keymaps")
-require("user.autopairs")
--- require("user.options")
+require("user.options")
 require("user.autocmds")
+require("user.autopairs")
 
 if not vim.g.vscode then
-	require("user.noice")
-	require("user.treesitter")
+	require("user.cmp")
 	require("user.mason")
 	require("user.lsp")
-	require("user.cmp")
 	require("user.filetype")
+	require("user.treesitter")
 	require("user.formatter")
 	require("user.illuminate")
 	require("user.indentline")
@@ -18,4 +17,5 @@ if not vim.g.vscode then
 	require("user.telescope")
 	require("user.comments")
 	require("user.smoothscrolling")
+	require("user.noice")
 end
