@@ -19,6 +19,11 @@ return {
 		event = { "VimEnter" },
 	},
 
+	-- vscode
+	{
+		"vscode-neovim/vscode-neovim",
+	},
+
 	{
 		"justinmk/vim-sneak",
 		event = { "VimEnter" },
@@ -29,6 +34,11 @@ return {
 		opts = {
 			-- add any options here
 		},
+		lazy = false,
+	},
+
+	{
+		"https://github.com/chaoren/vim-wordmotion",
 		lazy = false,
 	},
 

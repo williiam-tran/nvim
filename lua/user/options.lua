@@ -44,46 +44,51 @@ for k, v in pairs(options) do
 end
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
-vim.cmd([[set iskeyword+=-]])
-vim.cmd([[set iskeyword+=_]])
-vim.cmd([[set encoding=utf-8]])
-vim.cmd([[highlight Comment guifg=#dbaf84]])
-vim.cmd([[highlight String guifg=#ec8076]])
-vim.cmd([[highlight Number guifg=#c0b6a9]])
-vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
-vim.cmd([[autocmd User TelescopePreviewerLoaded setlocal wrap]])
-vim.cmd([[set formatoptions-=c formatoptions-=r formatoptions-=o]])
-vim.cmd([[set nopaste]])
-vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
-
 vim.cmd([[
-function! ConvertChoices()
-    %s/\(\*\|[a-d]\)\./\U\1\./g
-endfunction
+set iskeyword+=-
+set iskeyword+=_
+set encoding=utf-8
+highlight Comment guifg=#dbaf84
+highlight String guifg=#ec8076
+highlight Number guifg=#c0b6a9
+set formatoptions-=cro
+autocmd User TelescopePreviewerLoaded setlocal wrap
+set formatoptions-=c formatoptions-=r formatoptions-=o
+set nopaste
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-command! ConvertChoices call ConvertChoices()
+" ignore case for sneak.nvim
+let g:sneak#use_ic_scs = 1
+
+" Exit if there is only nerdtree left
+autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 ]])
 
-vim.cmd([[
-function! AddNumbering()
-    g/^\s*$/d
-    %!awk '/Section: /{print;next}/Answer: /{print;next}/^.*[a-dA-D]\./{print;next} $0 ~ "^[0-9]+. " { $0 = substr($0, index($0, ".") + 2)} { $0 = ++i ". " $0; print;next}'
-endfunction
+-- vim.cmd([[
+-- 	function! ConvertChoices()
+-- 		%s/\(\*\|[a-d]\)\./\U\1\./g
+-- 	endfunction
+-- 	command! ConvertChoices call ConvertChoices()
+-- ]])
+--
+-- vim.cmd([[
+-- 	function! AddNumbering()
+-- 		g/^\s*$/d
+-- 		%!awk '/Section: /{print;next}/Answer: /{print;next}/^.*[a-dA-D]\./{print;next} $0 ~ "^[0-9]+. " { $0 = substr($0, index($0, ".") + 2)} { $0 = ++i ". " $0; print;next}'
+-- endfunction
+-- 	command! AddNumbering call AddNumbering()
+-- ]])
+--
+-- vim.cmd([[
+-- 	function! RenumberQuestions()
+-- 		g/^\s*$/d
+-- 		%!awk '/Section: /{print;next}/Answer: /{print;next}/^.*[a-dA-D]\./{print;next} $0 ~ "^[0-9]+. " { $0 = substr($0, index($0, ".") + 2)} { $0 = ++i ". " $0; print;next}'
+-- 	endfunction
+-- 	command! RenumberQuestions call RenumberQuestions()
+-- ]])
 
-command! AddNumbering call AddNumbering()
-]])
-
-vim.cmd([[
-function! RenumberQuestions()
-    g/^\s*$/d
-    %!awk '/Section: /{print;next}/Answer: /{print;next}/^.*[a-dA-D]\./{print;next} $0 ~ "^[0-9]+. " { $0 = substr($0, index($0, ".") + 2)} { $0 = ++i ". " $0; print;next}'
-endfunction
-
-command! RenumberQuestions call RenumberQuestions()
-]])
-
--- Exit Vim if NERDTree is the only window remaining in the only tab.
 vim.cmd([[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]])
-vim.cmd([[
-highlight link Sneak Normal
-]])
+
+-- vim.cmd([[
+-- highlight link Sneak Normal
+-- ]])
