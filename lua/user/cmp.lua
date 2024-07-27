@@ -8,7 +8,7 @@ if not snip_status_ok then
 	return
 end
 
--- require("luasnip/loaders/from_vscode").lazy_load()
+require("luasnip/loaders/from_vscode").lazy_load()
 
 local check_backspace = function()
 	local col = vim.fn.col(".") - 1
@@ -45,6 +45,79 @@ local kind_icons = {
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
+cmp.setup({
+	mapping = {
+		["<C-i>"] = cmp.mapping.select_prev_item(),
+		["<C-k>"] = cmp.mapping.select_next_item(),
+		-- ["<M-i>"] = cmp.mapping.select_prev_item(),
+		-- ["<M-k>"] = cmp.mapping.select_next_item(),
+		-- ["<A-i>"] = cmp.mapping.select_prev_item(),
+		-- ["<A-k>"] = cmp.mapping.select_next_item(),
+		--
+		-- ["<C-e>"] = cmp.mapping({
+		-- 	i = cmp.mapping.abort(),
+		-- 	c = cmp.mapping.close(),
+		-- }),
+
+		["<CR>"] = cmp.mapping.confirm({
+			behavior = cmp.ConfirmBehavior.Insert,
+			select = true,
+		}),
+
+		-- ["<M-l>"] = cmp.mapping.confirm({ select = true }),
+
+		-- ["<Tab>"] = cmp.mapping(function(fallback)
+		-- 	if cmp.visible() then
+		-- 		cmp.select_next_item()
+		-- 	elseif vim.b._copilot_suggestion ~= nil then
+		-- 		vim.fn.feedkeys(vim.api.nvim_replace_termcodes(vim.fn["copilot#Accept"](), true, true, true), "")
+		-- 	elseif luasnip.expandable() then
+		-- 		luasnip.expand()
+		-- 	elseif luasnip.expand_or_jumpable() then
+		-- 		luasnip.expand_or_jump()
+		-- 	elseif check_backspace() then
+		-- 		fallback()
+		-- 	else
+		-- 		fallback()
+		-- 	end
+		-- end, {
+		-- 	"i",
+		-- 	"s",
+		-- }),
+
+		-- ["<S-Tab>"] = cmp.mapping(function(fallback)
+		-- 	if cmp.visible() then
+		-- 		cmp.select_prev_item()
+		-- 	elseif luasnip.jumpable(-1) then
+		-- 		luasnip.jump(-1)
+		-- 	else
+		-- 		fallback()
+		-- 	end
+		-- end, {
+		-- 	"i",
+		-- 	"s",
+		-- }),
+	},
+
+	sources = {
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "buffer" },
+		{ name = "path" },
+	},
+
+	--
+	confirm_opts = {
+		behavior = cmp.ConfirmBehavior.Replace,
+		select = true,
+	},
+	--
+	-- experimental = {
+	-- 	ghost_text = false,
+	-- 	native_menu = false,
+	-- },
+})
+
 cmp.setup.cmdline({
 	window = {
 		documentation = {
@@ -56,50 +129,57 @@ cmp.setup.cmdline({
 			luasnip.lsp_expand(args.body) -- For luasnip users.
 		end,
 	},
+
 	mapping = {
+		["<c-i>"] = cmp.mapping.select_prev_item(),
+		["<c-k>"] = cmp.mapping.select_next_item(),
 		["<M-i>"] = cmp.mapping.select_prev_item(),
 		["<M-k>"] = cmp.mapping.select_next_item(),
-		-- ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-		-- ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+
 		["<C-e>"] = cmp.mapping({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
 		}),
 		-- Accept currently selected item. If none selected, select first item.
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<M-l>"] = cmp.mapping.confirm({ select = true }),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif vim.b._copilot_suggestion ~= nil then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes(vim.fn["copilot#Accept"](), true, true, true), "")
-			elseif luasnip.expandable() then
-				luasnip.expand()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			elseif check_backspace() then
-				fallback()
-			else
-				fallback()
-			end
-		end, {
-			"i",
-			"s",
+		["<CR>"] = cmp.mapping.confirm({
+			behavior = cmp.ConfirmBehavior.Insert,
+			select = true,
 		}),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
-			else
-				fallback()
-			end
-		end, {
-			"i",
-			"s",
-		}),
+
+		-- ["<M-l>"] = cmp.mapping.confirm({ select = true }),
+
+		-- ["<Tab>"] = cmp.mapping(function(fallback)
+		-- 	if cmp.visible() then
+		-- 		cmp.select_next_item()
+		-- 	elseif vim.b._copilot_suggestion ~= nil then
+		-- 		vim.fn.feedkeys(vim.api.nvim_replace_termcodes(vim.fn["copilot#Accept"](), true, true, true), "")
+		-- 	elseif luasnip.expandable() then
+		-- 		luasnip.expand()
+		-- 	elseif luasnip.expand_or_jumpable() then
+		-- 		luasnip.expand_or_jump()
+		-- 	elseif check_backspace() then
+		-- 		fallback()
+		-- 	else
+		-- 		fallback()
+		-- 	end
+		-- end, {
+		-- 	"i",
+		-- 	"s",
+		-- }),
+		-- ["<S-Tab>"] = cmp.mapping(function(fallback)
+		-- 	if cmp.visible() then
+		-- 		cmp.select_prev_item()
+		-- 	elseif luasnip.jumpable(-1) then
+		-- 		luasnip.jump(-1)
+		-- 	else
+		-- 		fallback()
+		-- 	end
+		-- end, {
+		-- 	"i",
+		-- 	"s",
+		-- }),
 	},
+
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
@@ -108,7 +188,7 @@ cmp.setup.cmdline({
 			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
-				-- luasnip = "[Snippet]",
+				luasnip = "[Snippet]",
 				buffer = "[Buffer]",
 				path = "[Path]",
 			})[entry.source.name]
@@ -121,25 +201,25 @@ cmp.setup.cmdline({
 		{ name = "buffer" },
 		{ name = "path" },
 	},
+
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
 		select = true,
 	},
 
 	experimental = {
-		ghost_text = true,
+		ghost_text = false,
 		native_menu = false,
 	},
 })
 
-local lsp = require("lsp-zero")
-require("lsp-zero").cmp_action()
+-- local lsp_zero = require("lsp-zero")
+-- lsp_zero.cmp_action()
+--
+-- lsp_zero.extend_lspconfig()
 
-local lsp_zero = require("lsp-zero")
-lsp_zero.extend_lspconfig()
+-- lsp_zero.on_attach(function(client, bufnr)
+-- 	lsp_zero.default_keymaps({ buffer = bufnr })
+-- end)
 
-lsp_zero.on_attach(function(client, bufnr)
-	lsp_zero.default_keymaps({ buffer = bufnr })
-end)
-
-vim.g.lsp_zero_extend_lspconfig = 0
+-- vim.g.lsp_zero_extend_lspconfig = 0

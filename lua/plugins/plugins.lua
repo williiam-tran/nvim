@@ -117,15 +117,16 @@ return {
 				event = { "InsertEnter", "CmdlineEnter" },
 				lazy = false,
 			},
+
 			"saadparwaiz1/cmp_luasnip",
-			{
-				"L3MON4D3/LuaSnip", --snippet engine
-				lazy = false,
-			},
-			{
-				"VonHeikemen/lsp-zero.nvim",
-				lazy = false,
-			},
+			--
+			-- {
+			-- 	"L3MON4D3/LuaSnip", --snippet engine
+			--              version = "v2.*",
+			-- 	lazy = false,
+			--              build = "make install_jsregexp"
+			-- },
+			"VonHeikemen/lsp-zero.nvim",
 		},
 		event = { "InsertEnter", "CmdlineEnter" },
 		lazy = false,
@@ -144,7 +145,6 @@ return {
 
 	"lukas-reineke/lsp-format.nvim",
 
-	--  "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
 	"brymer-meneses/grammar-guard.nvim",
 	"jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
 	{
@@ -173,14 +173,13 @@ return {
 		-- lazy = true,
 	},
 
-	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {},
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
-	},
+	-- {
+	-- 	"folke/noice.nvim",
+	-- 	opts = {},
+	-- 	dependencies = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 	},
+	-- },
 
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
@@ -188,24 +187,10 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		-- event = "VeryLazy",
-		-- lazy = true,
-	},
 
-	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
-		-- lazy = true,
-		-- event = "VeryLazy",
-	},
-
-	{
 		"JoosepAlviste/nvim-ts-context-commentstring",
-		-- lazy = true,
-		-- event = "VeryLazy",
 	},
-
-	-- Git
-	-- "lewis6991/gitsigns.nvim",
 
 	-- -- coc-nvims
 	-- { "neoclide/coc.nvim", branch = "release" },
@@ -243,9 +228,15 @@ return {
 
 	{
 		"easymotion/vim-easymotion",
+		dependencies = {
+			"haya14busa/incsearch.vim",
+			"haya14busa/incsearch-easymotion.vim",
+			"haya14busa/incsearch-fuzzy.vim",
+		},
+
 		priority = 1200,
-		-- event = { "InsertEnter", "CmdlineEnter" },
 		event = { "VimEnter" },
+		lazy = false,
 	},
 
 	-- Todo plugins
@@ -276,7 +267,7 @@ return {
 	},
 
 	-- Git plugin for neovim
-	"tpope/vim-fugitive",
+	-- "tpope/vim-fugitive",
 
 	-- Debugger for neovim
 	-- "ycm-core/YouCompleteMe",

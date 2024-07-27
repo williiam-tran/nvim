@@ -3,6 +3,7 @@ local keymap = vim.api.nvim_set_keymap
 
 -- Universal
 keymap("n", "K", "<Nop>", opts)
+keymap("n", "<C-d>", "<Nop>", opts)
 keymap("n", "K", "m", opts)
 keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 keymap("n", "<C-r>", "<Nop>", opts)
@@ -10,12 +11,16 @@ keymap("n", "<Space>", "<Nop>", opts)
 keymap("n", "<c-n>", "<Nop>", opts)
 keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("i", "<C-h>", "<C-w>", opts)
-keymap("n", "t", "<Plug>Sneak_s", opts)
-keymap("n", "T", "<Plug>Sneak_S", opts)
-keymap("v", "t", "<Plug>Sneak_s", opts)
-keymap("v", "T", "<Plug>Sneak_S", opts)
-keymap("n", "<Leader>k", "<Plug>(easymotion-k)", opts)
-keymap("n", "<Leader>i", "<Plug>(easymotion-j)", opts)
+keymap("n", "t", "<Plug>(easymotion-overwin-f2)", opts)
+keymap("v", "t", "<Plug>(easymotion-overwin-f2)", opts)
+
+keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
+keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
+
+vim.cmd[[
+nnoremap <silent> <c-d> :let @/='\<'.expand('<cword>').'\>'<CR>cgn
+xnoremap <silent> <c-d> "sy:let @/=@s<CR>cgn
+]]
 
 -- Basic Navigation File
 keymap("n", "j", "h", opts)
@@ -35,6 +40,8 @@ keymap("n", "a", "i", opts)
 keymap("n", "gi", "<Nop>", opts)
 
 keymap("n", "0", "^", opts)
+keymap("n", "ge", "g_", opts)
+keymap("v", "0", "^", opts)
 keymap("v", "ge", "g_", opts)
 
 -- Next/Previous cursor position
@@ -61,8 +68,8 @@ if not vim.g.vscode then
 	keymap("n", "q", ":q!<CR>", opts)
 	keymap("n", "Q", ":wq!<CR>", opts)
 	keymap("n", "<C-A>", "ggVG", opts)
-	keymap("n", "<M-i>", ":resize -2<CR>", opts)
-	keymap("n", "<M-k>", ":resize +2<CR>", opts)
+	-- keymap("n", "<M-i>", ":resize -2<CR>", opts)
+	-- keymap("n", "<M-k>", ":resize +2<CR>", opts)
 	keymap("n", "<M-j>", ":vertical resize -2<CR>", opts)
 	keymap("n", "<M-l>", ":vertical resize +2<CR>", opts)
 	keymap("c", "<C-v>", '<c-r>"', opts)
@@ -79,10 +86,12 @@ if not vim.g.vscode then
 
 	-- Visual Block --
 	-- Move text up and down
-	keymap("x", "<A-k>", ":move '>+1<CR>gv-gv", opts)
-	keymap("x", "<A-i>", ":move '<-2<CR>gv-gv", opts)
+	-- keymap("x", "<A-k>", ":move '>+1<CR>gv-gv", opts)
+	-- keymap("x", "<A-i>", ":move '<-2<CR>gv-gv", opts)
+
 	keymap("x", "<C-k>", ":move '>+1<CR>gv-gv", opts)
 	keymap("x", "<C-i>", ":move '<-2<CR>gv-gv", opts)
+
 	keymap("i", "<C-v>", "<C-r>+", opts)
 
 	keymap("n", "<C-B>", ":NvimTreeToggleNoFocus<CR>", opts)
@@ -105,14 +114,20 @@ if not vim.g.vscode then
 	-- cmp completion
 
 	-- Select items in dropdown list from suggestions/cmp
-	vim.keymap.set("c", "<C-k>", "<cmd>lua require('cmp').mapping.select_next_item()<cr>", { silent = true })
-	vim.keymap.set("o", "<C-k>", "<cmd>lua require('cmp').mapping.select_next_item()<cr>", { silent = true })
-
+	-- vim.keymap.set("c", "<M-k>", "<cmd>lua require('cmp').mapping.select_next_item()<cr>", opts)
+	-- vim.keymap.set("o", "<M-k>", "<cmd>lua require('cmp').mapping.select_next_item()<cr>", opts)
+	--
+	-- vim.keymap.set("c", "<C-k>", "<cmd>lua require('cmp').mapping.select_next_item()<cr>", { silent = true })
+	-- vim.keymap.set("o", "<C-k>", "<cmd>lua require('cmp').mapping.select_next_item()<cr>", { silent = true })
+	--
+	-- vim.keymap.set("c", "<C-i>", "<cmd>lua require('cmp').mapping.select_prev_item()<cr>", { silent = true })
+	-- vim.keymap.set("o", "<C-i>", "<cmd>lua require('cmp').mapping.select_prev_item()<cr>", { silent = true })
+	--
 	-- navigate up and down in dropdown list.
-	keymap("c", "<M-i>", "<C-p>", opts)
-	keymap("o", "<M-i>", "<C-p>", opts)
-	keymap("c", "<M-k>", "<C-n>", opts)
-	keymap("o", "<M-k>", "<C-n>", opts)
+	-- keymap("c", "<M-i>", "<C-p>", opts)
+	-- keymap("o", "<M-i>", "<C-p>", opts)
+	-- keymap("c", "<M-k>", "<C-n>", opts)
+	-- keymap("o", "<M-k>", "<C-n>", opts)
 
 	-- Next and previous problems.
 	keymap("n", "<Bslash>", "<Cmd>lua vim.diagnostic.goto_next()<cr>", opts)
@@ -129,6 +144,7 @@ if not vim.g.vscode then
 		opts
 	)
 
+
 	-- Lazy
 	keymap("n", "<C-x>", "<cmd>Lazy<cr>", opts)
 
@@ -138,13 +154,12 @@ if not vim.g.vscode then
 
 	-- Renamer
 	keymap("n", "rn", '<cmd>lua require("renamer").rename()<cr>', opts)
-	-- keymap("n", "rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
 	keymap("n", "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
 	keymap("n", "<leader>s", "<cmd>w<CR> <cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
-	keymap("n", "<Bslash>", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+	-- keymap("n", "<Bslash>", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
 	keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 
@@ -158,15 +173,22 @@ if not vim.g.vscode then
 
 	keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 else
-	-- Vscode
-	-- debugging
+	keymap("n", "<C-i>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusUpGroup')<CR>", opts)
+	keymap("n", "<C-k>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusDownGroup')<CR>", opts)
+	keymap("n", "W", "", opts)
+	keymap("n", "<c-l>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusRightGroup')<CR>", opts)
+	keymap("n", "<A-i>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusUpGroup')<CR>", opts)
+	keymap("n", "<A-k>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusDownGroup')<CR>", opts)
+	keymap("n", "<A-l>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusRightGroup')<CR>", opts)
+	keymap("n", "<c-j>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusLeftGroup')<CR>", opts)
+	keymap("n", "<A-j>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusLeftGroup')<CR>", opts)
 	keymap("n", "<leader>d", "<cmd>lua require('vscode-neovim').action('workbench.action.debug.start')<CR>", opts)
 	keymap("n", "<leader>s", "<cmd>lua require('vscode-neovim').action('workbench.action.debug.stop')<CR>", opts)
 	keymap("n", "dp", "<cmd>lua require('vscode-neovim').action('editor.debug.action.toggleBreakpoint')<CR>", opts)
 	keymap("n", "gd", "<cmd>lua require('vscode-neovim').action('editor.action.revealDefinition')<CR>", opts)
-	keymap("n", "gD", "<cmd>lua require('vscode-neovim').action('editor.action.goToDeclaration')<CR>", opts)
+	keymap("n", "gD", "<cmd>lua require('vscode-neovim').action('editor.action.revealDeclaration')<CR>", opts)
+	keymap("n", "gi", "<cmd>lua require('vscode-neovim').action('editor.action.goToImplementation')<CR>", opts)
 	keymap("n", "gr", "<cmd>lua require('vscode-neovim').action('references-view.findReferences')<CR>", opts)
-
 	keymap("n", "rn", "<cmd>lua require('vscode-neovim').action('editor.action.rename')<CR>", opts)
 
 	keymap("n", "H", "<cmd>lua require('vscode-neovim').action('editor.action.showHover')<CR>", opts)
@@ -175,8 +197,11 @@ end
 keymap("c", "<C-i>", "", opts)
 keymap("c", "gi", "", opts)
 
-vim.keymap.set("c", "<tab>", "<C-z>", { silent = false }) -- fix completion on tab in commandline mode
 vim.keymap.set("o", "<tab>", "<C-z>", { silent = false }) -- fix completion on tab in commandline mode
+
+
+keymap("n", "H", "^", opts)
+keymap("n", "L", "g_", opts)
 
 -- Lua
 if not vim.g.vscode then

@@ -63,25 +63,14 @@ local function lsp_highlight_document(client)
 	end
 end
 
-local function lsp_keymaps(bufnr)
-	local opts = { noremap = true, silent = true }
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<Bslash>", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	-- show problems
-	-- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
-end
-
 M.on_attach = function(client, bufnr)
-	require("illuminate").on_attach(client)
+	-- require("illuminate").on_attach(client)
 
 	-- if client.name == "lua_ls" then
 	-- 	client.resolved_capabilities.document_formatting = false
 	-- end
 
-	lsp_keymaps(bufnr)
+	-- lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
 
 	if client.resolved_capabilities.document_formatting then

@@ -33,7 +33,6 @@ local options = {
 	scrolloff = 8, -- is one of my fav
 	sidescrolloff = 8,
 	guifont = "FiraMono Nerd Font", -- the font used in graphical neovim applications
-	pastetoggle = "<F10>",
 	laststatus = 0,
 }
 
@@ -57,6 +56,7 @@ set formatoptions-=c formatoptions-=r formatoptions-=o
 set nopaste
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+set guicursor=n-v-c-sm:block,i-ci-ve:ver25-Cursor,r-cr-o:hor20
 " ignore case for sneak.nvim
 let g:sneak#use_ic_scs = 1
 
@@ -64,31 +64,12 @@ let g:sneak#use_ic_scs = 1
 autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 ]])
 
--- vim.cmd([[
--- 	function! ConvertChoices()
--- 		%s/\(\*\|[a-d]\)\./\U\1\./g
--- 	endfunction
--- 	command! ConvertChoices call ConvertChoices()
--- ]])
---
--- vim.cmd([[
--- 	function! AddNumbering()
--- 		g/^\s*$/d
--- 		%!awk '/Section: /{print;next}/Answer: /{print;next}/^.*[a-dA-D]\./{print;next} $0 ~ "^[0-9]+. " { $0 = substr($0, index($0, ".") + 2)} { $0 = ++i ". " $0; print;next}'
--- endfunction
--- 	command! AddNumbering call AddNumbering()
--- ]])
---
--- vim.cmd([[
--- 	function! RenumberQuestions()
--- 		g/^\s*$/d
--- 		%!awk '/Section: /{print;next}/Answer: /{print;next}/^.*[a-dA-D]\./{print;next} $0 ~ "^[0-9]+. " { $0 = substr($0, index($0, ".") + 2)} { $0 = ++i ". " $0; print;next}'
--- 	endfunction
--- 	command! RenumberQuestions call RenumberQuestions()
--- ]])
-
 vim.cmd([[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]])
 
--- vim.cmd([[
--- highlight link Sneak Normal
--- ]])
+vim.cmd([[
+	let g:EasyMotion_smartcase = 1
+	let g:EasyMotion_prompt = ""
+	hi! EasyMotionTarget guifg=#9cdcfe ctermfg=blue
+    hi! EasyMotionShade ctermbg=none ctermfg=none
+    hi! EasyMotionIncSearch guifg=#9cdcfe ctermfg=blue
+]])
