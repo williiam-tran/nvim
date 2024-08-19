@@ -3,13 +3,13 @@ if not cmp_status_ok then
 	return
 end
 
-local snip_status_ok, luasnip = pcall(require, "luasnip")
-if not snip_status_ok then
-	return
-end
-
-require("luasnip/loaders/from_vscode").lazy_load()
-
+-- local snip_status_ok, luasnip = pcall(require, "luasnip")
+-- if not snip_status_ok then
+-- 	return
+-- end
+--
+-- require("luasnip/loaders/from_vscode").lazy_load()
+--
 local check_backspace = function()
 	local col = vim.fn.col(".") - 1
 	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
@@ -47,34 +47,38 @@ local kind_icons = {
 
 cmp.setup({
 	mapping = {
-		["<C-i>"] = cmp.mapping.select_prev_item(),
-		["<C-k>"] = cmp.mapping.select_next_item(),
-		-- ["<M-i>"] = cmp.mapping.select_prev_item(),
-		-- ["<M-k>"] = cmp.mapping.select_next_item(),
+		-- ["<C-p>"] = cmp.mapping.select_prev_item(),
+
+		-- ["<C-n>"] = cmp.mapping.select_next_item(),
+
+		["<Up>"] = cmp.mapping.select_prev_item(),
+		["<Down>"] = cmp.mapping.select_next_item(),
+
 		-- ["<A-i>"] = cmp.mapping.select_prev_item(),
 		-- ["<A-k>"] = cmp.mapping.select_next_item(),
 		--
-		-- ["<C-e>"] = cmp.mapping({
-		-- 	i = cmp.mapping.abort(),
-		-- 	c = cmp.mapping.close(),
-		-- }),
+		["<C-e>"] = cmp.mapping({
+			i = cmp.mapping.abort(),
+			c = cmp.mapping.close(),
+		}),
 
 		["<CR>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Insert,
 			select = true,
 		}),
 
+		["<Tab>"] = cmp.mapping.confirm({
+			behavior = cmp.ConfirmBehavior.Insert,
+			select = true,
+		}),
 		-- ["<M-l>"] = cmp.mapping.confirm({ select = true }),
 
 		-- ["<Tab>"] = cmp.mapping(function(fallback)
 		-- 	if cmp.visible() then
-		-- 		cmp.select_next_item()
-		-- 	elseif vim.b._copilot_suggestion ~= nil then
-		-- 		vim.fn.feedkeys(vim.api.nvim_replace_termcodes(vim.fn["copilot#Accept"](), true, true, true), "")
-		-- 	elseif luasnip.expandable() then
-		-- 		luasnip.expand()
-		-- 	elseif luasnip.expand_or_jumpable() then
-		-- 		luasnip.expand_or_jump()
+		-- 		cmp.mapping.confirm({
+		-- 			behavior = cmp.ConfirmBehavior.Insert,
+		-- 			select = true,
+		-- 		})
 		-- 	elseif check_backspace() then
 		-- 		fallback()
 		-- 	else
@@ -124,18 +128,13 @@ cmp.setup.cmdline({
 			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 		},
 	},
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body) -- For luasnip users.
-		end,
-	},
+	-- snippet = {
+	-- 	expand = function(args)
+	-- 		luasnip.lsp_expand(args.body) -- For luasnip users.
+	-- 	end,
+	-- },
 
 	mapping = {
-		["<c-i>"] = cmp.mapping.select_prev_item(),
-		["<c-k>"] = cmp.mapping.select_next_item(),
-		["<M-i>"] = cmp.mapping.select_prev_item(),
-		["<M-k>"] = cmp.mapping.select_next_item(),
-
 		["<C-e>"] = cmp.mapping({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
@@ -213,13 +212,8 @@ cmp.setup.cmdline({
 	},
 })
 
--- local lsp_zero = require("lsp-zero")
--- lsp_zero.cmp_action()
---
--- lsp_zero.extend_lspconfig()
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
--- lsp_zero.on_attach(function(client, bufnr)
--- 	lsp_zero.default_keymaps({ buffer = bufnr })
--- end)
-
--- vim.g.lsp_zero_extend_lspconfig = 0
+require("lspconfig").gopls.setup({
+	capabilities = capabilities,
+})

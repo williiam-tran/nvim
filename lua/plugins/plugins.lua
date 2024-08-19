@@ -1,4 +1,15 @@
 return {
+	{
+		"ray-x/go.nvim",
+		dependencies = { -- optional packages
+			"ray-x/guihua.lua",
+			"neovim/nvim-lspconfig",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		event = { "CmdlineEnter" },
+		ft = { "go", "gomod" },
+		build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+	},
 	-- My plugins here
 	"nvim-lua/popup.nvim", -- An implementation of the Popup API from vim in Neovim
 	{
@@ -173,13 +184,13 @@ return {
 		-- lazy = true,
 	},
 
-	-- {
-	-- 	"folke/noice.nvim",
-	-- 	opts = {},
-	-- 	dependencies = {
-	-- 		"MunifTanjim/nui.nvim",
-	-- 	},
-	-- },
+	{
+		"folke/noice.nvim",
+		opts = {},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
+	},
 
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 

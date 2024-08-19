@@ -8,8 +8,20 @@ end
 
 vim.defer_fn(function()
 	configs.setup({
-		ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
-
+		auto_install = true,
+		ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "gomod", "gosum" },
+		refactor = {
+			navigation = {
+				enable = true,
+				keymaps = {
+					goto_definition = "gnd",
+					list_definitions = "gnD",
+					list_definitions_toc = "gO",
+					goto_next_usage = "<C-n>",
+					goto_previous_usage = "<C-p>",
+				},
+			},
+		},
 		autopairs = {
 			enable = true,
 		},
@@ -24,7 +36,6 @@ vim.defer_fn(function()
 			select = {
 				enable = true,
 
-				-- Automatically jump forward to textobj, similar to targets.vim
 				lookahead = true,
 
 				keymaps = {

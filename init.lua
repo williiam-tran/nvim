@@ -5,10 +5,10 @@ require("user.autocmds")
 
 if not vim.g.vscode then
 	require("user.mason")
-	-- require("user.cmp")
+	require("user.cmp")
 	require("user.autopairs")
 	require("user.filetype")
-	-- require("user.formatter")
+	require("user.formatter")
 	require("user.illuminate")
 	require("user.indentline")
 	require("user.treesitter")
@@ -16,7 +16,8 @@ if not vim.g.vscode then
 	require("user.telescope")
 	require("user.comments")
 	-- require("user.renamer")
-	-- require("user.noice")
+	require("user.noice")
 	require("user.tabout")
+	require("user.go")
 	-- require("user.smoothscrolling")
 end

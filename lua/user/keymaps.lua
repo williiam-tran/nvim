@@ -17,10 +17,10 @@ keymap("v", "t", "<Plug>(easymotion-overwin-f2)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
 keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
 
-vim.cmd[[
+vim.cmd([[
 nnoremap <silent> <c-d> :let @/='\<'.expand('<cword>').'\>'<CR>cgn
 xnoremap <silent> <c-d> "sy:let @/=@s<CR>cgn
-]]
+]])
 
 -- Basic Navigation File
 keymap("n", "j", "h", opts)
@@ -30,7 +30,8 @@ keymap("v", "j", "h", opts)
 keymap("v", "k", "j", opts)
 keymap("x", "j", "h", opts)
 keymap("x", "k", "j", opts)
-keymap("x", "i", "k", opts)
+
+-- keymap("x", "i", "k", opts)
 keymap("n", "h", "a", opts)
 keymap("n", "y", '"+y', opts)
 keymap("n", "p", '"+p', opts)
@@ -47,23 +48,28 @@ keymap("v", "ge", "g_", opts)
 -- Next/Previous cursor position
 keymap("n", "<C-U>", "<C-O>", opts)
 keymap("n", "<C-O>", "<C-I>", opts)
+keymap("n", "<A-U>", "<C-U>", opts)
 keymap("n", "<A-O>", "<C-O>", opts)
 
 -- Ctrl+Backspace to delete word
 keymap("i", "<C-BS>", "<C-W>", opts)
+keymap("n", "8", "*", opts)
+keymap("v", "8", "*", opts)
 
 if not vim.g.vscode then
 	keymap("n", "m", "5<C-E>", opts)
 	keymap("n", ",", "5<C-Y>", opts)
 
 	-- jump between buffers
-	keymap("n", "<C-l>", "<Esc><C-W>l", opts)
-	keymap("n", "<C-j>", "<Esc><C-W>h", opts)
-	keymap("n", "<C-k>", "<Esc><C-W>j", opts)
-	keymap("n", "<C-i>", "<Esc><C-W>k", opts)
+	-- keymap("n", "<C-l>", "<Esc><C-W>l", opts)
+	-- keymap("n", "<C-j>", "<Esc><C-W>h", opts)
+	-- keymap("n", "<C-k>", "<Esc><C-W>j", opts)
+	-- keymap("n", "<C-i>", "<Esc><C-W>k", opts)
 
 	keymap("v", "<C-c>", "y", opts)
 	keymap("n", "<C-v>", "<Esc>p", opts)
+	keymap("n", "<C-z>", ":red<CR>", opts)
+
 	keymap("x", "<C-c>", "y", opts)
 	keymap("n", "q", ":q!<CR>", opts)
 	keymap("n", "Q", ":wq!<CR>", opts)
@@ -89,8 +95,8 @@ if not vim.g.vscode then
 	-- keymap("x", "<A-k>", ":move '>+1<CR>gv-gv", opts)
 	-- keymap("x", "<A-i>", ":move '<-2<CR>gv-gv", opts)
 
-	keymap("x", "<C-k>", ":move '>+1<CR>gv-gv", opts)
-	keymap("x", "<C-i>", ":move '<-2<CR>gv-gv", opts)
+	-- keymap("x", "<C-k>", ":move '>+1<CR>gv-gv", opts)
+	-- keymap("x", "<C-i>", ":move '<-2<CR>gv-gv", opts)
 
 	keymap("i", "<C-v>", "<C-r>+", opts)
 
@@ -144,7 +150,6 @@ if not vim.g.vscode then
 		opts
 	)
 
-
 	-- Lazy
 	keymap("n", "<C-x>", "<cmd>Lazy<cr>", opts)
 
@@ -155,6 +160,7 @@ if not vim.g.vscode then
 	-- Renamer
 	keymap("n", "rn", '<cmd>lua require("renamer").rename()<cr>', opts)
 
+	keymap("n", "`", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	keymap("n", "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
 	keymap("n", "<leader>s", "<cmd>w<CR> <cmd>lua vim.lsp.buf.formatting()<CR>", opts)
@@ -175,7 +181,7 @@ if not vim.g.vscode then
 else
 	keymap("n", "<C-i>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusUpGroup')<CR>", opts)
 	keymap("n", "<C-k>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusDownGroup')<CR>", opts)
-	keymap("n", "W", "", opts)
+
 	keymap("n", "<c-l>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusRightGroup')<CR>", opts)
 	keymap("n", "<A-i>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusUpGroup')<CR>", opts)
 	keymap("n", "<A-k>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusDownGroup')<CR>", opts)
@@ -199,8 +205,7 @@ keymap("c", "gi", "", opts)
 
 vim.keymap.set("o", "<tab>", "<C-z>", { silent = false }) -- fix completion on tab in commandline mode
 
-
-keymap("n", "H", "^", opts)
+keymap("n", "J", "^", opts)
 keymap("n", "L", "g_", opts)
 
 -- Lua
