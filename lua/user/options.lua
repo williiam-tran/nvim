@@ -37,6 +37,12 @@ local options = {
 }
 
 vim.opt.shortmess:append("c")
+vim.o.shell = "powershell"
+vim.o.shellcmdflag = "-NoLogo -NoProfile"
+-- vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+-- vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+vim.o.shellquote = ""
+vim.o.shellxquote = ""
 
 for k, v in pairs(options) do
 	vim.opt[k] = v

@@ -12,7 +12,7 @@ keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("i", "<C-h>", "<C-w>", opts)
 keymap("n", "t", "<Plug>(easymotion-overwin-f2)", opts)
 keymap("v", "t", "<Plug>(easymotion-overwin-f2)", opts)
-keymap("n", "4", "%", opts)
+keymap("n", "$", "%", opts)
 
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
 keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)

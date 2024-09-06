@@ -9,8 +9,8 @@ end
 -- vim.defer_fn(function()
 configs.setup({
 	auto_install = true,
-	ensure_installed = { "c", "lua", "vim", "vimdoc", "go", "gomod", "gosum", "luadoc", "markdown" },
 	refactor = {
+		ensure_installed = { "c", "lua", "vim", "go", "gomod", "gosum", "luadoc", "markdown" },
 		navigation = {
 			enable = true,
 			keymaps = {
