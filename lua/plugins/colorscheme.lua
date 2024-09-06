@@ -10,6 +10,7 @@ return {
 			hi String guifg=#efa29b
 			" hi! link Sneak Search
 			" hi Search guibg=#658da1
+			hi! illuminatedWordText cterm=underline gui=underline			
 			let g:sneak#label = 1
 			hi IncSearch guibg=#658da1
 			hi NoiceCmdlinePopupBorderSearch guifg=#9cdcfe

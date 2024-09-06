@@ -67,7 +67,6 @@ vim.api.nvim_create_autocmd("FileType", {
 		"man",
 		"notify",
 		"qf",
-		"query",
 		"spectre_panel",
 		"startuptime",
 		"tsplayground",
@@ -100,6 +99,16 @@ augroup EasyMotionHighlights
 	autocmd ColorScheme * hi EasyMotionTarget guifg=#9cdcfe ctermfg=blue
 	autocmd ColorScheme * hi EasyMotionShade ctermbg=none ctermfg=none
 	autocmd ColorScheme * hi EasyMotionIncSearch guifg=#9cdcfe ctermfg=blue
+augroup END
+
+augroup illuminate_augroup
+    autocmd!
+    autocmd VimEnter * hi link illuminatedWord CursorLine
+augroup END
+
+augroup illuminate_augroup
+    autocmd!
+    autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
 augroup END
 ]])
 

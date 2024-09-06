@@ -68,8 +68,10 @@ keymap("v", "ge", "g_", opts)
 -- Next/Previous cursor position
 keymap("n", "<C-U>", "<C-O>", opts)
 keymap("n", "<C-O>", "<C-I>", opts)
-keymap("n", "<A-U>", "<C-U>", opts)
-keymap("n", "<A-O>", "<C-O>", opts)
+keymap("n", "<M-U>", "<C-u>", opts)
+keymap("n", "<M-O>", "<C-o>", opts)
+keymap("n", "<A-U>", "<C-u>", opts)
+keymap("n", "<A-O>", "<C-o>", opts)
 
 -- Ctrl+Backspace to delete word
 keymap("i", "<C-BS>", "<C-W>", opts)
@@ -82,9 +84,9 @@ if not vim.g.vscode then
 
 	-- jump between buffers
 	keymap("n", "<C-l>", "<Esc><C-W>l", opts)
-	-- keymap("n", "<C-j>", "<Esc><C-W>h", opts)
-	-- keymap("n", "<C-k>", "<Esc><C-W>j", opts)
-	keymap("n", "<C-i>", "<Esc><C-W>k", opts)
+	keymap("n", "<C-h>", "<Esc><C-W>j", opts)
+	keymap("n", "<C-k>", "<Esc><C-W>k", opts)
+	keymap("n", "<C-j>", "<Esc><C-W>j", opts)
 
 	keymap("v", "<C-c>", "y", opts)
 	keymap("n", "<C-v>", "<Esc>p", opts)
@@ -166,6 +168,10 @@ if not vim.g.vscode then
 	-- keymap("o", "<M-k>", "<C-n>", opts)
 
 	-- Next and previous problems.
+	keymap("n", "n", "<Cmd>lua require('illuminate').goto_next_reference()<cr>", opts)
+	keymap("n", "N", "<Cmd>lua require('illuminate').goto_prev_reference()<cr>", opts)
+	keymap("n", "<C-n>", "<Cmd>lua require('illuminate').goto_next_reference()<cr>", opts)
+	keymap("n", "<C-p>", "<Cmd>lua require('illuminate').goto_prev_reference()<cr>", opts)
 	keymap("n", "<Bslash>", "<Cmd>lua vim.diagnostic.goto_next()<cr>", opts)
 	keymap("n", "<|>", "<Cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
 

@@ -28,7 +28,6 @@ require("lspconfig").lua_ls.setup({
 				diagnostics = {
 					globals = { "vim" },
 				},
-
 				runtime = {
 					version = "LuaJIT",
 				},
@@ -43,7 +42,6 @@ require("lspconfig").lua_ls.setup({
 		})
 
 		client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-		-- end
 		return true
 	end,
 })
@@ -72,6 +70,10 @@ require("lspconfig").gopls.setup({
 --Enable (broadcasting) snippet capability for completion
 capabilities = require("user.lsp.handlers").capabilities
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- require("lspconfig").gopls.setup({
+-- 	capabilities = capabilities,
+-- })
 
 require("lspconfig").cssls.setup({
 	capabilities = capabilities,
