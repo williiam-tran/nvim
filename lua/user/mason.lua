@@ -51,6 +51,13 @@ capabilities = require("user.lsp.handlers").capabilities
 require("lspconfig").gopls.setup({
 	on_attach = function(client)
 		require("illuminate").on_attach(client)
+
+		-- Set up custom diagnostics
+		vim.lsp.handlers["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+			-- Customize the diagnostics display
+			vim.diagnostic.set_virtual_text(result.uri, result.diagnostics)
+			vim.diagnostic.set_signs(result.diagnostics)
+		end
 	end,
 
 	capabilities = capabilities,
@@ -79,14 +86,14 @@ require("lspconfig").cssls.setup({
 	capabilities = capabilities,
 })
 
-capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-require("go").setup({
-	-- other setups ....
-	lsp_cfg = {
-		capabilities = capabilities,
-		-- other setups
-	},
-})
+-- capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- require("go").setup({
+-- 	-- other setups ....
+-- 	lsp_cfg = {
+-- 		capabilities = capabilities,
+-- 		-- other setups
+-- 	},
+-- })
 -- require("lspconfig").tsserver.setup({
 -- 	capabilities = capabilities,
 -- })

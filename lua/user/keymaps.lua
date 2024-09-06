@@ -2,9 +2,8 @@ local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 -- Universal
-keymap("n", "K", "<Nop>", opts)
 keymap("n", "<C-d>", "<Nop>", opts)
-keymap("n", "K", "m", opts)
+keymap("n", "<C-S-d>", "<Nop>", opts)
 keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 -- keymap("n", "<C-r>", "<Nop>", opts)
 keymap("n", "<Space>", "<Nop>", opts)
@@ -13,6 +12,7 @@ keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("i", "<C-h>", "<C-w>", opts)
 keymap("n", "t", "<Plug>(easymotion-overwin-f2)", opts)
 keymap("v", "t", "<Plug>(easymotion-overwin-f2)", opts)
+keymap("n", "4", "%", opts)
 
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
 keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
@@ -20,9 +20,13 @@ keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
 -- Key mapping to use the custom function
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
 
-keymap("n", "<S-A-e>", "<cmd>NvimTreeFindFile<CR>", opts)
+keymap("n", "<S-A-e>", "<cmd>NvimTreeToggle<CR>", opts)
 
 keymap("i", "<A-n>", "<normal><c-x><c-f><cmd><Plug>(fzf-complete-path)", opts)
+keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts) -- move line down(v)
+keymap("n", "<A-j>", ":m .+1<CR>==", opts) -- move line up(n)
+keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", opts) -- move line up(v)
+keymap("n", "<A-k>", ":m .-2<CR>==", opts) -- move line down(n)
 
 vim.cmd([[
 function! s:config_easyfuzzymotion(...) abort
@@ -75,16 +79,14 @@ keymap("n", "<A-O>", "<C-o>", opts)
 
 -- Ctrl+Backspace to delete word
 keymap("i", "<C-BS>", "<C-W>", opts)
-keymap("n", "8", "*", opts)
-keymap("v", "8", "*", opts)
 
 if not vim.g.vscode then
-	keymap("n", "m", "5<C-E>", opts)
-	keymap("n", ",", "5<C-Y>", opts)
+	keymap("n", "2", "*", opts)
+	keymap("v", "@", "*", opts)
 
 	-- jump between buffers
 	keymap("n", "<C-l>", "<Esc><C-W>l", opts)
-	keymap("n", "<C-h>", "<Esc><C-W>j", opts)
+	keymap("n", "<C-h>", "<Esc><C-W>h", opts)
 	keymap("n", "<C-k>", "<Esc><C-W>k", opts)
 	keymap("n", "<C-j>", "<Esc><C-W>j", opts)
 
@@ -94,8 +96,9 @@ if not vim.g.vscode then
 
 	keymap("x", "<C-c>", "y", opts)
 	keymap("n", "q", ":wq<CR>", opts)
-	keymap("n", "Q", ":q!<CR>", opts)
+	keymap("n", "Q", ":quitall<CR>", opts)
 	keymap("n", "<C-A>", "ggVG", opts)
+
 	-- keymap("n", "<M-i>", ":resize -2<CR>", opts)
 	-- keymap("n", "<M-k>", ":resize +2<CR>", opts)
 	-- keymap("n", "<M-j>", ":vertical resize -2<CR>", opts)
@@ -130,7 +133,6 @@ if not vim.g.vscode then
 		"n",
 		"<A-n>",
 		":lua require('telescope').extensions.file_browser.file_browser(require('telescope.themes').get_dropdown())<CR>",
-		-- ":lua require('telescope').extensions.file_browser.file_browser(require('telescope.themes').get_dropdown({previewer = false,files = false,display_stat = false, select_buffer=true}))<CR>",
 		opts
 	)
 
@@ -189,7 +191,8 @@ if not vim.g.vscode then
 	-- Lazy
 	keymap("n", "<C-x>", "<cmd>Lazy<cr>", opts)
 
-	keymap("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+	-- Debugger
+	keymap("n", "dp", "<cmd>GoBreakToggle<CR>", opts)
 
 	keymap("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>', opts)
 
@@ -239,9 +242,9 @@ end
 keymap("c", "<C-i>", "", opts)
 keymap("c", "gi", "", opts)
 
-vim.keymap.set("o", "<tab>", "<C-z>", { silent = false }) -- fix completion on tab in commandline mode
+vim.keymap.set("o", "<tab>", "<C-z>", { silent = false })
 
-keymap("n", "J", "^", opts)
+keymap("n", "H", "^", opts)
 keymap("n", "L", "g_", opts)
 
 -- Lua

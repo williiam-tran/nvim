@@ -18,6 +18,7 @@ return {
 			hi! EasyMotionTarget guifg=#9cdcfe ctermfg=blue
 			hi! EasyMotionShade ctermbg=none ctermfg=none
 			hi! EasyMotionIncSearch guifg=#9cdcfe ctermfg=blue
+			highlight NvimDapVirtualText guibg=#232323 guifg=#efa29b
 	  	]])
 	end,
 }

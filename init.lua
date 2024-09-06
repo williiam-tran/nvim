@@ -1,6 +1,4 @@
 require("user.lazy")
-require("user.options")
-require("user.keymaps")
 
 if not vim.g.vscode then
 	require("user.colorscheme")
@@ -21,5 +19,8 @@ if not vim.g.vscode then
 	require("user.tabout")
 	require("user.go")
 	-- require("user.typescript")
-	-- require("user.smoothscrolling")
 end
+
+require("user.options")
+require("user.keymaps")
+require("user.smoothscrolling")

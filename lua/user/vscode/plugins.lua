@@ -1,4 +1,5 @@
 return {
+	"karb94/neoscroll.nvim",
 	"tpope/vim-repeat",
 
 	{
@@ -23,7 +24,7 @@ return {
 		lazy = false,
 	},
 
-	"leap.nvim",
+	-- "leap.nvim",
 
 	{
 		"wellle/targets.vim",

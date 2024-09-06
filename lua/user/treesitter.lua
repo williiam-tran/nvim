@@ -9,7 +9,7 @@ end
 -- vim.defer_fn(function()
 configs.setup({
 	auto_install = true,
-	ensure_installed = { "c", "lua", "vim", "vimdoc", "go", "gomod", "gosum" },
+	ensure_installed = { "c", "lua", "vim", "vimdoc", "go", "gomod", "gosum", "luadoc", "markdown" },
 	refactor = {
 		navigation = {
 			enable = true,
@@ -27,8 +27,8 @@ configs.setup({
 	},
 
 	highlight = {
-		enable = true, -- false will disable the whole extension
-		additional_vim_regex_highlighting = true,
+		enable = false, -- false will disable the whole extension
+		-- additional_vim_regex_highlighting = true,
 	},
 
 	textobjects = {

@@ -1,5 +1,6 @@
 return {
 	-- lazy.nvim:
+	-- { "echasnovski/mini.animate", version = "*" },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
 	{ "junegunn/fzf", dir = "~/.fzf", build = "./install --all" },
 	{
@@ -327,6 +328,7 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 
+	"rcarriga/nvim-notify",
 	-- syntax highlighting
 	{
 		"sheerun/vim-polyglot",
@@ -339,6 +341,10 @@ return {
 	-- "tpope/vim-fugitive",
 
 	-- Debugger for neovim
+	"mfussenegger/nvim-dap",
+	"theHamsta/nvim-dap-virtual-text",
+	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+	"leoluz/nvim-dap-go",
 	-- "ycm-core/YouCompleteMe",
 	--  "puremourning/vimspector"
 	-- {
