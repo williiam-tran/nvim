@@ -1,9 +1,10 @@
 require("user.lazy")
 require("user.options")
 require("user.keymaps")
-require("user.autocmds")
 
 if not vim.g.vscode then
+	require("user.colorscheme")
+	require("user.autocmds")
 	require("user.mason")
 	require("user.cmp")
 	require("user.autopairs")
@@ -15,9 +16,10 @@ if not vim.g.vscode then
 	require("user.nvimtree")
 	require("user.telescope")
 	require("user.comments")
-	-- require("user.renamer")
+	require("user.renamer")
 	require("user.noice")
 	require("user.tabout")
 	require("user.go")
+	-- require("user.typescript")
 	-- require("user.smoothscrolling")
 end

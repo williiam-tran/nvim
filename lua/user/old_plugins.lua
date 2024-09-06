@@ -135,8 +135,10 @@ return packer.startup(function(use)
 	use("RRethy/vim-illuminate")
 
 	-- Telescope
-	use("nvim-telescope/telescope.nvim")
-
+	use("nvim-telescope/telescope.nvim")({
+		"nvim-telescope/telescope-file-browser.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+	})
 	-- use {
 	-- "nvim-telescope/telescope-media-files.nvim",
 	-- module = "telescope",

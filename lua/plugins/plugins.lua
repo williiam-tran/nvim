@@ -1,4 +1,57 @@
 return {
+	-- lazy.nvim:
+	{ "nvim-telescope/telescope-ui-select.nvim" },
+	{ "junegunn/fzf", dir = "~/.fzf", build = "./install --all" },
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			"nvim-telescope/telescope-live-grep-args.nvim",
+		},
+		config = function()
+			require("telescope").setup({
+				defaults = {
+					mappings = {
+						i = {
+							["<C-r>"] = {
+								function(p_bufnr)
+									-- send results to quick fix list
+									require("telescope.actions").send_to_qflist(p_bufnr)
+									local qflist = vim.fn.getqflist()
+									local paths = {}
+									local hash = {}
+									for k in pairs(qflist) do
+										local path = vim.fn.bufname(qflist[k]["bufnr"]) -- extract path from quick fix list
+										if not hash[path] then -- add to paths table, if not already appeared
+											paths[#paths + 1] = path
+											hash[path] = true -- remember existing paths
+										end
+									end
+									-- show search scope with message
+									vim.notify("find in ...\n  " .. table.concat(paths, "\n  "))
+									-- execute live_grep_args with search scope
+									require("telescope").extensions.live_grep_args.live_grep_args({
+										search_dirs = paths,
+									})
+								end,
+								type = "action",
+								opts = {
+									nowait = true,
+									silent = true,
+									desc = "Live grep on results",
+								},
+							},
+						},
+					},
+				},
+			})
+			require("telescope").load_extension("live_grep_args")
+		end,
+	},
+	{
+		"mg979/vim-visual-multi",
+		priority = 1000,
+		event = { "VimEnter" },
+	},
 	{
 		"ray-x/go.nvim",
 		dependencies = { -- optional packages
@@ -67,13 +120,14 @@ return {
 		tag = "nightly", -- optional, updated every week. (see issue #1193)
 	},
 
+	"BurntSushi/ripgrep",
 	"moll/vim-bbye",
 	"ahmedkhalf/project.nvim",
 	"lewis6991/impatient.nvim",
 	"goolord/alpha-nvim",
 	"antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
 	"folke/which-key.nvim",
-
+	"sharkdp/fd",
 	-- Colorschemes
 	-- {
 	-- 	"lunarvim/darkplus.nvim",
@@ -81,7 +135,7 @@ return {
 	-- 	event = "BufReadPre",
 	-- },
 	-- {
-	-- 	"tomasiser/vim-code-dark",
+	"tomasiser/vim-code-dark",
 	-- 	priority = 1000,
 	-- 	event = "BufReadPre",
 	-- 	config = function()
@@ -172,16 +226,22 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
-			"nvim-telescope/telescope-media-files.nvim",
-			event = "VeryLazy",
-			lazy = true,
-			module = "telescope",
-			config = function()
-				require("telescope").load_extension("media_files")
-			end,
+			"nvim-lua/plenary.nvim",
+			-- "nvim-telescope/telescope-media-files.nvim",
+			-- event = "VeryLazy",
+			-- lazy = true,
+			-- module = "telescope",
+			-- config = function()
+			-- 	require("telescope").load_extension("media_files")
+			-- end,
 		},
 		-- event = "VeryLazy",
 		-- lazy = true,
+	},
+
+	{
+		"nvim-telescope/telescope-file-browser.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 	},
 
 	{
@@ -225,11 +285,9 @@ return {
 		event = "BufReadPre",
 	},
 
-	-- {
-	-- 	"haya14busa/incsearch.vim",
-	-- 	priority = 1000,
-	-- 	event = { "BufReadPre" },
-	-- },
+	"haya14busa/incsearch.vim",
+
+	"haya14busa/incsearch-easymotion.vim",
 
 	-- nerdtree
 	"tpope/vim-eunuch",
@@ -283,4 +341,7 @@ return {
 	-- Debugger for neovim
 	-- "ycm-core/YouCompleteMe",
 	--  "puremourning/vimspector"
+	-- {
+	-- 	"mfussenegger/nvim-lint",
+	-- },
 }

@@ -1,8 +1,8 @@
 local options = {
 	backup = false, -- creates a backup file
-	clipboard = "unnamedplus", -- allows neovim to access the system clipboard
 	-- cmdheight = 2,                           -- more space in the neovim command line for displaying messages
-	completeopt = { "menuone", "noselect" }, -- mostly just for cmp
+	clipboard = "unnamedplus", -- allows neovim to access the system clipboard
+	-- completeopt = { "menuone", "noselect" }, -- mostly just for cmp
 	conceallevel = 0, -- so that `` is visible in markdown files
 	fileencoding = "utf-8", -- the encoding written to a file
 	hlsearch = false, -- highlight all matches on previous search pattern
@@ -27,7 +27,7 @@ local options = {
 	cursorline = false, -- highlight the current line
 	number = true, -- set numbered lines
 	relativenumber = true, -- set relative numbered lines
-	numberwidth = 4, -- set number column width to 2 {default 4}
+	numberwidth = 2, -- set number column width to 2 {default 4}
 	-- signcolumn = "yes",                      -- always show the sign column, otherwise it would shift the text each time
 	wrap = true, -- display lines as one long line
 	scrolloff = 8, -- is one of my fav
@@ -44,9 +44,10 @@ end
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[
-set iskeyword+=-
-set iskeyword+=_
+set iskeyword-=-
+set iskeyword-=_
 set encoding=utf-8
+set modifiable
 highlight Comment guifg=#dbaf84
 highlight String guifg=#ec8076
 highlight Number guifg=#c0b6a9
@@ -74,13 +75,12 @@ vim.cmd([[
     hi! EasyMotionIncSearch guifg=#9cdcfe ctermfg=blue
 ]])
 
--- local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
---
--- vim.api.nvim_create_autocmd("BufWritePre", {
--- 	pattern = "*.go",
--- 	callback = function()
--- 		require("go.format").goimports()
--- 	end,
--- 	group = format_sync_grp,
--- })
---
+-- Set EasyMotion highlights on ColorScheme
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*",
+	callback = function()
+		vim.api.nvim_set_hl(0, "EasyMotionTarget", { guifg = "#9cdcfe", ctermfg = "blue" })
+		vim.api.nvim_set_hl(0, "EasyMotionShade", { ctermbg = "none", ctermfg = "none" })
+		vim.api.nvim_set_hl(0, "EasyMotionIncSearch", { guifg = "#9cdcfe", ctermfg = "blue" })
+	end,
+})

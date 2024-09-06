@@ -9,7 +9,7 @@ end
 vim.defer_fn(function()
 	configs.setup({
 		auto_install = true,
-		ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "gomod", "gosum" },
+		ensure_installed = { "c", "lua", "vim", "vimdoc", "go", "gomod", "gosum" },
 		refactor = {
 			navigation = {
 				enable = true,

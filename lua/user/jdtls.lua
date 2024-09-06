@@ -28,10 +28,13 @@ local config = {
 	-- One dedicated LSP server & client will be started per unique root_dir
 	root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "mvn", "pom.xml" }),
 
-	settings = {
-		java = {},
-	},
-
+	-- Language server `initializationOptions`
+	-- You need to extend the `bundles` with paths to jar files
+	-- if you want to use additional eclipse.jdt.ls plugins.
+	--
+	-- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
+	--
+	-- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
 	init_options = {
 		bundles = {
 			vim.fn.glob(

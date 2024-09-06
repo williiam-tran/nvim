@@ -54,8 +54,8 @@ cmp.setup({
 		["<Up>"] = cmp.mapping.select_prev_item(),
 		["<Down>"] = cmp.mapping.select_next_item(),
 
-		-- ["<A-i>"] = cmp.mapping.select_prev_item(),
-		-- ["<A-k>"] = cmp.mapping.select_next_item(),
+		["<C-k>"] = cmp.mapping.select_prev_item(),
+		["<C-j>"] = cmp.mapping.select_next_item(),
 		--
 		["<C-e>"] = cmp.mapping({
 			i = cmp.mapping.abort(),
@@ -213,7 +213,25 @@ cmp.setup.cmdline({
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+cmp.setup.cmdline({ "/", "?" }, {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = "buffer" },
+	},
+})
+cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{ name = "cmdline" },
+	}),
+	matching = { disallow_symbol_nonprefix_matching = false },
+})
 
+require("lspconfig").lua_ls.setup({
+	capabilities = capabilities,
+})
 require("lspconfig").gopls.setup({
 	capabilities = capabilities,
 })

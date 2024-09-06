@@ -1,6 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "gopls" },
+	ensure_installed = { "lua_ls", "gopls", "cssls", "tsserver" },
 	-- handlers = {
 	-- 	lsp_zero.default_setup,
 	-- },
@@ -68,3 +68,15 @@ require("lspconfig").gopls.setup({
 		},
 	},
 })
+
+--Enable (broadcasting) snippet capability for completion
+capabilities = require("user.lsp.handlers").capabilities
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+require("lspconfig").cssls.setup({
+	capabilities = capabilities,
+})
+
+-- require("lspconfig").tsserver.setup({
+-- 	capabilities = capabilities,
+-- })
