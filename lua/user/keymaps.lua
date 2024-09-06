@@ -38,7 +38,7 @@ endfunction
 " noremap <silent><expr> <leader>/ incsearch#go(<SID>config_easyfuzzymotion())
 nnoremap <silent> <c-d> :let @/='\<'.expand('<cword>').'\>'<CR>cgn
 xnoremap <silent> <c-d> "sy:let @/=@s<CR>cgn
-
+nnoremap <leader>q :bp<cr>:bd #<cr>
 " inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
 ]])
 
@@ -93,8 +93,8 @@ if not vim.g.vscode then
 	keymap("n", "<C-z>", ":red<CR>", opts)
 
 	keymap("x", "<C-c>", "y", opts)
-	keymap("n", "q", ":q!<CR>", opts)
-	keymap("n", "Q", ":wq<CR>", opts)
+	keymap("n", "q", ":wq<CR>", opts)
+	keymap("n", "Q", ":q!<CR>", opts)
 	keymap("n", "<C-A>", "ggVG", opts)
 	-- keymap("n", "<M-i>", ":resize -2<CR>", opts)
 	-- keymap("n", "<M-k>", ":resize +2<CR>", opts)
@@ -168,8 +168,8 @@ if not vim.g.vscode then
 	-- keymap("o", "<M-k>", "<C-n>", opts)
 
 	-- Next and previous problems.
-	keymap("n", "n", "<Cmd>lua require('illuminate').goto_next_reference()<cr>", opts)
-	keymap("n", "N", "<Cmd>lua require('illuminate').goto_prev_reference()<cr>", opts)
+	-- keymap("n", "n", "<Cmd>lua require('illuminate').goto_next_reference()<cr>", opts)
+	-- keymap("n", "N", "<Cmd>lua require('illuminate').goto_prev_reference()<cr>", opts)
 	keymap("n", "<C-n>", "<Cmd>lua require('illuminate').goto_next_reference()<cr>", opts)
 	keymap("n", "<C-p>", "<Cmd>lua require('illuminate').goto_prev_reference()<cr>", opts)
 	keymap("n", "<Bslash>", "<Cmd>lua vim.diagnostic.goto_next()<cr>", opts)

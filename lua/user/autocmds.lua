@@ -85,39 +85,33 @@ vim.cmd([[
 " Close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
 
-augroup illuminate_augroup
-    autocmd!
-    autocmd VimEnter * hi link illuminatedWord CursorLine
-augroup END
+" augroup illuminate_augroup
+"     autocmd!
+"     autocmd VimEnter * hi link illuminatedWord CursorLine
+" augroup END
+"
+" augroup illuminate_augroup
+"     autocmd!
+"     autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
+" augroup END
+" augroup EasyMotionHighlights
+" 	autocmd!
+" 	autocmd ColorScheme * hi EasyMotionTarget guifg=#9cdcfe ctermfg=blue
+" 	autocmd ColorScheme * hi EasyMotionShade ctermbg=none ctermfg=none
+" 	autocmd ColorScheme * hi EasyMotionIncSearch guifg=#9cdcfe ctermfg=blue
+" augroup END
 
-augroup illuminate_augroup
-    autocmd!
-    autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
-augroup END
-augroup EasyMotionHighlights
-	autocmd!
-	autocmd ColorScheme * hi EasyMotionTarget guifg=#9cdcfe ctermfg=blue
-	autocmd ColorScheme * hi EasyMotionShade ctermbg=none ctermfg=none
-	autocmd ColorScheme * hi EasyMotionIncSearch guifg=#9cdcfe ctermfg=blue
-augroup END
+" augroup illuminate_augroup
+"     autocmd!
+"     autocmd VimEnter * hi link illuminatedWord CursorLine
+" augroup END
 
-augroup illuminate_augroup
-    autocmd!
-    autocmd VimEnter * hi link illuminatedWord CursorLine
-augroup END
-
-augroup illuminate_augroup
-    autocmd!
-    autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
-augroup END
+" augroup illuminate_augroup
+"     autocmd!
+"     autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
+" augroup END
+aug QFClose
+  au!
+  au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
+aug END
 ]])
-
--- Set EasyMotion highlights on VimEnter
-vim.api.nvim_create_autocmd("ColorScheme", {
-	pattern = "*",
-	callback = function()
-		vim.api.nvim_set_hl(0, "EasyMotionTarget", { guifg = "#9cdcfe", ctermfg = "blue" })
-		vim.api.nvim_set_hl(0, "EasyMotionShade", { ctermbg = "none", ctermfg = "none" })
-		vim.api.nvim_set_hl(0, "EasyMotionIncSearch", { guifg = "#9cdcfe", ctermfg = "blue" })
-	end,
-})

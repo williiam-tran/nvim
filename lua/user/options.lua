@@ -57,7 +57,7 @@ set formatoptions-=c formatoptions-=r formatoptions-=o
 set nopaste
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-set guicursor=n-v-c-sm:block,i-ci-ve:ver25-Cursor,r-cr-o:hor20
+" set guicursor=n-v-c-sm:block,i-ci-ve:ver25-Cursor,r-cr-o:hor20
 " ignore case for sneak.nvim
 let g:sneak#use_ic_scs = 1
 
@@ -76,11 +76,11 @@ vim.cmd([[
 ]])
 
 -- Set EasyMotion highlights on ColorScheme
-vim.api.nvim_create_autocmd("ColorScheme", {
-	pattern = "*",
-	callback = function()
-		vim.api.nvim_set_hl(0, "EasyMotionTarget", { guifg = "#9cdcfe", ctermfg = "blue" })
-		vim.api.nvim_set_hl(0, "EasyMotionShade", { ctermbg = "none", ctermfg = "none" })
-		vim.api.nvim_set_hl(0, "EasyMotionIncSearch", { guifg = "#9cdcfe", ctermfg = "blue" })
-	end,
-})
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.api.nvim_set_hl(0, "EasyMotionTarget", { guifg = "#9cdcfe", ctermfg = "blue" })
+-- 		vim.api.nvim_set_hl(0, "EasyMotionShade", { ctermbg = "none", ctermfg = "none" })
+-- 		vim.api.nvim_set_hl(0, "EasyMotionIncSearch", { guifg = "#9cdcfe", ctermfg = "blue" })
+-- 	end,
+-- })
