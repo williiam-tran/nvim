@@ -2,9 +2,12 @@ require("noice").setup({
 	lsp = {
 		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 		override = {
-			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-			["vim.lsp.util.stylize_markdown"] = true,
-			["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+			["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+			["vim.lsp.util.stylize_markdown"] = false,
+			["cmp.entry.get_documentation"] = false, -- requires hrsh7th/nvim-cmp
+		},
+		progress = {
+			enabled = false,
 		},
 	},
 
@@ -12,7 +15,7 @@ require("noice").setup({
 		bottom_search = true, -- use a classic bottom cmdline for search
 		command_palette = true, -- position the cmdline and popupmenu together
 		inc_rename = true, -- enables an input dialog for inc-rename.nvim
-		lsp_doc_border = false, -- add a border to hover docs and signature help
+		lsp_doc_border = true, -- add a border to hover docs and signature help
 	},
 })
 
@@ -25,17 +28,15 @@ require("dressing").setup({
 
 		trim_prompt = true,
 
-		title_pos = "center",
+		title_pos = "left",
 
 		insert_only = true,
-
-		-- When true, input will start in insert mode.
-		start_in_insert = true,
+		start_in_insert = false,
 
 		-- These are passed to nvim_open_win
 		border = "rounded",
 
-		relative = "editor",
+		relative = "cursor",
 
 		prefer_width = 40,
 		width = nil,
@@ -45,15 +46,15 @@ require("dressing").setup({
 		min_width = { 20, 0.2 },
 
 		buf_options = {},
-		win_options = {
-			-- Disable line wrapping
-			wrap = true,
-			-- Indicator for when text exceeds window
-			list = true,
-			listchars = "precedes:…,extends:…",
-			-- Increase this for more context when text scrolls off the window
-			sidescrolloff = 0,
-		},
+		-- win_options = {
+		-- 	-- Disable line wrapping
+		-- 	wrap = true,
+		-- 	-- Indicator for when text exceeds window
+		-- 	list = true,
+		-- 	listchars = "precedes:…,extends:…",
+		-- 	-- Increase this for more context when text scrolls off the window
+		-- 	sidescrolloff = 0,
+		-- },
 
 		-- Set to `false` to disable
 		mappings = {
@@ -141,7 +142,7 @@ require("dressing").setup({
 
 			buf_options = {},
 			win_options = {
-				cursorline = true,
+				cursorline = false,
 				cursorlineopt = "both",
 			},
 
@@ -171,8 +172,5 @@ require("dressing").setup({
 
 		-- Used to override format_item. See :help dressing-format
 		format_item_override = {},
-
-		-- see :help dressing_get_config
-		get_config = nil,
 	},
 })

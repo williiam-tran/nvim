@@ -37,6 +37,7 @@ local options = {
 }
 
 vim.opt.shortmess:append("c")
+vim.opt.shadafile = "NONE"
 vim.o.shell = "powershell"
 vim.o.shellcmdflag = "-NoLogo -NoProfile"
 -- vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"

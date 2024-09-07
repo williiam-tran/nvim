@@ -1,11 +1,11 @@
 require("user.lazy")
 
 if not vim.g.vscode then
-	require("user.colorscheme")
-	require("user.autocmds")
-	require("user.mason")
 	require("user.cmp")
+	require("user.colorscheme")
+	require("user.mason")
 	require("user.autopairs")
+	require("user.autocmds")
 	require("user.filetype")
 	require("user.formatter")
 	require("user.illuminate")
@@ -17,8 +17,6 @@ if not vim.g.vscode then
 	require("user.renamer")
 	require("user.tabout")
 	require("user.noice")
-	require("user.go")
-	-- require("user.typescript")
 end
 
 require("user.options")

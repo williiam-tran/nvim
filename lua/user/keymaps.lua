@@ -14,8 +14,9 @@ keymap("n", "t", "<Plug>(easymotion-overwin-f2)", opts)
 keymap("v", "t", "<Plug>(easymotion-overwin-f2)", opts)
 keymap("n", "$", "%", opts)
 
-keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
 keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
+keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
+keymap("n", 'ri"', 'vi"p', opts)
 
 -- Key mapping to use the custom function
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
@@ -29,17 +30,6 @@ keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", opts) -- move line up(v)
 keymap("n", "<A-k>", ":m .-2<CR>==", opts) -- move line down(n)
 
 vim.cmd([[
-function! s:config_easyfuzzymotion(...) abort
-  return extend(copy({
-  \   'converters': [incsearch#config#fuzzyword#converter()],
-  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
-  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
-  \   'is_expr': 0,
-  \   'is_stay': 1
-  \ }), get(a:, 1, {}))
-endfunction
-
-" noremap <silent><expr> <leader>/ incsearch#go(<SID>config_easyfuzzymotion())
 nnoremap <silent> <c-d> :let @/='\<'.expand('<cword>').'\>'<CR>cgn
 xnoremap <silent> <c-d> "sy:let @/=@s<CR>cgn
 nnoremap <leader>q :bp<cr>:bd #<cr>

@@ -1,6 +1,6 @@
 return {
 	-- lazy.nvim:
-	-- { "echasnovski/mini.animate", version = "*" },
+	{ "Bilal2453/luvit-meta", lazy = true },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
 	{ "junegunn/fzf", dir = "~/.fzf", build = "./install --all" },
 	{
@@ -48,11 +48,11 @@ return {
 			require("telescope").load_extension("live_grep_args")
 		end,
 	},
-	{
-		"mg979/vim-visual-multi",
-		priority = 1000,
-		event = { "VimEnter" },
-	},
+	-- {
+	-- 	"mg979/vim-visual-multi",
+	-- 	priority = 1000,
+	-- 	event = { "VimEnter" },
+	-- },
 	{
 		"ray-x/go.nvim",
 		dependencies = { -- optional packages
@@ -65,7 +65,7 @@ return {
 		build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
 	},
 	-- My plugins here
-	"nvim-lua/popup.nvim", -- An implementation of the Popup API from vim in Neovim
+	-- "nvim-lua/popup.nvim", -- An implementation of the Popup API from vim in Neovim
 	{
 		"nvim-lua/plenary.nvim", -- ful lua functions used ny lots of plugins
 		-- lazy = true,
@@ -107,7 +107,7 @@ return {
 		lazy = false,
 	},
 
-	"folke/neodev.nvim",
+	"folke/lazydev.nvim",
 
 	"nathom/filetype.nvim",
 	-- "akinsho/bufferline.nvim",
@@ -163,7 +163,6 @@ return {
 	"chrisbra/colorizer",
 	"norcalli/nvim-colorizer.lua",
 
-	-- cmp plugins
 	{
 		"hrsh7th/nvim-cmp", -- The completion plugin
 		dependencies = {
@@ -185,13 +184,6 @@ return {
 			},
 
 			"saadparwaiz1/cmp_luasnip",
-			--
-			-- {
-			-- 	"L3MON4D3/LuaSnip", --snippet engine
-			--              version = "v2.*",
-			-- 	lazy = false,
-			--              build = "make install_jsregexp"
-			-- },
 			"VonHeikemen/lsp-zero.nvim",
 		},
 		event = { "InsertEnter", "CmdlineEnter" },
@@ -211,13 +203,13 @@ return {
 
 	"lukas-reineke/lsp-format.nvim",
 
-	"brymer-meneses/grammar-guard.nvim",
+	-- "brymer-meneses/grammar-guard.nvim",
 	"jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
+
 	{
 		"stevearc/conform.nvim",
 		opts = {},
 	},
-
 	{
 		"RRethy/vim-illuminate",
 		lazy = true,
@@ -247,6 +239,7 @@ return {
 
 	{
 		"folke/noice.nvim",
+		commit = "d9328ef",
 		opts = {},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
@@ -286,9 +279,9 @@ return {
 		event = "BufReadPre",
 	},
 
-	"haya14busa/incsearch.vim",
-
-	"haya14busa/incsearch-easymotion.vim",
+	-- "haya14busa/incsearch.vim",
+	--
+	-- "haya14busa/incsearch-easymotion.vim",
 
 	-- nerdtree
 	"tpope/vim-eunuch",
@@ -310,7 +303,7 @@ return {
 	},
 
 	-- Todo plugins
-	"unblevable/quick-scope", -- highlight the first letter of the word you are searching for
+	-- "unblevable/quick-scope", -- highlight the first letter of the word you are searching for
 	"tpope/vim-repeat",
 	"karb94/neoscroll.nvim",
 	{

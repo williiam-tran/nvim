@@ -56,7 +56,7 @@ cmp.setup({
 
 		["<C-k>"] = cmp.mapping.select_prev_item(),
 		["<C-j>"] = cmp.mapping.select_next_item(),
-		--
+
 		["<C-e>"] = cmp.mapping({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
@@ -135,6 +135,8 @@ cmp.setup.cmdline({
 	-- },
 
 	mapping = {
+		["<C-k>"] = cmp.mapping.select_prev_item(),
+		["<C-j>"] = cmp.mapping.select_next_item(),
 		["<C-e>"] = cmp.mapping({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
@@ -219,6 +221,7 @@ cmp.setup.cmdline({ "/", "?" }, {
 		{ name = "buffer" },
 	},
 })
+
 cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
@@ -229,9 +232,6 @@ cmp.setup.cmdline(":", {
 	matching = { disallow_symbol_nonprefix_matching = false },
 })
 
-require("lspconfig").lua_ls.setup({
-	capabilities = capabilities,
-})
-require("lspconfig").gopls.setup({
-	capabilities = capabilities,
-})
+-- require("lspconfig").gopls.setup({
+-- 	capabilities = capabilities,
+-- })

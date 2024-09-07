@@ -1,18 +1,13 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = { "lua_ls", "gopls", "cssls", "tsserver" },
-	-- handlers = {
-	-- 	lsp_zero.default_setup,
-	-- },
 })
 
-require("neodev").setup({
-	library = {
-		enabled = true, -- when not enabled, neodev will not change any settings to the LSP server
-		-- these settings will be used for your Neovim config directory
-		runtime = true, -- runtime path
-		types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
-		plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
+require("lazydev").setup({
+	opts = {
+		library = {
+			{ path = "luvit-meta/library", words = { "vim%.uv" } },
+		},
 	},
 })
 
@@ -85,14 +80,14 @@ require("lspconfig").cssls.setup({
 	capabilities = capabilities,
 })
 
--- capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
--- require("go").setup({
--- 	-- other setups ....
--- 	lsp_cfg = {
--- 		capabilities = capabilities,
--- 		-- other setups
--- 	},
--- })
--- require("lspconfig").tsserver.setup({
--- 	capabilities = capabilities,
--- })
+capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+require("go").setup({
+	-- other setups ....
+	lsp_cfg = {
+		capabilities = capabilities,
+		-- other setups
+	},
+})
+require("lspconfig").tsserver.setup({
+	capabilities = capabilities,
+})
