@@ -62,12 +62,13 @@ keymap("n", "p", '"+p', opts)
 keymap("n", "a", "<Nop>", opts)
 keymap("n", "<C-Z>", "<Esc>u", opts)
 keymap("n", "a", "i", opts)
-keymap("n", "gi", "<Nop>", opts)
+-- keymap("n", "gi", "<Nop>", opts)
 
 keymap("n", "0", "^", opts)
 keymap("n", "ge", "g_", opts)
-keymap("v", "0", "^", opts)
-keymap("v", "ge", "g_", opts)
+
+-- keymap("v", "0", "^", opts)
+-- keymap("v", "ge", "g_", opts)
 
 -- Next/Previous cursor position
 keymap("n", "<C-U>", "<C-O>", opts)
@@ -240,7 +241,7 @@ else
 end
 
 keymap("c", "<C-i>", "", opts)
-keymap("c", "gi", "", opts)
+-- keymap("c", "gi", "", opts)
 
 vim.keymap.set("o", "<tab>", "<C-z>", { silent = false })
 

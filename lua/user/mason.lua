@@ -18,8 +18,6 @@ require("neodev").setup({
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-require("lspconfig").lua_ls.setup({})
-
 require("lspconfig").lua_ls.setup({
 	capabilities = capabilities,
 	on_init = function(client)
@@ -33,6 +31,7 @@ require("lspconfig").lua_ls.setup({
 				},
 				-- Make the server aware of Neovim runtime files
 				workspace = {
+					ignoreDir = { "Downloads", "AppData" },
 					checkThirdParty = false,
 					library = {
 						vim.env.VIMRUNTIME,

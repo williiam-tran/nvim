@@ -15,8 +15,8 @@ if not vim.g.vscode then
 	require("user.telescope")
 	require("user.comments")
 	require("user.renamer")
-	require("user.noice")
 	require("user.tabout")
+	require("user.noice")
 	require("user.go")
 	-- require("user.typescript")
 end
