@@ -82,8 +82,7 @@ keymap("n", "<C-O>", "<C-I>", opts)
 keymap("i", "<C-BS>", "<C-W>", opts)
 
 if not vim.g.vscode then
-	keymap("n", "2", "*", opts)
-	keymap("v", "@", "*", opts)
+	keymap("n", "@", "*", opts)
 
 	-- jump between buffers
 	keymap("n", "<C-l>", "<Esc><C-W>l", opts)
@@ -137,6 +136,8 @@ if not vim.g.vscode then
 	)
 
 	-- Comment Toggle
+	keymap("n", "<C-/>", "<Plug>(comment_toggle_linewise_current)", opts)
+	keymap("v", "<C-/>", "<Plug>(comment_toggle_linewise_visual)", opts)
 	keymap("n", "<C-_>", "<Plug>(comment_toggle_linewise_current)", opts)
 	keymap("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", opts)
 
