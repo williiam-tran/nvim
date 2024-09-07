@@ -17,9 +17,9 @@ local options = {
 	splitright = true, -- force all vertical splits to go to the right of current window
 	swapfile = false, -- creates a swapfile
 	termguicolors = true, -- set term gui colors (most terminals support this)
-	timeoutlen = 1000, -- time to wait for a mapped sequence to complete (in milliseconds)
+	timeoutlen = 100, -- time to wait for a mapped sequence to complete (in milliseconds)
 	undofile = true, -- enable persistent undo
-	updatetime = 2000, -- faster completion (4000ms default)
+	updatetime = 200, -- faster completion (4000ms default)
 	writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 	expandtab = true, -- convert tabs to spaces
 	shiftwidth = 4, -- the number of spaces inserted for each indentation
@@ -36,10 +36,11 @@ local options = {
 	laststatus = 0,
 }
 
-vim.opt.shortmess:append("c")
+-- vim.opt.shortmess:append("c")
 vim.opt.shadafile = "NONE"
 vim.o.shell = "powershell"
 vim.o.shellcmdflag = "-NoLogo -NoProfile"
+vim.opt.title = false
 -- vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 -- vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 vim.o.shellquote = ""
@@ -80,8 +81,8 @@ vim.cmd([[
 	hi! EasyMotionTarget guifg=#9cdcfe ctermfg=blue
     hi! EasyMotionShade ctermbg=none ctermfg=none
     hi! EasyMotionIncSearch guifg=#9cdcfe ctermfg=blue
+	silent! w
 ]])
-
 -- Set EasyMotion highlights on ColorScheme
 -- vim.api.nvim_create_autocmd("ColorScheme", {
 -- 	pattern = "*",

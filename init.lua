@@ -1,6 +1,8 @@
 require("user.lazy")
+require("user.options")
 
 if not vim.g.vscode then
+	require("user.noice")
 	require("user.cmp")
 	require("user.colorscheme")
 	require("user.mason")
@@ -16,9 +18,7 @@ if not vim.g.vscode then
 	require("user.comments")
 	require("user.renamer")
 	require("user.tabout")
-	require("user.noice")
 end
 
-require("user.options")
 require("user.keymaps")
 require("user.smoothscrolling")

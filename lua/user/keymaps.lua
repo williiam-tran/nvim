@@ -17,7 +17,7 @@ keymap("n", "$", "%", opts)
 keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
 keymap("n", 'ri"', 'vi"p', opts)
-
+keymap("c", "<C-v>", '<c-r>"', opts)
 -- Key mapping to use the custom function
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
 
@@ -94,7 +94,6 @@ if not vim.g.vscode then
 	-- keymap("n", "<M-k>", ":resize +2<CR>", opts)
 	-- keymap("n", "<M-j>", ":vertical resize -2<CR>", opts)
 	-- keymap("n", "<M-l>", ":vertical resize +2<CR>", opts)
-	keymap("c", "<C-v>", '<c-r>"', opts)
 
 	-- Visual --
 	-- Stay in indent mode
