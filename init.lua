@@ -11,13 +11,17 @@ if not vim.g.vscode then
 	require("user.filetype")
 	require("user.formatter")
 	require("user.illuminate")
-	require("user.indentline")
+	-- require("user.indentline")
 	require("user.treesitter")
 	require("user.nvimtree")
 	require("user.telescope")
 	require("user.comments")
 	require("user.renamer")
 	require("user.tabout")
+end
+
+if vim.g.neovide then
+	require("user.neovide")
 end
 
 require("user.keymaps")

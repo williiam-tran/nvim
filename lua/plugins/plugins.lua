@@ -56,6 +56,7 @@ return {
 	{
 		"ray-x/go.nvim",
 		dependencies = { -- optional packages
+			"ray-x/lsp_signature.nvim",
 			"ray-x/guihua.lua",
 			"neovim/nvim-lspconfig",
 			"nvim-treesitter/nvim-treesitter",
@@ -127,7 +128,6 @@ return {
 	"lewis6991/impatient.nvim",
 	"goolord/alpha-nvim",
 	"antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
-	"folke/which-key.nvim",
 	"sharkdp/fd",
 	-- Colorschemes
 	-- {
@@ -243,7 +243,9 @@ return {
 		opts = {},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
 		},
+		-- event = "VeryLazy",
 	},
 
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },

@@ -19,6 +19,9 @@ return {
 			hi! EasyMotionShade ctermbg=none ctermfg=none
 			hi! EasyMotionIncSearch guifg=#9cdcfe ctermfg=blue
 			highlight NvimDapVirtualText guibg=#232323 guifg=#efa29b
+			let g:EasyMotion_enter_jump_first = 1
+			let g:EasyMotion_space_jump_first = 1
+			let g:EasyMotion_verbose = 0
 	  	]])
 	end,
 }

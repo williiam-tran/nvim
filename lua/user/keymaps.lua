@@ -16,18 +16,19 @@ keymap("n", "$", "%", opts)
 
 keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
-keymap("n", 'ri"', 'vi"p', opts)
+-- keymap("n", "jk", "<Plug>(easymotion-bd-jk)", opts)
 keymap("c", "<C-v>", '<c-r>"', opts)
 -- Key mapping to use the custom function
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
 
 keymap("n", "<S-A-e>", "<cmd>NvimTreeToggle<CR>", opts)
+keymap("t", "<Esc>", "<C-\\><C-n>", opts)
 
 keymap("i", "<A-n>", "<normal><c-x><c-f><cmd><Plug>(fzf-complete-path)", opts)
 keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts) -- move line down(v)
-keymap("n", "<A-j>", ":m .+1<CR>==", opts) -- move line up(n)
 keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", opts) -- move line up(v)
-keymap("n", "<A-k>", ":m .-2<CR>==", opts) -- move line down(n)
+-- keymap("n", "<A-k>", ":m .-2<CR>==", opts) -- move line down(n)
+-- keymap("n", "<A-j>", ":m .+1<CR>==", opts) -- move line up(n)
 
 vim.cmd([[
 nnoremap <silent> <c-d> :let @/='\<'.expand('<cword>').'\>'<CR>cgn
@@ -57,16 +58,14 @@ keymap("n", "a", "i", opts)
 keymap("n", "0", "^", opts)
 keymap("n", "ge", "g_", opts)
 
--- keymap("v", "0", "^", opts)
--- keymap("v", "ge", "g_", opts)
+keymap("v", "ge", "g_", opts)
+keymap("v", "0", "^", opts)
 
 -- Next/Previous cursor position
+keymap("n", "<M-U>", "<C-O>", opts)
+keymap("n", "<M-O>", "<C-I>", opts)
 keymap("n", "<C-U>", "<C-O>", opts)
 keymap("n", "<C-O>", "<C-I>", opts)
-keymap("n", "<M-U>", "<C-u>", opts)
-keymap("n", "<M-O>", "<C-o>", opts)
-keymap("n", "<A-U>", "<C-u>", opts)
-keymap("n", "<A-O>", "<C-o>", opts)
 
 -- Ctrl+Backspace to delete word
 keymap("i", "<C-BS>", "<C-W>", opts)
@@ -234,7 +233,6 @@ keymap("c", "<C-i>", "", opts)
 
 vim.keymap.set("o", "<tab>", "<C-z>", { silent = false })
 
-keymap("n", "H", "^", opts)
 keymap("n", "L", "g_", opts)
 
 -- Lua
@@ -263,4 +261,6 @@ vim.cmd([[
 let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
+let g:EasyMotion_space_jump_first = 1
+let g:EasyMotion_verbose = 0
 ]])

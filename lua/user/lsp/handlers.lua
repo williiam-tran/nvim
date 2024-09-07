@@ -66,19 +66,19 @@ end
 M.on_attach = function(client)
 	require("illuminate").on_attach(client)
 
-	-- if client.name == "lua_ls" then
-	-- 	client.resolved_capabilities.document_formatting = false
-	-- end
+	if client.name == "lua_ls" then
+		client.resolved_capabilities.document_formatting = false
+	end
 
 	-- lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
 
-	-- if client.resolved_capabilities.document_formatting then
-	-- 	vim.api.nvim_command([[augroup Format]])
-	-- 	vim.api.nvim_command([[autocmd! * <buffer>]])
-	-- 	vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]])
-	-- 	vim.api.nvim_command([[augroup END]])
-	-- end
+	if client.resolved_capabilities.document_formatting then
+		vim.api.nvim_command([[augroup Format]])
+		vim.api.nvim_command([[autocmd! * <buffer>]])
+		vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]])
+		vim.api.nvim_command([[augroup END]])
+	end
 end
 
 local what = vim.lsp.protocol.make_client_capabilities()

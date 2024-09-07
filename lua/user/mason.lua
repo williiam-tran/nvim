@@ -1,6 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "gopls", "cssls", "tsserver" },
+	ensure_installed = { "lua_ls", "gopls", "cssls" },
 })
 
 require("lazydev").setup({
@@ -11,36 +11,36 @@ require("lazydev").setup({
 	},
 })
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+capabilities = require("user.lsp.handlers").capabilities
 
 require("lspconfig").lua_ls.setup({
 	capabilities = capabilities,
-	on_init = function(client)
-		client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
-			Lua = {
-				diagnostics = {
-					globals = { "vim" },
-				},
-				runtime = {
-					version = "LuaJIT",
-				},
-				-- Make the server aware of Neovim runtime files
-				workspace = {
-					ignoreDir = { "Downloads", "AppData" },
-					checkThirdParty = false,
-					library = {
-						vim.env.VIMRUNTIME,
-					},
-				},
-			},
-		})
-
-		client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-		return true
-	end,
+	-- on_init = function(client)
+	-- 	client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
+	-- 		Lua = {
+	-- 			diagnostics = {
+	-- 				globals = { "vim" },
+	-- 			},
+	-- 			runtime = {
+	-- 				version = "LuaJIT",
+	-- 			},
+	-- 			-- Make the server aware of Neovim runtime files
+	-- 			workspace = {
+	-- 				ignoreDir = { "Downloads", "AppData" },
+	-- 				checkThirdParty = false,
+	-- 				library = {
+	-- 					vim.env.VIMRUNTIME,
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 	})
+	--
+	-- 	client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+	-- 	return true
+	-- end,
 })
-
-capabilities = require("user.lsp.handlers").capabilities
 
 require("lspconfig").gopls.setup({
 	on_attach = function(client)
@@ -82,12 +82,59 @@ require("lspconfig").cssls.setup({
 
 capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 require("go").setup({
-	-- other setups ....
 	lsp_cfg = {
 		capabilities = capabilities,
-		-- other setups
 	},
 })
-require("lspconfig").tsserver.setup({
-	capabilities = capabilities,
+
+local function custom_attach(client, bufnr)
+	require("lsp_signature").on_attach({
+		bind = true,
+		use_lspsaga = false,
+		floating_window = true,
+		fix_pos = true,
+		hint_enable = true,
+		hi_parameter = "Search",
+		handler_opts = { "double" },
+	})
+end
+
+local lspconfig = require("lspconfig")
+local configs = require("lspconfig.configs")
+
+if not configs.ahk2 then
+	configs.ahk2 = {
+		default_config = {
+			cmd = {
+				"node",
+				vim.fn.expand("$HOME/ahk-lsp/server/dist/server.js"),
+				"--stdio",
+			},
+			init_options = {
+				locale = "en-us",
+				InterpreterPath = "C:/Program Files/AutoHotkey/v2.0.17/AutoHotkey64.exe",
+			},
+			single_file_support = true,
+			flags = { debounce_text_changes = 500 },
+			filetypes = { "ahk", "autohotkey", "ah2" },
+			root_dir = lspconfig.util.root_pattern("*.ahk"),
+			settings = {
+				AutoHotkey2 = {
+					interpreterPath = "C:/Program Files/AutoHotkey/v2.0.17/AutoHotkey64.exe",
+				},
+			},
+			capabilities = capabilities,
+			on_attach = custom_attach,
+		},
+	}
+end
+
+-- Set up the server
+
+lspconfig.ahk2.setup({
+	settings = {
+		AutoHotkey2 = {
+			InterpreterPath = "C:/Program Files/AutoHotkey/v2/AutoHotkey64.exe", -- Adjust this path
+		},
+	},
 })

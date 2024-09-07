@@ -1,8 +1,3 @@
--- local status_ok, lsp_installer = pcall(require, "mason-lspconfig")
--- if not status_ok then
--- return
--- end
-
 local lspconfig = require("lspconfig")
 
 local servers = { "lua_ls", "gopls" }
