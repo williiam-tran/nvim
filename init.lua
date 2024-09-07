@@ -11,7 +11,6 @@ if not vim.g.vscode then
 	require("user.filetype")
 	require("user.formatter")
 	require("user.illuminate")
-	-- require("user.indentline")
 	require("user.treesitter")
 	require("user.nvimtree")
 	require("user.telescope")

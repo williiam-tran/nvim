@@ -22,6 +22,7 @@ keymap("c", "<C-v>", '<c-r>"', opts)
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
 
 keymap("n", "<S-A-e>", "<cmd>NvimTreeToggle<CR>", opts)
+keymap("n", "<C-e>", ":e ", opts)
 keymap("t", "<Esc>", "<C-\\><C-n>", opts)
 
 keymap("i", "<A-n>", "<normal><c-x><c-f><cmd><Plug>(fzf-complete-path)", opts)
@@ -37,6 +38,16 @@ nnoremap <leader>q :bp<cr>:bd #<cr>
 " inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
 ]])
 
+-- Custom command to edit a new file with pre-filled path
+-- Custom command to edit a new file with pre-filled path
+vim.api.nvim_create_user_command("E", function(opts)
+	local current_dir = vim.fn.expand("%:h")
+	local new_file = current_dir .. "/" .. opts.args
+	vim.cmd("edit " .. new_file)
+end, { nargs = 1, complete = "file" })
+
+-- Remap :e to the new command
+vim.cmd([[cnoreabbrev <expr> e getcmdtype() == ":" && getcmdline() == 'e' ? 'E' : 'e']])
 -- Basic Navigation File
 -- keymap("n", "j", "h", opts)
 -- keymap("n", "k", "j", opts)

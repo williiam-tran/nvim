@@ -6,16 +6,27 @@ if not status_ok then
 	return
 end
 
--- vim.defer_fn(function()
 configs.setup({
 	auto_install = true,
 	refactor = {
-		ensure_installed = { "c", "lua", "vim", "go", "gomod", "gosum", "luadoc", "markdown" },
+		ensure_installed = {
+			"c",
+			"lua",
+			"vimdoc",
+			"vim",
+			"go",
+			"gomod",
+			"gosum",
+			"luadoc",
+			"markdown",
+			"markdown_inline",
+			"query",
+		},
 		navigation = {
 			enable = true,
 			keymaps = {
-				goto_definition = "gnd",
-				list_definitions = "gnD",
+				goto_definition = "gd",
+				list_definitions = "gD",
 				list_definitions_toc = "gO",
 				goto_next_usage = "<C-n>",
 				goto_previous_usage = "<C-p>",
@@ -27,8 +38,8 @@ configs.setup({
 	},
 
 	highlight = {
-		enable = false, -- false will disable the whole extension
-		-- additional_vim_regex_highlighting = true,
+		enable = true,
+		additional_vim_regex_highlighting = false,
 	},
 
 	textobjects = {

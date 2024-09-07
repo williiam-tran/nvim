@@ -2,6 +2,12 @@ vim.g.neovide_refresh_rate = 75
 vim.g.neovide_scroll_animation_length = 0.2
 vim.g.neovide_detach_on_quit = "always_detach"
 vim.g.neovide_remember_window_size = true
+vim.g.neovide_cursor_animate_in_insert_mode = true
+vim.g.neovide_padding_top = 0
+vim.g.neovide_padding_bottom = 0
+vim.g.neovide_padding_right = 0
+vim.g.neovide_padding_left = 0
+vim.g.neovide_input_ime = true
 
 vim.api.nvim_create_autocmd("QuitPre", {
 	callback = function()
