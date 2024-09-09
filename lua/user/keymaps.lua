@@ -1,13 +1,21 @@
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
+local function is_windows()
+	---@diagnostic disable-next-line: undefined-field
+	return vim.loop.os_uname().sysname == "Windows_NT"
+end
 -- Universal
-vim.keymap.set("n", "<leader>cd", function()
-	vim.cmd([[cd %:h]])
-	vim.notify(vim.fn.getcwd(), vim.log.levels.INFO, {
-		title = "Buffer Locate",
-	})
-end, { desc = "Buffer Locate", silent = true })
+
+if not is_windows() then
+	vim.keymap.set("v", "y", function()
+		vim.cmd('normal! "+y')
+		vim.defer_fn(function()
+			vim.fn.system("xclip -selection clipboard", vim.fn.getreg("+"))
+		end, 50)
+	end, { silent = true })
+end
+
 keymap("n", "<C-d>", "<Nop>", opts)
 keymap("n", "<C-S-d>", "<Nop>", opts)
 keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
@@ -24,7 +32,7 @@ keymap("v", "$", "%", opts)
 keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
 -- keymap("n", "jk", "<Plug>(easymotion-bd-jk)", opts)
-keymap("c", "<C-v>", '<c-r>"', opts)
+keymap("c", "<C-v>", "<c-r>'", opts)
 -- Key mapping to use the custom function
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
 
@@ -99,7 +107,7 @@ if not vim.g.vscode then
 	keymap("n", "<C-j>", "<Esc><C-W>j", opts)
 
 	keymap("v", "<C-c>", "y", opts)
-	keymap("n", "<C-v>", "<Esc>p", opts)
+	-- keymap("n", "<C-v>", "<Esc>p", opts)
 	keymap("n", "<C-z>", ":red<CR>", opts)
 
 	keymap("x", "<C-c>", "y", opts)
@@ -138,7 +146,7 @@ if not vim.g.vscode then
 	-- keymap("x", "<C-k>", ":move '>+1<CR>gv-gv", opts)
 	-- keymap("x", "<C-i>", ":move '<-2<CR>gv-gv", opts)
 
-	keymap("i", "<C-v>", "<C-r>+", opts)
+	-- keymap("i", "<C-v>", "<C-r>+", opts)
 
 	-- keymap("n", "<C-B>", ":NvimTreeToggleNoFocus<CR>", opts)
 	-- keymap("n", "<C-B>", ":Telescope finder<CR>", opts)
@@ -262,6 +270,16 @@ keymap("c", "<C-i>", "", opts)
 vim.keymap.set("o", "<tab>", "<C-z>", { silent = false })
 
 keymap("n", "L", "g_", opts)
+
+local function ChangeWorkingDir()
+	vim.cmd([[cd %:h]])
+	vim.notify(vim.fn.getcwd(), vim.log.levels.INFO, {
+		title = "Buffer Locate",
+	})
+end
+
+vim.keymap.set("n", "cd", ChangeWorkingDir, { silent = true })
+vim.keymap.set("n", "<leader>cd", ChangeWorkingDir, { silent = true })
 
 -- Lua
 if not vim.g.vscode then

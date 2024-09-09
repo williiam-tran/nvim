@@ -1,9 +1,47 @@
 return {
 	-- lazy.nvim:
 	{
+		"amitds1997/remote-nvim.nvim",
+		version = "*", -- Pin to GitHub releases
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- For standard functions
+			"MunifTanjim/nui.nvim", -- To build the plugin UI
+			"nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
+		},
+		config = true,
+	},
+	{
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		opts = {},
+	},
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
+	{ "ojroques/vim-oscyank", branch = "main" },
+	{
+		"mikesmithgh/kitty-scrollback.nvim",
+		enabled = true,
+		lazy = true,
+		cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
+		event = { "User KittyScrollbackLaunch" },
+	},
+	{
+		"m00qek/baleia.nvim",
+		version = "*",
+		config = function()
+			vim.g.baleia = require("baleia").setup({})
+
+			-- Command to colorize the current buffer
+			vim.api.nvim_create_user_command("BaleiaColorize", function()
+				vim.g.baleia.once(vim.api.nvim_get_current_buf())
+			end, { bang = true })
+
+			-- Command to show logs
+			vim.api.nvim_create_user_command("BaleiaLogs", vim.g.baleia.logger.show, { bang = true })
+		end,
 	},
 	{ "Bilal2453/luvit-meta", lazy = true },
 	{ "nvim-telescope/telescope-ui-select.nvim" },

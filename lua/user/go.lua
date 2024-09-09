@@ -38,9 +38,9 @@ vim.keymap.set("n", "dp", dap.toggle_breakpoint)
 -- vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
 
 -- Eval var under cursor
-vim.keymap.set("n", "?", function()
-	require("dapui").eval(nil, { enter = true })
-end)
+-- vim.keymap.set("n", "?", function()
+-- 	require("dapui").eval(nil, { enter = true })
+-- end)
 
 -- Function to check if a debug process is active
 local function is_debugging()

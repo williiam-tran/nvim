@@ -3,6 +3,28 @@ local actions = require("telescope.actions")
 local fb_actions = require("telescope").extensions.file_browser.actions
 local lga_actions = require("telescope-live-grep-args.actions")
 
+local function create_and_focus(prompt_bufnr)
+	local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+	fb_actions.create(prompt_bufnr)
+	-- Wait a bit for the file to be created
+	vim.defer_fn(function()
+		current_picker:refresh()
+		-- Move the selection to the last item (newly created file)
+		current_picker:set_selection(current_picker.manager:num_results())
+	end, 100)
+end
+
+local function create_from_prompt_and_focus(prompt_bufnr)
+	local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+	fb_actions.create_from_prompt(prompt_bufnr)
+	-- Wait a bit for the file to be created
+	vim.defer_fn(function()
+		current_picker:refresh()
+		-- Move the selection to the last item (newly created file)
+		current_picker:set_selection(current_picker.manager:num_results())
+	end, 100)
+end
+
 telescope.setup({
 	extensions = {
 		live_grep_args = {
@@ -18,15 +40,15 @@ telescope.setup({
 			path = vim.fn.expand("%:p:h"),
 			previewer = false,
 			initial_mode = "insert",
-			select_buffer = true,
+			select_buffer = false,
 			files = false,
 			theme = "ivy",
 			-- disables netrw and use telescope-file-browser in its place
 			hijack_netrw = true,
 			mappings = {
 				["i"] = {
-					["<A-n>"] = fb_actions.create,
-					["<CR>"] = fb_actions.create_from_prompt,
+					["<A-n>"] = create_and_focus,
+					["<CR>"] = create_from_prompt_and_focus,
 					-- ["<A-r>"] = fb_actions.rename,
 					-- ["<A-m>"] = fb_actions.move,
 					-- ["<A-y>"] = fb_actions.copy,

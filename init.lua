@@ -17,6 +17,7 @@ if not vim.g.vscode then
 	require("user.comments")
 	require("user.renamer")
 	require("user.tabout")
+	require("user.go")
 end
 
 if vim.g.neovide then
