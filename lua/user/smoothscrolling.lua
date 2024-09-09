@@ -1,10 +1,11 @@
-neoscroll = require("neoscroll")
+local neoscroll = require("neoscroll")
+
 local keymap = {
 	["J"] = function()
-		neoscroll.scroll(0.3, { move_cursor = true, duration = 80 })
+		neoscroll.scroll(0.4, { move_cursor = true, duration = 80 })
 	end,
 	["K"] = function()
-		neoscroll.scroll(-0.3, { move_cursor = true, duration = 80 })
+		neoscroll.scroll(-0.4, { move_cursor = true, duration = 80 })
 	end,
 }
 
@@ -23,12 +24,3 @@ require("neoscroll").setup({
 	easing_function = "quadratic",
 	performance_mode = false, -- Disable "Performance Mode" on all buffers.
 })
-
--- local t = {}
-
--- if not vim.g.vscode then
--- 	t["<C-y>"] = { "scroll", { "-0.35", "true", "100" } }
--- 	t["<C-e>"] = { "scroll", { "0.35", "true", "100" } }
--- end
-
--- require("neoscroll.config").set_mappings(t)
