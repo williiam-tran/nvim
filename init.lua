@@ -23,5 +23,6 @@ if vim.g.neovide then
 	require("user.neovide")
 end
 
+require("user.neovide")
 require("user.keymaps")
 require("user.smoothscrolling")

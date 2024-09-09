@@ -1,5 +1,10 @@
 return {
 	-- lazy.nvim:
+	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {},
+	},
 	{ "Bilal2453/luvit-meta", lazy = true },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
 	{ "junegunn/fzf", dir = "~/.fzf", build = "./install --all" },
@@ -242,8 +247,8 @@ return {
 		commit = "d9328ef",
 		opts = {},
 		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify",
+			-- "MunifTanjim/nui.nvim",
+			-- "rcarriga/nvim-notify",
 		},
 		-- event = "VeryLazy",
 	},
@@ -323,7 +328,7 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 
-	"rcarriga/nvim-notify",
+	-- "rcarriga/nvim-notify",
 	-- syntax highlighting
 	{
 		"sheerun/vim-polyglot",
