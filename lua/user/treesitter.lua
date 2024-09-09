@@ -9,19 +9,7 @@ end
 configs.setup({
 	auto_install = true,
 	refactor = {
-		ensure_installed = {
-			"c",
-			"lua",
-			"vimdoc",
-			"vim",
-			"go",
-			"gomod",
-			"gosum",
-			"luadoc",
-			"markdown",
-			"markdown_inline",
-			"query",
-		},
+		ensure_installed = { "c", "lua", "vimdoc", "vim", "go", "gomod", "gosum", "luadoc", "markdown" },
 		navigation = {
 			enable = true,
 			keymaps = {
@@ -33,13 +21,14 @@ configs.setup({
 			},
 		},
 	},
-	autopairs = {
-		enable = true,
-	},
 
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = false,
+	},
+
+	autopairs = {
+		enable = true,
 	},
 
 	textobjects = {

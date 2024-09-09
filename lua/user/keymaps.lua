@@ -32,7 +32,7 @@ keymap("v", "$", "%", opts)
 keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
 -- keymap("n", "jk", "<Plug>(easymotion-bd-jk)", opts)
-keymap("c", "<C-v>", "<c-r>'", opts)
+keymap("c", "<C-v>", "<c-r>+", opts)
 -- Key mapping to use the custom function
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
 
@@ -57,14 +57,14 @@ nnoremap <leader>q :bp<cr>:bd #<cr>
 
 -- Custom command to edit a new file with pre-filled path
 -- Custom command to edit a new file with pre-filled path
-vim.api.nvim_create_user_command("E", function(opts)
-	local current_dir = vim.fn.expand("%:h")
-	local new_file = current_dir .. "/" .. opts.args
-	vim.cmd("edit " .. new_file)
-end, { nargs = 1, complete = "file" })
-
--- Remap :e to the new command
-vim.cmd([[cnoreabbrev <expr> e getcmdtype() == ":" && getcmdline() == 'e' ? 'E' : 'e']])
+-- vim.api.nvim_create_user_command("E", function(opts)
+-- 	local current_dir = vim.fn.expand("%:h")
+-- 	local new_file = current_dir .. "/" .. opts.args
+-- 	vim.cmd("edit " .. new_file)
+-- end, { nargs = 1, complete = "file" })
+--
+-- -- Remap :e to the new command
+-- vim.cmd([[cnoreabbrev <expr> e getcmdtype() == ":" && getcmdline() == 'e' ? 'E' : 'e']])
 -- Basic Navigation File
 -- keymap("n", "j", "h", opts)
 -- keymap("n", "k", "j", opts)
