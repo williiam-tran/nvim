@@ -4,15 +4,14 @@ local fb_actions = require("telescope").extensions.file_browser.actions
 local lga_actions = require("telescope-live-grep-args.actions")
 
 telescope.setup({
-	-- lazy load this plugin
 	extensions = {
 		live_grep_args = {
-			previewer = false,
+			previewer = true,
 			auto_quoting = false, -- enable/disable auto-quoting
 			-- define mappings, e.g.
 			-- ... also accepts theme settings, for example:
-			-- theme = "dropdown", -- use dropdown theme
-			-- theme = { }, -- use own theme spec
+			theme = "dropdown", -- use dropdown theme
+			-- theme = "ivy",
 			layout_config = { mirror = true }, -- mirror preview pane
 		},
 		file_browser = {
@@ -86,22 +85,10 @@ telescope.setup({
 			"--trim", -- add this value
 		},
 
-		pickers = {
-			previewer = false,
-			file_browser = {
-				previewer = false,
-			},
-			buffers = {
-				initial_mode = "normal",
-			},
-			find_files = {
-				previewer = false,
-			},
-		},
-
 		mappings = {
 			i = {
 				["<Esc>"] = actions.close,
+				["<c-d>"] = require("telescope.actions").delete_buffer,
 				["<C-q>"] = function(prompt_bufnr)
 					local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
 					-- local selection = picker:get_selection()
@@ -124,6 +111,7 @@ telescope.setup({
 				end,
 			},
 			n = {
+				["<c-d>"] = require("telescope.actions").delete_buffer,
 				["q"] = actions.close,
 				["<C-q>"] = function(prompt_bufnr)
 					local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
@@ -188,12 +176,34 @@ telescope.setup({
 			},
 		},
 	},
-})
+	pickers = {
+		previewer = false,
+		file_browser = {
+			previewer = false,
+		},
 
--- builtin.find_files({
--- 	previewer = false,
--- 	shorten_path = true,
--- })
+		buffers = {
+			theme = "dropdown",
+			previewer = false,
+			show_all_buffers = true,
+			sort_mru = true,
+			mappings = {
+				n = {
+					["<c-d>"] = "delete_buffer",
+					["<A-d>"] = "delete_buffer",
+				},
+				i = {
+					["<c-d>"] = "delete_buffer",
+					["<A-d>"] = "delete_buffer",
+				},
+			},
+			initial_mode = "normal",
+		},
+		find_files = {
+			previewer = false,
+		},
+	},
+})
 
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("file_browser")

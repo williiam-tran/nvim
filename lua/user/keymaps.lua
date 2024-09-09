@@ -2,6 +2,12 @@ local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 -- Universal
+vim.keymap.set("n", "<leader>cd", function()
+	vim.cmd([[cd %:h]])
+	vim.notify(vim.fn.getcwd(), vim.log.levels.INFO, {
+		title = "Buffer Locate",
+	})
+end, { desc = "Buffer Locate", silent = true })
 keymap("n", "<C-d>", "<Nop>", opts)
 keymap("n", "<C-S-d>", "<Nop>", opts)
 keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
@@ -13,6 +19,7 @@ keymap("i", "<C-h>", "<C-w>", opts)
 keymap("n", "t", "<Plug>(easymotion-overwin-f2)", opts)
 keymap("v", "t", "<Plug>(easymotion-overwin-f2)", opts)
 keymap("n", "$", "%", opts)
+keymap("v", "$", "%", opts)
 
 keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
@@ -21,8 +28,11 @@ keymap("c", "<C-v>", '<c-r>"', opts)
 -- Key mapping to use the custom function
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
 
-keymap("n", "<S-A-e>", "<cmd>NvimTreeToggle<CR>", opts)
-keymap("n", "<C-e>", ":e ", opts)
+keymap("n", "<C-`>", "<cmd>term<CR>", opts)
+keymap("n", "<A-`>", "<cmd>term<CR>", opts)
+
+keymap("n", "<C-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
+keymap("n", "<A-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
 keymap("t", "<Esc>", "<C-\\><C-n>", opts)
 
 keymap("i", "<A-n>", "<normal><c-x><c-f><cmd><Plug>(fzf-complete-path)", opts)
@@ -30,7 +40,6 @@ keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts) -- move line down(v)
 keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", opts) -- move line up(v)
 -- keymap("n", "<A-k>", ":m .-2<CR>==", opts) -- move line down(n)
 -- keymap("n", "<A-j>", ":m .+1<CR>==", opts) -- move line up(n)
-
 vim.cmd([[
 nnoremap <silent> <c-d> :let @/='\<'.expand('<cword>').'\>'<CR>cgn
 xnoremap <silent> <c-d> "sy:let @/=@s<CR>cgn
@@ -80,10 +89,9 @@ keymap("n", "<C-O>", "<C-I>", opts)
 
 -- Ctrl+Backspace to delete word
 keymap("i", "<C-BS>", "<C-W>", opts)
+keymap("n", "@", "*", opts)
 
 if not vim.g.vscode then
-	keymap("n", "@", "*", opts)
-
 	-- jump between buffers
 	keymap("n", "<C-l>", "<Esc><C-W>l", opts)
 	keymap("n", "<C-h>", "<Esc><C-W>h", opts)
@@ -95,7 +103,7 @@ if not vim.g.vscode then
 	keymap("n", "<C-z>", ":red<CR>", opts)
 
 	keymap("x", "<C-c>", "y", opts)
-	keymap("n", "q", ":wq<CR>", opts)
+	keymap("n", "q", ":w | bd<CR>", opts)
 	keymap("n", "Q", ":quitall<CR>", opts)
 	keymap("n", "<C-A>", "ggVG", opts)
 
@@ -113,6 +121,14 @@ if not vim.g.vscode then
 	-- keymap("n", "<leader>r", "<Cmd>Telescope live_grep<CR>", opts)
 	-- keymap("n", "<M-r>", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts)
 	keymap("n", "<A-r>", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts)
+
+	vim.keymap.set("n", "<C-S-b>", function()
+		require("telescope.builtin").buffers({
+			preview = false,
+		})
+	end, opts)
+
+	keymap("n", "<A-S-p>", ":Telescope buffers<CR>", opts)
 
 	-- Visual Block --
 	-- Move text up and down

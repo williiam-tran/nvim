@@ -17,6 +17,11 @@ require("nvim-tree").setup({
 	ignore_buffer_on_setup = false,
 	open_on_tab = false,
 	sort_by = "name",
+	action = {
+		open_file = {
+			quit_on_open = true,
+		},
+	},
 	update_cwd = true,
 	view = {
 		width = 30,
