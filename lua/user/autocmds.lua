@@ -113,4 +113,10 @@ aug QFClose
   au!
   au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
 aug END
+
 ]])
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
+	nested = true,
+})

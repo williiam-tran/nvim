@@ -1,4 +1,3 @@
--- require("mini.animate").setup()
 neoscroll = require("neoscroll")
 local keymap = {
 	["J"] = function()

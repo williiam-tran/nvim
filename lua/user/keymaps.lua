@@ -101,6 +101,10 @@ keymap("n", "@", "*", opts)
 
 if not vim.g.vscode then
 	-- jump between buffers
+	keymap("n", "<A-l>", "<Esc><C-W>l", opts)
+	keymap("n", "<A-h>", "<Esc><C-W>h", opts)
+	keymap("n", "<A-k>", "<Esc><C-W>k", opts)
+	keymap("n", "<A-j>", "<Esc><C-W>j", opts)
 	keymap("n", "<C-l>", "<Esc><C-W>l", opts)
 	keymap("n", "<C-h>", "<Esc><C-W>h", opts)
 	keymap("n", "<C-k>", "<Esc><C-W>k", opts)

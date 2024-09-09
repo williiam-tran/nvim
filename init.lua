@@ -18,6 +18,7 @@ if not vim.g.vscode then
 	require("user.renamer")
 	require("user.tabout")
 	require("user.go")
+	require("user.harpoon")
 end
 
 if vim.g.neovide then
