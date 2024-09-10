@@ -8,6 +8,7 @@ if not vim.g.vscode then
 	require("user.autopairs")
 	require("user.autocmds")
 	-- require("user.filetype")
+	-- require("user.filetype")
 	require("user.formatter")
 	require("user.illuminate")
 	require("user.treesitter")
