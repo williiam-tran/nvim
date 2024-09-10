@@ -24,9 +24,14 @@ keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 keymap("n", "<Space>", "<Nop>", opts)
 -- keymap("n", "<c-n>", "<Nop>", opts)
 keymap("i", "<C-BS>", "<C-w>", opts)
-keymap("i", "<C-h>", "<C-w>", opts)
+-- keymap("i", "<C-h>", "<C-w>", opts)
+keymap("i", "<C-e>", "<C-o>de", opts)
+-- \"zy<cmd>PounceReg z<cr> "
+-- <cmd>PounceExpand <cword><cr> "
+keymap("n", "m", "<cmd>PounceExpand <cword><cr>", opts)
 keymap("n", "t", "<cmd>Pounce<CR>", opts)
-keymap("v", "t", "<Plug>(easymotion-overwin-f2)", opts)
+keymap("v", "t", '"zy<cmd>PounceReg z<cr>', opts)
+
 keymap("n", "$", "%", opts)
 keymap("v", "$", "%", opts)
 
@@ -39,13 +44,6 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 cnoremap <C-v> <c-r>+
-" Gif config
-
-" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
-" Without these mappings, `n` & `N` works fine. (These mappings just provide
-" different highlight method and have some other features )
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
 ]])
 
 vim.keymap.set("v", "<C-r>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "change selection" })
@@ -64,7 +62,6 @@ keymap("n", "<A-`>", "<cmd>term<CR>", opts)
 keymap("n", "<C-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
 keymap("n", "<A-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
 keymap("t", "<Esc>", "<C-\\><C-n>", opts)
-
 keymap("i", "<A-n>", "<normal><c-x><c-f><cmd><Plug>(fzf-complete-path)", opts)
 keymap("v", "<A-k>", "<Cmd>m '<-2<CR>gv=gv", opts) -- move line down(v)
 keymap("v", "<A-j>", "<Cmd>m '>+1<CR>gv=gv", opts) -- move line up(v)
@@ -186,6 +183,8 @@ if not vim.g.vscode then
 	)
 
 	-- Comment Toggle
+	keymap("i", "<C-/>", "<Plug>(comment_toggle_linewise_current)", opts)
+	keymap("x", "<C-/>", "<Plug>(comment_toggle_linewise_current)", opts)
 	keymap("n", "<C-/>", "<Plug>(comment_toggle_linewise_current)", opts)
 	keymap("v", "<C-/>", "<Plug>(comment_toggle_linewise_visual)", opts)
 	keymap("n", "<C-_>", "<Plug>(comment_toggle_linewise_current)", opts)
@@ -221,8 +220,6 @@ if not vim.g.vscode then
 	-- keymap("o", "<M-k>", "<C-n>", opts)
 
 	-- Next and previous problems.
-	-- keymap("n", "n", "<Cmd>lua require('illuminate').goto_next_reference()<cr>", opts)
-	-- keymap("n", "N", "<Cmd>lua require('illuminate').goto_prev_reference()<cr>", opts)
 	keymap("n", "<C-n>", "<Cmd>lua require('illuminate').goto_next_reference()<cr>", opts)
 	keymap("n", "<C-p>", "<Cmd>lua require('illuminate').goto_prev_reference()<cr>", opts)
 	keymap("n", "<Bslash>", "<Cmd>lua vim.diagnostic.goto_next()<cr>", opts)

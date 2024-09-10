@@ -112,11 +112,11 @@ return {
 			require("telescope").load_extension("live_grep_args")
 		end,
 	},
-	-- {
-	-- 	"mg979/vim-visual-multi",
-	-- 	priority = 1000,
-	-- 	event = { "VimEnter" },
-	-- },
+	{
+		"mg979/vim-visual-multi",
+		priority = 1000,
+		event = { "VimEnter" },
+	},
 	{
 		"ray-x/go.nvim",
 		dependencies = { -- optional packages

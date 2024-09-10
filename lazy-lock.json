@@ -78,6 +78,7 @@
   "vim-polyglot": { "branch": "master", "commit": "bc8a81d3592dab86334f27d1d43c080ebf680d42" },
   "vim-repeat": { "branch": "master", "commit": "65846025c15494983dafe5e3b46c8f88ab2e9635" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
+  "vim-visual-multi": { "branch": "master", "commit": "a6975e7c1ee157615bbc80fc25e4392f71c344d4" },
   "vim-wordmotion": { "branch": "master", "commit": "81d9bd298376ab0dc465c85d55afa4cb8d5f47a1" },
   "vscode-neovim": { "branch": "master", "commit": "6f2fa02733330d44c624e87c251f68ad80631c74" }
 }
