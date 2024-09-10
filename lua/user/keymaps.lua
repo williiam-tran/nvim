@@ -17,6 +17,7 @@ if not is_windows() then
 end
 
 keymap("n", "<C-d>", "<Nop>", opts)
+keymap("n", "s", '<cmd>PounceReg "<cr>', opts)
 keymap("n", "<C-S-d>", "<Nop>", opts)
 keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 -- keymap("n", "<C-r>", "<Nop>", opts)
@@ -24,7 +25,7 @@ keymap("n", "<Space>", "<Nop>", opts)
 -- keymap("n", "<c-n>", "<Nop>", opts)
 keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("i", "<C-h>", "<C-w>", opts)
-keymap("n", "t", "<Plug>(easymotion-overwin-f2)", opts)
+keymap("n", "t", "<cmd>Pounce<CR>", opts)
 keymap("v", "t", "<Plug>(easymotion-overwin-f2)", opts)
 keymap("n", "$", "%", opts)
 keymap("v", "$", "%", opts)
@@ -37,6 +38,14 @@ nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+cnoremap <C-v> <c-r>+
+" Gif config
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
 ]])
 
 vim.keymap.set("v", "<C-r>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "change selection" })
@@ -45,7 +54,7 @@ keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
 -- keymap("n", "jk", "<Plug>(easymotion-bd-jk)", opts)
 keymap("n", "<c-v>", "<Esc>p", opts)
-keymap("c", "<C-v>", "<c-r>+ ", opts)
+-- keymap("c", "<C-v>", "<c-r>+", opts)
 -- Key mapping to use the custom function
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
 
@@ -125,7 +134,6 @@ if not vim.g.vscode then
 	keymap("n", "<C-j>", "<Esc><C-W>j", opts)
 
 	keymap("v", "<C-c>", "y", opts)
-	-- keymap("n", "<C-v>", "<Esc>p", opts)
 	keymap("n", "<C-z>", "<cmd>red<CR>", opts)
 
 	keymap("x", "<C-c>", "y", opts)

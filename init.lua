@@ -6,8 +6,6 @@ if not vim.g.vscode then
 	require("user.cmp")
 	require("user.mason")
 	require("user.autopairs")
-	require("user.autocmds")
-	-- require("user.filetype")
 	-- require("user.filetype")
 	require("user.formatter")
 	require("user.illuminate")
@@ -28,3 +26,4 @@ end
 
 require("user.keymaps")
 require("user.smoothscrolling")
+require("user.autocmds")

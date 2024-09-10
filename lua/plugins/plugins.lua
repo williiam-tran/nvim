@@ -1,5 +1,9 @@
 return {
 	{
+		"rlane/pounce.nvim",
+		lazy = false,
+	},
+	{
 		"amitds1997/remote-nvim.nvim",
 		version = "*", -- Pin to GitHub releases
 		dependencies = {
@@ -104,42 +108,7 @@ return {
 			"nvim-telescope/telescope-live-grep-args.nvim",
 		},
 		config = function()
-			require("telescope").setup({
-				-- defaults = {
-				-- 	mappings = {
-				-- 		i = {
-				-- 			["<C-r>"] = {
-				-- 				function(p_bufnr)
-				-- 					-- send results to quick fix list
-				-- 					require("telescope.actions").send_to_qflist(p_bufnr)
-				-- 					local qflist = vim.fn.getqflist()
-				-- 					local paths = {}
-				-- 					local hash = {}
-				-- 					for k in pairs(qflist) do
-				-- 						local path = vim.fn.bufname(qflist[k]["bufnr"]) -- extract path from quick fix list
-				-- 						if not hash[path] then -- add to paths table, if not already appeared
-				-- 							paths[#paths + 1] = path
-				-- 							hash[path] = true -- remember existing paths
-				-- 						end
-				-- 					end
-				-- 					-- show search scope with message
-				-- 					vim.notify("find in ...\n  " .. table.concat(paths, "\n  "))
-				-- 					-- execute live_grep_args with search scope
-				-- 					require("telescope").extensions.live_grep_args.live_grep_args({
-				-- 						search_dirs = paths,
-				-- 					})
-				-- 				end,
-				-- 				type = "action",
-				-- 				opts = {
-				-- 					nowait = true,
-				-- 					silent = true,
-				-- 					desc = "Live grep on results",
-				-- 				},
-				-- 			},
-				-- 		},
-				-- 	},
-				-- },
-			})
+			require("telescope").setup({})
 			require("telescope").load_extension("live_grep_args")
 		end,
 	},
@@ -160,8 +129,6 @@ return {
 		ft = { "go", "gomod" },
 		build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
 	},
-	-- My plugins here
-	-- "nvim-lua/popup.nvim", -- An implementation of the Popup API from vim in Neovim
 	{
 		"nvim-lua/plenary.nvim", -- ful lua functions used ny lots of plugins
 		-- lazy = true,
@@ -180,15 +147,14 @@ return {
 		event = { "VimEnter" },
 	},
 
-	-- vscode
 	{
 		"vscode-neovim/vscode-neovim",
 	},
 
-	{
-		"justinmk/vim-sneak",
-		event = { "VimEnter" },
-	},
+	-- {
+	-- 	"justinmk/vim-sneak",
+	-- 	event = { "VimEnter" },
+	-- },
 
 	{
 		"numToStr/Comment.nvim",
@@ -203,26 +169,24 @@ return {
 		lazy = false,
 	},
 
-	"folke/lazydev.nvim",
-
-	"nathom/filetype.nvim",
-	-- "akinsho/bufferline.nvim",
+	-- "nathom/filetype.nvim",
 	"kyazdani42/nvim-web-devicons",
-
-	-- {
-	-- 	"kyazdani42/nvim-tree.lua",
-	-- 	dependencies = {
-	-- 		"kyazdani42/nvim-web-devicons", -- optional, for file icon
-	-- 	},
-	-- 	tag = "nightly", -- optional, updated every week. (see issue #1193)
-	-- },
-
 	"BurntSushi/ripgrep",
-	"moll/vim-bbye",
 	"ahmedkhalf/project.nvim",
 	"lewis6991/impatient.nvim",
-	"goolord/alpha-nvim",
-	"antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
+	{
+		"goolord/alpha-nvim",
+		-- dependencies = { 'echasnovski/mini.icons' },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			local startify = require("alpha.themes.startify")
+			-- available: devicons, mini, default is mini
+			-- if provider not loaded and enabled is true, it will try to use another provider
+			startify.file_icons.provider = "devicons"
+			require("alpha").setup(startify.config)
+		end,
+	},
+	-- "antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
 	"sharkdp/fd",
 	-- Colorschemes
 	-- {
@@ -251,6 +215,30 @@ return {
 	{
 		"stevearc/dressing.nvim",
 		opts = {},
+	},
+
+	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+			},
+		},
+	},
+
+	{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+	{ -- optional completion source for require statements and module annotations
+		"hrsh7th/nvim-cmp",
+		opts = function(_, opts)
+			opts.sources = opts.sources or {}
+			table.insert(opts.sources, {
+				name = "lazydev",
+				group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+			})
+		end,
 	},
 
 	-- color for css.
@@ -282,6 +270,13 @@ return {
 			"VonHeikemen/lsp-zero.nvim",
 		},
 		event = { "InsertEnter", "CmdlineEnter" },
+		opts = function(_, opts)
+			opts.sources = opts.sources or {}
+			table.insert(opts.sources, {
+				name = "lazydev",
+				group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+			})
+		end,
 		lazy = false,
 	},
 
@@ -376,7 +371,6 @@ return {
 		event = "BufReadPre",
 	},
 
-	-- "haya14busa/incsearch.vim",
 	--
 	-- "haya14busa/incsearch-easymotion.vim",
 
@@ -389,9 +383,9 @@ return {
 	{
 		"easymotion/vim-easymotion",
 		dependencies = {
-			-- "haya14busa/incsearch.vim",
-			-- "haya14busa/incsearch-easymotion.vim",
-			-- "haya14busa/incsearch-fuzzy.vim",
+			"haya14busa/incsearch.vim",
+			"haya14busa/incsearch-easymotion.vim",
+			"haya14busa/incsearch-fuzzy.vim",
 		},
 
 		priority = 1200,

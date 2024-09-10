@@ -120,3 +120,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
 	nested = true,
 })
+
+vim.cmd([[
+augroup custom_highlight
+	au!
+	au VimEnter * highlight PounceGap cterm=none ctermfg=none ctermbg=none guifg=none guibg=none
+	au VimEnter * highlight PounceUnmatched guifg=#919191 guibg=none
+	au VimEnter * highlight PounceAccept ctermfg=none ctermbg=none guifg=#9cdcfe guibg=none
+	au VimEnter * highlight PounceAcceptBest ctermfg=none ctermbg=none guifg=#9cdcfe guibg=none
+augroup END
+]])
