@@ -2,6 +2,7 @@ local telescope = require("telescope")
 local actions = require("telescope.actions")
 local fb_actions = require("telescope").extensions.file_browser.actions
 local lga_actions = require("telescope-live-grep-args.actions")
+local path_actions = require("telescope_insert_path")
 
 local function create_and_focus(prompt_bufnr)
 	local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
@@ -35,12 +36,15 @@ telescope.setup({
 			theme = "dropdown", -- use dropdown theme
 			-- theme = "ivy",
 			layout_config = { mirror = true }, -- mirror preview pane
+			file_ignore_patterns = {
+				"lazy-lock.json",
+			},
 		},
 		file_browser = {
 			path = vim.fn.expand("%:p:h"),
 			previewer = false,
-			initial_mode = "insert",
-			select_buffer = false,
+			initial_mode = "normal",
+			select_buffer = true,
 			files = false,
 			theme = "ivy",
 			-- disables netrw and use telescope-file-browser in its place
@@ -96,6 +100,7 @@ telescope.setup({
 		},
 	},
 	defaults = {
+		file_ignore_patterns = { "node_modules" },
 		vimgrep_arguments = {
 			"rg",
 			"--color=never",
@@ -109,7 +114,7 @@ telescope.setup({
 
 		mappings = {
 			i = {
-				["<Esc>"] = actions.close,
+				-- ["<Esc>"] = actions.close,
 				["<c-d>"] = require("telescope.actions").delete_buffer,
 				["<C-q>"] = function(prompt_bufnr)
 					local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
@@ -133,9 +138,11 @@ telescope.setup({
 				end,
 			},
 			n = {
-				["<c-d>"] = require("telescope.actions").delete_buffer,
-				["q"] = actions.close,
-				["<C-q>"] = function(prompt_bufnr)
+				["r"] = path_actions.insert_relpath_normal,
+				["a"] = path_actions.insert_abspath_normal,
+				["d>"] = require("telescope.actions").delete_buffer,
+				["Esc"] = actions.close,
+				["q>"] = function(prompt_bufnr)
 					local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
 					local selection = picker:get_selection()
 					local results = picker:get_multi_selection() -- Get selected results
@@ -211,7 +218,7 @@ telescope.setup({
 			sort_mru = true,
 			mappings = {
 				n = {
-					["<c-d>"] = "delete_buffer",
+					["d"] = "delete_buffer",
 					["<A-d>"] = "delete_buffer",
 				},
 				i = {

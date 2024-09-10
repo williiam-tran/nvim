@@ -4,11 +4,11 @@ require("user.options")
 if not vim.g.vscode then
 	require("user.noice")
 	require("user.cmp")
-	require("user.colorscheme")
+	-- require("user.colorscheme")
 	require("user.mason")
 	require("user.autopairs")
 	require("user.autocmds")
-	require("user.filetype")
+	-- require("user.filetype")
 	require("user.formatter")
 	require("user.illuminate")
 	require("user.treesitter")
@@ -19,6 +19,7 @@ if not vim.g.vscode then
 	require("user.tabout")
 	require("user.go")
 	require("user.harpoon")
+	-- require("user.remote")
 end
 
 if vim.g.neovide then

@@ -29,9 +29,15 @@ keymap("v", "t", "<Plug>(easymotion-overwin-f2)", opts)
 keymap("n", "$", "%", opts)
 keymap("v", "$", "%", opts)
 
+keymap("n", ";", ":", opts)
+keymap("n", ":", ";", opts)
+
+vim.keymap.set("v", "<C-r>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "change selection" })
+
 keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
 -- keymap("n", "jk", "<Plug>(easymotion-bd-jk)", opts)
+keymap("n", "<c-v>", "<Esc>p", opts)
 keymap("c", "<C-v>", "<c-r>+", opts)
 -- Key mapping to use the custom function
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
@@ -44,13 +50,13 @@ keymap("n", "<A-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
 keymap("t", "<Esc>", "<C-\\><C-n>", opts)
 
 keymap("i", "<A-n>", "<normal><c-x><c-f><cmd><Plug>(fzf-complete-path)", opts)
-keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts) -- move line down(v)
-keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", opts) -- move line up(v)
+keymap("v", "<A-k>", "<Cmd>m '<-2<CR>gv=gv", opts) -- move line down(v)
+keymap("v", "<A-j>", "<Cmd>m '>+1<CR>gv=gv", opts) -- move line up(v)
 -- keymap("n", "<A-k>", ":m .-2<CR>==", opts) -- move line down(n)
 -- keymap("n", "<A-j>", ":m .+1<CR>==", opts) -- move line up(n)
 vim.cmd([[
-nnoremap <silent> <c-d> :let @/='\<'.expand('<cword>').'\>'<CR>cgn
-xnoremap <silent> <c-d> "sy:let @/=@s<CR>cgn
+nnoremap <silent> <c-d> <Cmd>let @/='\<'.expand('<cword>').'\>'<CR>cgn
+xnoremap <silent> <c-d> "sy<Cmd>let @/=@s<CR>cgn
 nnoremap <leader>q :bp<cr>:bd #<cr>
 " inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
 ]])
@@ -94,6 +100,7 @@ keymap("n", "<M-U>", "<C-O>", opts)
 keymap("n", "<M-O>", "<C-I>", opts)
 keymap("n", "<C-U>", "<C-O>", opts)
 keymap("n", "<C-O>", "<C-I>", opts)
+keymap("o", "a", "i", opts)
 
 -- Ctrl+Backspace to delete word
 keymap("i", "<C-BS>", "<C-W>", opts)
@@ -112,11 +119,11 @@ if not vim.g.vscode then
 
 	keymap("v", "<C-c>", "y", opts)
 	-- keymap("n", "<C-v>", "<Esc>p", opts)
-	keymap("n", "<C-z>", ":red<CR>", opts)
+	keymap("n", "<C-z>", "<cmd>red<CR>", opts)
 
 	keymap("x", "<C-c>", "y", opts)
-	keymap("n", "q", ":w | bd<CR>", opts)
-	keymap("n", "Q", ":quitall<CR>", opts)
+	keymap("n", "q", "<cmd>w | bd<CR>", opts)
+	keymap("n", "Q", "<cmd>quitall<CR>", opts)
 	keymap("n", "<C-A>", "ggVG", opts)
 
 	-- keymap("n", "<M-i>", ":resize -2<CR>", opts)
@@ -132,7 +139,7 @@ if not vim.g.vscode then
 	-- Treesitter
 	-- keymap("n", "<leader>r", "<Cmd>Telescope live_grep<CR>", opts)
 	-- keymap("n", "<M-r>", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts)
-	keymap("n", "<A-r>", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts)
+	keymap("n", "<A-r>", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts)
 
 	vim.keymap.set("n", "<C-S-b>", function()
 		require("telescope.builtin").buffers({
@@ -140,7 +147,7 @@ if not vim.g.vscode then
 		})
 	end, opts)
 
-	keymap("n", "<A-S-p>", ":Telescope buffers<CR>", opts)
+	keymap("n", "<A-S-p>", "<Cmd>Telescope buffers<CR>", opts)
 
 	-- Visual Block --
 	-- Move text up and down
@@ -159,7 +166,7 @@ if not vim.g.vscode then
 	keymap(
 		"n",
 		"<A-n>",
-		":lua require('telescope').extensions.file_browser.file_browser(require('telescope.themes').get_dropdown())<CR>",
+		"<cmd>lua require('telescope').extensions.file_browser.file_browser(require('telescope.themes').get_dropdown())<CR>",
 		opts
 	)
 
@@ -207,9 +214,15 @@ if not vim.g.vscode then
 	keymap("n", "<|>", "<Cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
 
 	-- save current file.
-	keymap("n", "<C-s>", ":w<CR>", opts)
+	keymap("n", "<C-s>", "<cmd>w<CR>", opts)
 
 	-- Telescope
+	keymap(
+		"i",
+		"<A-p>",
+		'<cmd>lua require("telescope.builtin").find_files(require"telescope.themes".get_dropdown({previewer=false}))<CR>',
+		opts
+	)
 	keymap(
 		"n",
 		"<A-p>",
