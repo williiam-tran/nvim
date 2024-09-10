@@ -314,10 +314,10 @@ return {
 		commit = "d9328ef",
 		opts = {},
 		dependencies = {
-			-- "MunifTanjim/nui.nvim",
+			"MunifTanjim/nui.nvim",
 			-- "rcarriga/nvim-notify",
 		},
-		-- event = "VeryLazy",
+		event = "VeryLazy",
 	},
 
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },

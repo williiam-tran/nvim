@@ -29,8 +29,15 @@ keymap("v", "t", "<Plug>(easymotion-overwin-f2)", opts)
 keymap("n", "$", "%", opts)
 keymap("v", "$", "%", opts)
 
-keymap("n", ";", ":", opts)
-keymap("n", ":", ";", opts)
+-- keymap("n", ";", ":", opts)
+-- keymap("n", ":", ";", opts)
+
+vim.cmd([[
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+]])
 
 vim.keymap.set("v", "<C-r>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "change selection" })
 

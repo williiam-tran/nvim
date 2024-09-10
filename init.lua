@@ -19,7 +19,6 @@ if not vim.g.vscode then
 	require("user.go")
 	require("user.harpoon")
 	require("user.git")
-	-- require("user.remote")
 end
 
 if vim.g.neovide then
