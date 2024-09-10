@@ -2,24 +2,24 @@ require("Comment").setup({
 
 	padding = true,
 	sticky = true,
-	ignore = nil,
+	-- ignore = nil,
 
 	toggler = {
 		---Line-comment toggle keymap
 		line = "<C-_>",
 		---Block-comment toggle keymap
-		block = "gbc",
+		-- block = "gbc",
 	},
 
 	opleader = {
 		line = "gc",
-		block = "gb",
+		block = "cq",
 	},
 
 	extra = {
-		above = "gcO",
-		below = "gco",
-		eol = "gcA",
+		-- above = "gcO",
+		below = "co",
+		eol = "cA",
 	},
 
 	mappings = {
@@ -27,6 +27,6 @@ require("Comment").setup({
 		extra = true,
 	},
 
-	pre_hook = nil,
-	post_hook = nil,
+	-- pre_hook = nil,
+	-- post_hook = nil,
 })

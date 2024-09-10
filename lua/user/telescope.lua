@@ -100,6 +100,7 @@ telescope.setup({
 		},
 	},
 	defaults = {
+		initial_mode = "insert",
 		file_ignore_patterns = { "node_modules" },
 		vimgrep_arguments = {
 			"rg",
@@ -142,9 +143,9 @@ telescope.setup({
 				["a"] = path_actions.insert_abspath_normal,
 				["d>"] = require("telescope.actions").delete_buffer,
 				["Esc"] = actions.close,
-				["q>"] = function(prompt_bufnr)
+				["q"] = function(prompt_bufnr)
 					local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
-					local selection = picker:get_selection()
+					-- local selection = picker:get_selection()
 					local results = picker:get_multi_selection() -- Get selected results
 
 					-- Prepare the quickfix list
@@ -162,32 +163,6 @@ telescope.setup({
 					-- Optionally, open the quickfix list
 					vim.cmd("copen")
 				end,
-				["<C-r>"] = {
-					function(p_bufnr)
-						-- send results to quick fix list
-						require("telescope.actions").send_to_qflist(p_bufnr)
-						local qflist = vim.fn.getqflist()
-						local paths = {}
-						local hash = {}
-						for k in pairs(qflist) do
-							local path = vim.fn.bufname(qflist[k]["bufnr"]) -- extract path from quick fix list
-							if not hash[path] then -- add to paths table, if not already appeared
-								paths[#paths + 1] = path
-								hash[path] = true -- remember existing paths
-							end
-						end
-						-- show search scope with message
-						vim.notify("find in ...\n  " .. table.concat(paths, "\n  "))
-						-- execute live_grep_args with search scope
-						require("telescope").extensions.live_grep_args.live_grep_args({ search_dirs = paths })
-					end,
-					type = "action",
-					opts = {
-						nowait = true,
-						silent = true,
-						desc = "Live grep on results",
-					},
-				},
 			},
 		},
 		layout_config = {

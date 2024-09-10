@@ -8,20 +8,8 @@ vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_right = 10
 vim.g.neovide_padding_left = 10
 vim.g.neovide_input_ime = true
-vim.cmd([[
-  map <D-v> "+p<CR>
-  map! <D-v> <C-R>+
-  tmap <D-v> <C-R>+
-]])
 
-vim.keymap.set("n", "<C-v>", '"+P') -- Paste normal mode
-
--- Allow clipboard copy paste in neovim
-vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("!", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("t", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-
+-- vim.keymap.set("n", "<C-v>", '"+P') -- Paste normal mode
 -- vim.api.nvim_create_autocmd("QuitPre", {
 -- 	callback = function()
 -- 		local invalid_win = {}

@@ -38,7 +38,7 @@ keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
 -- keymap("n", "jk", "<Plug>(easymotion-bd-jk)", opts)
 keymap("n", "<c-v>", "<Esc>p", opts)
-keymap("c", "<C-v>", "<c-r>+", opts)
+keymap("c", "<C-v>", "<c-r>+ ", opts)
 -- Key mapping to use the custom function
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
 
@@ -157,7 +157,7 @@ if not vim.g.vscode then
 	-- keymap("x", "<C-k>", ":move '>+1<CR>gv-gv", opts)
 	-- keymap("x", "<C-i>", ":move '<-2<CR>gv-gv", opts)
 
-	-- keymap("i", "<C-v>", "<C-r>+", opts)
+	keymap("i", "<C-v>", "<Esc>p", opts)
 
 	-- keymap("n", "<C-B>", ":NvimTreeToggleNoFocus<CR>", opts)
 	-- keymap("n", "<C-B>", ":Telescope finder<CR>", opts)

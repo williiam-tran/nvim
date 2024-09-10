@@ -1,4 +1,6 @@
 return {
+	"lewis6991/gitsigns.nvim",
+	"chrisgrieser/nvim-various-textobjs",
 	{
 		"nvim-tree/nvim-tree.lua",
 		version = "*",
@@ -364,9 +366,9 @@ return {
 	{
 		"easymotion/vim-easymotion",
 		dependencies = {
-			"haya14busa/incsearch.vim",
-			"haya14busa/incsearch-easymotion.vim",
-			"haya14busa/incsearch-fuzzy.vim",
+			-- "haya14busa/incsearch.vim",
+			-- "haya14busa/incsearch-easymotion.vim",
+			-- "haya14busa/incsearch-fuzzy.vim",
 		},
 
 		priority = 1200,
@@ -410,9 +412,4 @@ return {
 	"theHamsta/nvim-dap-virtual-text",
 	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
 	"leoluz/nvim-dap-go",
-	-- "ycm-core/YouCompleteMe",
-	--  "puremourning/vimspector"
-	-- {
-	-- 	"mfussenegger/nvim-lint",
-	-- },
 }

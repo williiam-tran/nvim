@@ -20,6 +20,7 @@ local function toggle_telescope(harpoon_files)
 	end
 	require("telescope.pickers")
 		.new({}, {
+			initial_mode = "normal",
 			prompt_title = "Harpoon",
 			finder = finder(),
 			-- theme = "dropdown",
@@ -36,6 +37,14 @@ local function toggle_telescope(harpoon_files)
 			sorter = conf.generic_sorter({}),
 			attach_mappings = function(prompt_bufnr, map)
 				map("i", "<C-d>", function()
+					local state = require("telescope.actions.state")
+					local selected_entry = state.get_selected_entry()
+					local current_picker = state.get_current_picker(prompt_bufnr)
+
+					table.remove(harpoon_files.items, selected_entry.index)
+					current_picker:refresh(finder())
+				end)
+				map("n", "d", function()
 					local state = require("telescope.actions.state")
 					local selected_entry = state.get_selected_entry()
 					local current_picker = state.get_current_picker(prompt_bufnr)

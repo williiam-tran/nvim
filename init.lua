@@ -4,7 +4,6 @@ require("user.options")
 if not vim.g.vscode then
 	require("user.noice")
 	require("user.cmp")
-	-- require("user.colorscheme")
 	require("user.mason")
 	require("user.autopairs")
 	require("user.autocmds")
@@ -19,6 +18,7 @@ if not vim.g.vscode then
 	require("user.tabout")
 	require("user.go")
 	require("user.harpoon")
+	require("user.git")
 	-- require("user.remote")
 end
 
