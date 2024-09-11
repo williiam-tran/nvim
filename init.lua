@@ -1,4 +1,3 @@
-require("user.autocmds")
 require("user.lazy")
 require("user.options")
 
@@ -21,6 +20,8 @@ if not vim.g.vscode then
 	require("user.git")
 	require("user.toggleterm")
 	require("user.persisted")
+else
+	require("user.vscode")
 end
 
 if vim.g.neovide then
@@ -29,3 +30,4 @@ end
 
 require("user.keymaps")
 require("user.smoothscrolling")
+require("user.autocmds")

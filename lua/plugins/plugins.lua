@@ -34,14 +34,14 @@ return {
 	},
 	"lewis6991/gitsigns.nvim",
 	"chrisgrieser/nvim-various-textobjs",
-	-- {
-	-- 	"nvim-tree/nvim-tree.lua",
-	-- 	version = "*",
-	-- 	lazy = false,
-	-- 	dependencies = {
-	-- 		"nvim-tree/nvim-web-devicons",
-	-- 	},
-	-- },
+	{
+		"nvim-tree/nvim-tree.lua",
+		version = "*",
+		lazy = false,
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
 	{
 		"stevearc/oil.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons

@@ -16,15 +16,15 @@ if not is_windows() then
 	end, { silent = true })
 end
 
-keymap("n", "<CR>", "<Tab>", opts)
+keymap("n", "<CR>", "<CR>", opts)
 keymap("n", "<C-d>", "<Nop>", opts)
 keymap("n", "s", '<cmd>PounceReg "<cr>', opts)
 keymap("n", "<C-S-d>", "<Nop>", opts)
-keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 -- keymap("n", "<C-r>", "<Nop>", opts)
 keymap("n", "<Space>", "<Nop>", opts)
--- keymap("n", "<c-n>", "<Nop>", opts)
 keymap("i", "<C-BS>", "<C-w>", opts)
+keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+-- keymap("n", "<c-n>", "<Nop>", opts)
 -- keymap("i", "<C-h>", "<C-w>", opts)
 keymap("i", "<C-e>", "<C-o>de", opts)
 -- \"zy<cmd>PounceReg z<cr> "
@@ -35,9 +35,10 @@ keymap("v", "t", '"zy<cmd>PounceReg z<cr>', opts)
 
 keymap("n", "$", "%", opts)
 keymap("v", "$", "%", opts)
+keymap("v", "<A-k>", "<Cmd>m '<-2<CR>gv=gv", opts) -- move line down(v)
 
--- keymap("n", ";", ":", opts)
 -- keymap("n", ":", ";", opts)
+-- keymap("n", ";", ":", opts)
 
 vim.cmd([[
 nnoremap > .
@@ -66,9 +67,9 @@ keymap("n", "<c-v>", "<Esc>p", opts)
 keymap("n", "<C-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
 keymap("n", "<A-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
 keymap("t", "<Esc>", "<C-\\><C-n>", opts)
-keymap("i", "<A-n>", "<normal><c-x><c-f><cmd><Plug>(fzf-complete-path)", opts)
-keymap("v", "<A-k>", "<Cmd>m '<-2<CR>gv=gv", opts) -- move line down(v)
+
 keymap("v", "<A-j>", "<Cmd>m '>+1<CR>gv=gv", opts) -- move line up(v)
+
 -- keymap("n", "<A-k>", ":m .-2<CR>==", opts) -- move line down(n)
 -- keymap("n", "<A-j>", ":m .+1<CR>==", opts) -- move line up(n)
 vim.cmd([[
@@ -125,6 +126,17 @@ keymap("o", "a", "i", opts)
 -- Ctrl+Backspace to delete word
 keymap("i", "<C-BS>", "<C-W>", opts)
 keymap("n", "@", "*", opts)
+
+function ReplaceInQuickfix()
+	local old_word = vim.fn.expand("<cword>")
+	local new_word = vim.fn.input("Replace " .. old_word .. " with: ", old_word)
+
+	if new_word ~= "" and new_word ~= old_word then
+		vim.cmd("cdo %s/\\<" .. old_word .. "\\>/" .. new_word .. "/gc")
+	end
+end
+
+vim.api.nvim_set_keymap("n", "<C-r>", [[:lua ReplaceInQuickfix()<CR>]], { noremap = true, silent = true })
 
 if not vim.g.vscode then
 	-- jump between buffers
@@ -185,7 +197,7 @@ if not vim.g.vscode then
 	keymap(
 		"n",
 		"<A-n>",
-		"<cmd>lua require('telescope').extensions.file_browser.file_browser(require('telescope.themes').get_dropdown())<CR>",
+		"<cmd>lua require('telescope').extensions.file_browser.file_browser(require('telescope.themes').get_dropdownhello())<CR>",
 		opts
 	)
 
@@ -197,7 +209,7 @@ if not vim.g.vscode then
 	keymap("n", "<C-_>", "<Plug>(comment_toggle_linewise_current)", opts)
 	keymap("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", opts)
 
-	-- navigate between tabs of current buffer.
+	-- else between tabs of current buffer.
 	keymap("n", "<leader>1", "1gt", opts)
 	keymap("n", "<leader>2", "2gt", opts)
 	keymap("n", "<leader>3", "3gt", opts)
@@ -220,7 +232,7 @@ if not vim.g.vscode then
 	-- vim.keymap.set("c", "<C-i>", "<cmd>lua require('cmp').mapping.select_prev_item()<cr>", { silent = true })
 	-- vim.keymap.set("o", "<C-i>", "<cmd>lua require('cmp').mapping.select_prev_item()<cr>", { silent = true })
 	--
-	-- navigate up and down in dropdown list.
+	-- else up and down in dropdown list.
 	-- keymap("c", "<M-i>", "<C-p>", opts)
 	-- keymap("o", "<M-i>", "<C-p>", opts)
 	-- keymap("c", "<M-k>", "<C-n>", opts)

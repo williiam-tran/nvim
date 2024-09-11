@@ -1,23 +1,23 @@
--- vim.g.nvim_tree_respect_buf_cwd = 1
---
--- vim.api.nvim_create_user_command("NvimTreeToggleNoFocus", function()
--- 	require("nvim-tree.api").tree.toggle({ focus = false })
--- end, {})
+vim.g.nvim_tree_respect_buf_cwd = 1
 
--- require("nvim-tree").setup({
--- 	sort = {
--- 		sorter = "case_sensitive",
--- 	},
--- 	view = {
--- 		width = 30,
--- 	},
--- 	renderer = {
--- 		group_empty = true,
--- 	},
--- 	filters = {
--- 		dotfiles = true,
--- 	},
--- })
+vim.api.nvim_create_user_command("NvimTreeToggleNoFocus", function()
+	require("nvim-tree.api").tree.toggle({ focus = false })
+end, {})
+
+require("nvim-tree").setup({
+	sort = {
+		sorter = "case_sensitive",
+	},
+	view = {
+		width = 30,
+	},
+	renderer = {
+		group_empty = true,
+	},
+	filters = {
+		dotfiles = true,
+	},
+})
 
 require("oil").setup({
 	default_file_explorer = true,

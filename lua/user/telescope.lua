@@ -215,6 +215,14 @@ telescope.setup({
 		},
 		find_files = {
 			previewer = false,
+			mappings = {
+				n = {
+					["<Tab>"] = actions.select_default,
+				},
+				i = {
+					["<Tab>"] = actions.select_default,
+				},
+			},
 		},
 	},
 })
