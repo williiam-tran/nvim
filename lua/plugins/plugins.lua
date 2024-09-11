@@ -1,5 +1,11 @@
 return {
 	{
+		"olimorris/persisted.nvim",
+		lazy = false, -- make sure the plugin is always loaded at startup
+		config = true,
+	},
+	{ "akinsho/toggleterm.nvim", version = "*", config = true },
+	{
 		"rlane/pounce.nvim",
 		lazy = false,
 	},
@@ -28,24 +34,16 @@ return {
 	},
 	"lewis6991/gitsigns.nvim",
 	"chrisgrieser/nvim-various-textobjs",
-	{
-		"nvim-tree/nvim-tree.lua",
-		version = "*",
-		lazy = false,
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-		config = function()
-			require("nvim-tree").setup({})
-		end,
-	},
+	-- {
+	-- 	"nvim-tree/nvim-tree.lua",
+	-- 	version = "*",
+	-- 	lazy = false,
+	-- 	dependencies = {
+	-- 		"nvim-tree/nvim-web-devicons",
+	-- 	},
+	-- },
 	{
 		"stevearc/oil.nvim",
-		---@module 'oil'
-		---@type oil.SetupOpts
-		opts = {},
-		-- Optional dependencies
-		-- dependencies = { { "echasnovski/mini.icons", opts = {} } },
 		dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
 	},
 	-- {

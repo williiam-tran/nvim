@@ -1,8 +1,9 @@
 local telescope = require("telescope")
 local actions = require("telescope.actions")
 local fb_actions = require("telescope").extensions.file_browser.actions
-local lga_actions = require("telescope-live-grep-args.actions")
+-- local lga_actions = require("telescope-live-grep-args.actions")
 local path_actions = require("telescope_insert_path")
+-- local persisted_actions = require("telescope._extensions.persisted.actions")
 
 local function create_and_focus(prompt_bufnr)
 	local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
@@ -28,6 +29,15 @@ end
 
 telescope.setup({
 	extensions = {
+		persisted = {
+			initial_mode = "normal",
+			sorting_strategy = "ascending",
+			layout_config = {
+				height = 0.5,
+				width = 0.5,
+				prompt_position = "top",
+			},
+		},
 		live_grep_args = {
 			previewer = true,
 			auto_quoting = false, -- enable/disable auto-quoting
@@ -48,7 +58,7 @@ telescope.setup({
 			files = false,
 			theme = "ivy",
 			-- disables netrw and use telescope-file-browser in its place
-			hijack_netrw = true,
+			hijack_netrw = false,
 			mappings = {
 				["i"] = {
 					["<A-n>"] = create_and_focus,
@@ -214,3 +224,4 @@ require("telescope").load_extension("file_browser")
 require("telescope").load_extension("live_grep_args")
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("noice")
+require("telescope").load_extension("persisted")

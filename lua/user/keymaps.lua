@@ -16,6 +16,7 @@ if not is_windows() then
 	end, { silent = true })
 end
 
+keymap("n", "<CR>", "<Tab>", opts)
 keymap("n", "<C-d>", "<Nop>", opts)
 keymap("n", "s", '<cmd>PounceReg "<cr>', opts)
 keymap("n", "<C-S-d>", "<Nop>", opts)
@@ -39,8 +40,11 @@ keymap("v", "$", "%", opts)
 -- keymap("n", ":", ";", opts)
 
 vim.cmd([[
+nnoremap > .
+
 nnoremap ; :
 nnoremap : ;
+
 vnoremap ; :
 vnoremap : ;
 cnoremap <C-v> <c-r>+
@@ -56,8 +60,8 @@ keymap("n", "<c-v>", "<Esc>p", opts)
 -- Key mapping to use the custom function
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
 
-keymap("n", "<C-`>", "<cmd>term<CR>", opts)
-keymap("n", "<A-`>", "<cmd>term<CR>", opts)
+-- keymap("n", "<C-`>", "<cmd>term<CR>", opts)
+-- keymap("n", "<A-`>", "<cmd>term<CR>", opts)
 
 keymap("n", "<C-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
 keymap("n", "<A-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
@@ -149,8 +153,6 @@ if not vim.g.vscode then
 	keymap("v", ">", ">gv", opts)
 
 	-- Treesitter
-	-- keymap("n", "<leader>r", "<Cmd>Telescope live_grep<CR>", opts)
-	-- keymap("n", "<M-r>", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts)
 	keymap("n", "<A-r>", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts)
 
 	vim.keymap.set("n", "<C-S-b>", function()
@@ -160,6 +162,8 @@ if not vim.g.vscode then
 	end, opts)
 
 	keymap("n", "<A-S-p>", "<Cmd>Telescope buffers<CR>", opts)
+	keymap("n", "<leader>r", "<Cmd>SessionLoad<CR>", opts)
+	keymap("n", "<leader>l", "<Cmd>Telescope persisted<CR>", opts)
 
 	-- Visual Block --
 	-- Move text up and down
@@ -223,7 +227,7 @@ if not vim.g.vscode then
 	keymap("n", "<C-n>", "<Cmd>lua require('illuminate').goto_next_reference()<cr>", opts)
 	keymap("n", "<C-p>", "<Cmd>lua require('illuminate').goto_prev_reference()<cr>", opts)
 	keymap("n", "<Bslash>", "<Cmd>lua vim.diagnostic.goto_next()<cr>", opts)
-	keymap("n", "<|>", "<Cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
+	-- keymap("n", "<|>", "<Cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
 
 	-- save current file.
 	keymap("n", "<C-s>", "<cmd>w<CR>", opts)

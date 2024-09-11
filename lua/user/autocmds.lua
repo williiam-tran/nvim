@@ -2,20 +2,6 @@ local function augroup(name)
 	return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
 end
 
--- vim.cmd([[
--- au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=150}
--- ]])
-
--- Check if we need to reload the file when it changed
--- vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
--- 	group = augroup("checktime"),
--- 	callback = function()
--- 		if vim.o.buftype ~= "nofile" then
--- 			vim.cmd("checktime")
--- 		end
--- 	end,
--- })
-
 vim.api.nvim_set_hl(0, "Statusline", { link = "Normal" })
 vim.api.nvim_set_hl(0, "StatuslineNC", { link = "Normal" })
 -- local str = string.repeat('-', vim.api.nvim_win_get_width(0))
@@ -38,23 +24,6 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 		vim.cmd("tabnext " .. current_tab)
 	end,
 })
-
--- vim.api.nvim_create_autocmd("BufReadPost", {
--- 	group = augroup("last_loc"),
--- 	callback = function(event)
--- 		local exclude = { "gitcommit" }
--- 		local buf = event.buf
--- 		if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
--- 			return
--- 		end
--- 		vim.b[buf].lazyvim_last_loc = true
--- 		local mark = vim.api.nvim_buf_get_mark(buf, '"')
--- 		local lcount = vim.api.nvim_buf_line_count(buf)
--- 		if mark[1] > 0 and mark[1] <= lcount then
--- 			pcall(vim.api.nvim_win_set_cursor, 0, mark)
--- 		end
--- 	end,
--- })
 
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
@@ -116,10 +85,10 @@ aug END
 
 ]])
 
-vim.api.nvim_create_autocmd("BufEnter", {
-	command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
-	nested = true,
-})
+-- vim.api.nvim_create_autocmd("BufEnter", {
+-- 	command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
+-- 	nested = true,
+-- })
 
 vim.cmd([[
 augroup custom_highlight
@@ -130,3 +99,16 @@ augroup custom_highlight
 	au VimEnter * highlight PounceAcceptBest ctermfg=none ctermbg=none guifg=#9cdcfe guibg=none
 augroup END
 ]])
+
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		vim.defer_fn(function()
+			local bufinfo = vim.fn.getbufinfo({ buflisted = 1 })
+			local condition = #bufinfo == 0 or (#bufinfo == 1 and vim.fn.bufname(bufinfo[1].bufnr) == "")
+			if condition then
+				vim.cmd("SessionLoad")
+				-- print("No session file found at: " .. session_file)
+			end
+		end, 100) -- 100ms delay
+	end,
+})

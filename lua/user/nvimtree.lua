@@ -1,26 +1,23 @@
-vim.g.nvim_tree_respect_buf_cwd = 1
+-- vim.g.nvim_tree_respect_buf_cwd = 1
+--
+-- vim.api.nvim_create_user_command("NvimTreeToggleNoFocus", function()
+-- 	require("nvim-tree.api").tree.toggle({ focus = false })
+-- end, {})
 
-vim.api.nvim_create_user_command("NvimTreeToggleNoFocus", function()
-	require("nvim-tree.api").tree.toggle({ focus = false })
-end, {})
-
-require("nvim-tree").setup()
-
--- OR setup with some options
-require("nvim-tree").setup({
-	sort = {
-		sorter = "case_sensitive",
-	},
-	view = {
-		width = 30,
-	},
-	renderer = {
-		group_empty = true,
-	},
-	filters = {
-		dotfiles = true,
-	},
-})
+-- require("nvim-tree").setup({
+-- 	sort = {
+-- 		sorter = "case_sensitive",
+-- 	},
+-- 	view = {
+-- 		width = 30,
+-- 	},
+-- 	renderer = {
+-- 		group_empty = true,
+-- 	},
+-- 	filters = {
+-- 		dotfiles = true,
+-- 	},
+-- })
 
 require("oil").setup({
 	default_file_explorer = true,
@@ -44,6 +41,7 @@ require("oil").setup({
 		spell = false,
 		list = false,
 		conceallevel = 0,
+		winblend = 0,
 		-- concealcursor = "nvic",
 	},
 	-- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
@@ -79,7 +77,7 @@ require("oil").setup({
 	-- See :help oil-actions for a list of all available actions
 	keymaps = {
 		["g?"] = "actions.show_help",
-		["<CR>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
+		["<CR>"] = { "actions.select", opts = { tab = false }, desc = "Open the entry in new tab" },
 		["<C-s>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
 		["<C-h>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
 		["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
