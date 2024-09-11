@@ -1,5 +1,10 @@
 return {
 	{
+		"rmagatti/goto-preview",
+		event = "BufEnter",
+		config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
+	},
+	{
 		"olimorris/persisted.nvim",
 		lazy = false, -- make sure the plugin is always loaded at startup
 		config = true,

@@ -18,7 +18,7 @@ end
 
 keymap("n", "<CR>", "<CR>", opts)
 keymap("n", "<C-d>", "<Nop>", opts)
-keymap("n", "s", '<cmd>PounceReg "<cr>', opts)
+-- keymap("n", "s", '<cmd>PounceReg "<cr>', opts)
 keymap("n", "<C-S-d>", "<Nop>", opts)
 -- keymap("n", "<C-r>", "<Nop>", opts)
 keymap("n", "<Space>", "<Nop>", opts)
@@ -80,8 +80,8 @@ nnoremap <leader>q :bp<cr>:bd #<cr>
 ]])
 
 -- Git
-
 keymap("n", "<leader>gs", "<cmd>Neogit<CR>", opts)
+keymap("n", "<leader>gp", "<cmd>Neogit pull<CR>", opts)
 
 -- Custom command to edit a new file with pre-filled path
 -- Custom command to edit a new file with pre-filled path
@@ -178,6 +178,19 @@ if not vim.g.vscode then
 	end, opts)
 
 	keymap("n", "<A-S-p>", "<Cmd>Telescope buffers<CR>", opts)
+	vim.keymap.set("n", "s/", function()
+		require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+			sorting_strategy = "ascending",
+			layout_config = {
+				height = 0.7,
+				width = 0.7,
+				prompt_position = "top",
+			},
+			winblend = 10,
+			previewer = false,
+		}))
+	end, { desc = "[/] Fuzzily search in current buffer]" })
+
 	keymap("n", "<leader>r", "<Cmd>SessionLoad<CR>", opts)
 	keymap("n", "<leader>l", "<Cmd>Telescope persisted<CR>", opts)
 
@@ -274,7 +287,7 @@ if not vim.g.vscode then
 	keymap("n", "rn", '<cmd>lua require("renamer").rename()<cr>', opts)
 
 	keymap("n", "`", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	keymap("n", "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
 	keymap("n", "<leader>s", "<cmd>w<CR> <cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
@@ -289,6 +302,7 @@ if not vim.g.vscode then
 	keymap("n", "gi", "<cmd>lua vim.lsp.bui.implementation()<CR>", opts)
 
 	keymap("n", "ri'", "ci'<Esc>p", opts)
+	keymap("n", 'ri"', 'ci"<Esc>p', opts)
 
 	keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 else
@@ -316,7 +330,7 @@ end
 keymap("c", "<C-i>", "", opts)
 -- keymap("c", "gi", "", opts)
 
-vim.keymap.set("o", "<tab>", "<C-z>", { silent = false })
+-- vim.keymap.set("o", "<tab>", "<C-z>", { silent = false })
 
 keymap("n", "L", "g_", opts)
 
@@ -359,3 +373,6 @@ let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 let g:EasyMotion_space_jump_first = 1
 let g:EasyMotion_verbose = 0
 ]])
+
+keymap("n", "P", "<CR><C-w>p", opts)
+vim.keymap.set("n", "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true })

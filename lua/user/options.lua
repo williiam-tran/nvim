@@ -43,6 +43,7 @@ vim.o.shell = "pwsh"
 vim.o.shellcmdflag = "-command"
 vim.o.shellquote = '"'
 vim.opt.title = false
+vim.opt.pumblend = 0
 -- vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 -- vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 vim.o.shellquote = ""
@@ -58,6 +59,7 @@ set iskeyword-=-
 set iskeyword-=_
 set encoding=utf-8
 set modifiable
+set winblend=20
 highlight Comment guifg=#dbaf84
 highlight String guifg=#ec8076
 highlight Number guifg=#c0b6a9
@@ -85,6 +87,8 @@ vim.cmd([[
     hi! EasyMotionIncSearch guifg=#9cdcfe ctermfg=blue
 	silent! w
 ]])
+
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e1e1e" })
 -- Set EasyMotion highlights on ColorScheme
 -- vim.api.nvim_create_autocmd("ColorScheme", {
 -- 	pattern = "*",
