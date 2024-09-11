@@ -1,3 +1,5 @@
+-- https://github.com/ThePrimeagen/harpoon/tree/harpoon2
+
 local harpoon = require("harpoon")
 harpoon:setup({})
 
@@ -76,6 +78,18 @@ harpoon:extend({
 	end,
 })
 
+vim.keymap.set("n", "i1", function()
+	harpoon:list():select(1)
+end)
+vim.keymap.set("n", "i2", function()
+	harpoon:list():select(2)
+end)
+vim.keymap.set("n", "i3", function()
+	harpoon:list():select(3)
+end)
+vim.keymap.set("n", "i4", function()
+	harpoon:list():select(4)
+end)
 vim.keymap.set("n", "<A-e>", function()
 	toggle_telescope(harpoon:list())
 end, { desc = "Open harpoon window" })

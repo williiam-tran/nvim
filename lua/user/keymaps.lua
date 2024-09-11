@@ -78,6 +78,9 @@ nnoremap <leader>q :bp<cr>:bd #<cr>
 " inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
 ]])
 
+-- Git
+-- keymap("n", "<leader>gs", "<cmd>")
+
 -- Custom command to edit a new file with pre-filled path
 -- Custom command to edit a new file with pre-filled path
 -- vim.api.nvim_create_user_command("E", function(opts)
@@ -91,7 +94,7 @@ nnoremap <leader>q :bp<cr>:bd #<cr>
 -- Basic Navigation File
 -- keymap("n", "j", "h", opts)
 -- keymap("n", "k", "j", opts)
-keymap("n", "i", "k", opts)
+-- keymap("n", "i", "k", opts)
 -- keymap("v", "j", "h", opts)
 -- keymap("v", "k", "j", opts)
 -- keymap("x", "j", "h", opts)
