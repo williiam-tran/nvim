@@ -80,7 +80,8 @@ nnoremap <leader>q :bp<cr>:bd #<cr>
 ]])
 
 -- Git
--- keymap("n", "<leader>gs", "<cmd>")
+
+keymap("n", "<leader>gs", "<cmd>Neogit<CR>", opts)
 
 -- Custom command to edit a new file with pre-filled path
 -- Custom command to edit a new file with pre-filled path
