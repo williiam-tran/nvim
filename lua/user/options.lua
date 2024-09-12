@@ -17,7 +17,7 @@ local options = {
 	splitbelow = true, -- force all horizontal splits to go below current window
 	splitright = true, -- force all vertical splits to go to the right of current window
 	swapfile = false, -- creates a swapfile
-	termguicolors = false, -- set term gui colors (most terminals support this)
+	termguicolors = true, -- set term gui colors (most terminals support this)
 	timeoutlen = 500, -- time to wait for a mapped sequence to complete (in milliseconds)
 	undofile = true, -- enable persistent undo
 	updatetime = 5000, -- faster completion (4000ms default)
@@ -59,7 +59,7 @@ set iskeyword-=-
 set iskeyword-=_
 set encoding=utf-8
 set modifiable
-set winblend=20
+set winblend=10
 highlight Comment guifg=#dbaf84
 highlight String guifg=#ec8076
 highlight Number guifg=#c0b6a9

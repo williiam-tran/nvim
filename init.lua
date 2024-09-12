@@ -21,7 +21,7 @@ if not vim.g.vscode then
 	require("user.toggleterm")
 	require("user.persisted")
 else
-	require("user.vscode")
+	-- require("user.vscode")
 end
 
 if vim.g.neovide then

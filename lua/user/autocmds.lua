@@ -106,9 +106,33 @@ vim.api.nvim_create_autocmd("VimEnter", {
 vim.cmd([[
 augroup custom_highlight
 	au!
-	au VimEnter * highlight PounceGap cterm=none ctermfg=none ctermbg=none guifg=none guibg=none
-	au VimEnter * highlight PounceUnmatched guifg=#919191 guibg=none
-	au VimEnter * highlight PounceAccept ctermfg=none ctermbg=none guifg=#9cdcfe guibg=none
-	au VimEnter * highlight PounceAcceptBest ctermfg=none ctermbg=none guifg=#9cdcfe guibg=none
+	au VimEnter,ColorScheme * highlight PounceGap cterm=none ctermfg=none ctermbg=none guifg=none guibg=none
+	au VimEnter,ColorScheme * highlight PounceUnmatched guifg=#919191 guibg=none
+	au VimEnter,ColorScheme * highlight PounceAccept ctermfg=none ctermbg=none guifg=#9cdcfe guibg=none
+	au VimEnter,ColorScheme * highlight PounceAcceptBest ctermfg=none ctermbg=none guifg=#9cdcfe guibg=none
 augroup END
 ]])
+
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e1e1e" })
+vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "#1e1e1e" })
+
+vim.cmd([[
+augroup custom_highlight
+    autocmd!
+    autocmd VimEnter,User VeryLast lua vim.defer_fn(function() SetCustomHighlights() end, 100)
+augroup END
+]])
+
+function SetCustomHighlights()
+	vim.api.nvim_set_hl(0, "PounceGap", { fg = "NONE", bg = "NONE" })
+	vim.api.nvim_set_hl(0, "PounceUnmatched", { fg = "#919191", bg = "NONE" })
+	vim.api.nvim_set_hl(0, "PounceAccept", { fg = "#9cdcfe", bg = "NONE" })
+	vim.api.nvim_set_hl(0, "PounceAcceptBest", { fg = "#9cdcfe", bg = "NONE" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e1e1e" })
+	vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "#1e1e1e" })
+end
+
+-- At the end of your init.lua or after all other configurations
+vim.defer_fn(function()
+	vim.cmd("doautocmd User VeryLast")
+end, 100)

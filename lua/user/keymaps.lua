@@ -64,8 +64,10 @@ keymap("n", "<c-v>", "<Esc>p", opts)
 -- keymap("n", "<C-`>", "<cmd>term<CR>", opts)
 -- keymap("n", "<A-`>", "<cmd>term<CR>", opts)
 
-keymap("n", "<C-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
-keymap("n", "<A-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
+keymap("n", "<C-S-e>", "<cmd>lua MiniFiles.open()<CR>", opts)
+keymap("n", "<A-S-e>", "<cmd>lua require('oil').toggle_float()<CR>", opts)
+-- keymap("n", "<A-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
+keymap("n", "<A-b>", "<cmd>NvimTreeFindFileToggle<CR>", opts)
 keymap("t", "<Esc>", "<C-\\><C-n>", opts)
 
 keymap("v", "<A-j>", "<Cmd>m '>+1<CR>gv=gv", opts) -- move line up(v)
@@ -136,6 +138,13 @@ function ReplaceInQuickfix()
 		vim.cmd("cdo %s/\\<" .. old_word .. "\\>/" .. new_word .. "/gc")
 	end
 end
+
+-- function OilLeft()
+-- 	vim.cmd("vsplit | wincmd l")
+-- 	require("oil").toggle_float()
+-- end
+--
+-- keymap("n", "<Leader>f", [[:lua OilLeft()<CR>]], opts)
 
 vim.api.nvim_set_keymap("n", "<C-r>", [[:lua ReplaceInQuickfix()<CR>]], { noremap = true, silent = true })
 

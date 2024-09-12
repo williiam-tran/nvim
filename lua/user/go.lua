@@ -49,10 +49,10 @@ end
 
 -- vim.keymap.set("n", "<C-S-d>", ui.toggle())
 -- vim.keymap.set("n", "<c-b>", ui.toggle())
-vim.keymap.set("n", "<C-b>", ":lua require('dapui').toggle()<CR>")
+vim.keymap.set("n", "<A-S-d>", "<Cmd>lua require('dapui').toggle()<CR>")
 
-vim.keymap.set("n", "<F5>", ":lua require('dap').continue()<CR>")
-vim.keymap.set("n", "<leader>d", ":lua require('dap').continue()<CR>")
+vim.keymap.set("n", "<F5>", "<Cmd>lua require('dap').continue()<CR>")
+vim.keymap.set("n", "<leader>d", "<Cmd>lua require('dap').continue()<CR>")
 
 -- Conditional mappings
 local function set_debug_mappings()
