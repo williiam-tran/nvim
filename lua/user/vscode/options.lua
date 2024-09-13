@@ -1,0 +1,27 @@
+vim.cmd([[
+hi Comment guifg=#dbaf84
+hi String guifg=#efa29b
+hi! link Sneak Search
+hi Search guibg=#658da1
+hi! illuminatedWordText cterm=underline gui=underline			
+let g:sneak#label = 1
+hi IncSearch guibg=#658da1
+highlight NvimDapVirtualText guibg=#232323 guifg=#efa29b
+let g:EasyMotion_enter_jump_first = 1
+let g:EasyMotion_space_jump_first = 1
+let g:EasyMotion_verbose = 0
+set cmdheight=3
+]])
+
+vim.api.nvim_set_hl(0, "PounceUnmatched", { link = "None" })
+vim.api.nvim_set_hl(0, "PounceMatch", { fg = "NONE", bg = "#47596d" })
+vim.api.nvim_set_hl(0, "PounceGap", { fg = "NONE", bg = "NONE" })
+vim.api.nvim_set_hl(0, "PounceAccept", { fg = "NONE", bg = "NONE" })
+vim.api.nvim_set_hl(0, "PounceAcceptBest", { fg = "#ebffc5", bg = "#1e1e1e" })
+
+require("pounce").setup({
+	accept_keys = "IJKLSFUOAD",
+	accept_best_key = "<Tab>",
+	multi_window = true,
+	debug = false,
+})

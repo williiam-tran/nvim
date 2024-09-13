@@ -73,27 +73,17 @@ require("dressing").setup({
 		min_width = { 20, 0.2 },
 
 		buf_options = {},
-		-- win_options = {
-		-- 	-- Disable line wrapping
-		-- 	wrap = true,
-		-- 	-- Indicator for when text exceeds window
-		-- 	list = true,
-		-- 	listchars = "precedes:…,extends:…",
-		-- 	-- Increase this for more context when text scrolls off the window
-		-- 	sidescrolloff = 0,
-		-- },
 
-		-- Set to `false` to disable
 		mappings = {
 			n = {
-				["<Esc>"] = "Close",
+				["q"] = "Close",
 				["<CR>"] = "Confirm",
 			},
 			i = {
 				["<C-c>"] = "Close",
 				["<CR>"] = "Confirm",
-				["<Up>"] = "HistoryPrev",
-				["<Down>"] = "HistoryNext",
+				["<c-k>"] = "HistoryPrev",
+				["<c-j>"] = "HistoryNext",
 			},
 		},
 
@@ -184,10 +174,23 @@ require("dressing").setup({
 			min_height = { 10, 0.2 },
 
 			-- Set to `false` to disable
+
 			mappings = {
-				["<Esc>"] = "Close",
-				["<C-c>"] = "Close",
-				["<CR>"] = "Confirm",
+				n = {
+					["q"] = "Close",
+					["<CR>"] = "Confirm",
+					["k"] = "HistoryPrev",
+					["j"] = "HistoryNext",
+				},
+				i = {
+					["<C-c>"] = "Close",
+					["<CR>"] = "Confirm",
+					["<c-k>"] = "HistoryPrev",
+					["<c-j>"] = "HistoryNext",
+				},
+				-- ["<Esc>"] = "Close",
+				-- ["<C-c>"] = "Close",
+				-- ["<CR>"] = "Confirm",
 			},
 
 			override = function(conf)
@@ -201,3 +204,17 @@ require("dressing").setup({
 		format_item_override = {},
 	},
 })
+
+vim.ui.select = require("dressing").select
+
+-- Enhance command-line completion
+vim.cmd([[
+  function! FzfCompleteCommands(arglead, cmdline, cursorpos)
+    let l:cmds = getcompletion(a:arglead, 'command')
+    return join(l:cmds, "\n")
+  endfunction
+
+  cnoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-z>\<CR>"
+  set wildcharm=<C-z>
+  cmap <expr> <Tab> "\<C-r>=FzfCompleteCommands('" . escape(getcmdline(), "'") . "', getcmdline(), getcmdpos())\<CR>\<C-z>"
+]])

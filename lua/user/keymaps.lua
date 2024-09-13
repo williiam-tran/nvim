@@ -30,10 +30,18 @@ keymap("i", "<C-e>", "<C-o>de", opts)
 -- \"zy<cmd>PounceReg z<cr> "
 -- <cmd>PounceExpand <cword><cr> "
 keymap("n", "m", "<cmd>PounceExpand <cword><cr>", opts)
-keymap("n", "t", "<cmd>Pounce<CR>", opts)
-keymap("v", "t", '"zy<cmd>PounceReg z<cr>', opts)
+
+if not vim.g.vscode then
+	keymap("n", "t", "<cmd>Pounce<CR>", opts)
+	keymap("v", "t", '"zy<cmd>PounceReg z<cr>', opts)
+else
+	keymap("n", "t", "<cmd>Pounce<CR>", opts)
+	-- keymap("n", "t", "<cmd>Pounce<CR>", opts)
+	-- keymap("v", "t", '"zy<cmd>PounceReg z<cr>', opts)
+end
 
 keymap("n", "$", "%", opts)
+keymap("i", "jk", "<esc>", opts)
 keymap("v", "$", "%", opts)
 keymap("v", "<A-k>", "<Cmd>m '<-2<CR>gv=gv", opts) -- move line down(v)
 
@@ -315,17 +323,22 @@ if not vim.g.vscode then
 
 	keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 else
-	keymap("n", "<C-i>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusUpGroup')<CR>", opts)
-	keymap("n", "<C-k>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusDownGroup')<CR>", opts)
+	-- harpoon
+	keymap("n", "<leader>a", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
+	keymap("n", "<A-a>", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
+	-- keymap("n", "<A-e>", "<cmd>lua require('vscode').action('vscode-harpoon.editorQuickPick')<CR>", opts)
+	keymap("n", "<A-e>", "<cmd>lua require('vscode').action('vscode-harpoon.editEditors')<CR>", opts)
+	keymap("n", "i1", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor1')<CR>", opts)
+	keymap("n", "i2", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor2')<CR>", opts)
+	keymap("n", "i3", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor3')<CR>", opts)
+	keymap("n", "i4", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor4')<CR>", opts)
+	keymap("n", "i5", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor5')<CR>", opts)
+	keymap("n", "i6", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor6')<CR>", opts)
+	keymap("n", "i7", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor7')<CR>", opts)
 
-	keymap("n", "<c-l>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusRightGroup')<CR>", opts)
-	keymap("n", "<A-i>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusUpGroup')<CR>", opts)
-	keymap("n", "<A-k>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusDownGroup')<CR>", opts)
-	keymap("n", "<A-l>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusRightGroup')<CR>", opts)
-	keymap("n", "<c-j>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusLeftGroup')<CR>", opts)
-	keymap("n", "<A-j>", "<cmd>lua require('vscode-neovim').action('workbench.action.focusLeftGroup')<CR>", opts)
 	keymap("n", "<leader>d", "<cmd>lua require('vscode-neovim').action('workbench.action.debug.start')<CR>", opts)
 	keymap("n", "<leader>s", "<cmd>lua require('vscode-neovim').action('workbench.action.debug.stop')<CR>", opts)
+
 	keymap("n", "dp", "<cmd>lua require('vscode-neovim').action('editor.debug.action.toggleBreakpoint')<CR>", opts)
 	keymap("n", "gd", "<cmd>lua require('vscode-neovim').action('editor.action.revealDefinition')<CR>", opts)
 	keymap("n", "gD", "<cmd>lua require('vscode-neovim').action('editor.action.revealDeclaration')<CR>", opts)

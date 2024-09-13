@@ -37,6 +37,8 @@ local options = {
 	laststatus = 0,
 }
 
+vim.g.netrw_ssh_cmd = "ssh -X" -- Enable X11 forwarding for better performance
+vim.g.netrw_scp_cmd = "scp -q"
 vim.opt.shortmess:append("aAcCFIoOstTWqixm")
 vim.opt.shadafile = "NONE"
 vim.o.shell = "pwsh"
@@ -88,7 +90,6 @@ vim.cmd([[
 	silent! w
 ]])
 
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e1e1e" })
 -- Set EasyMotion highlights on ColorScheme
 -- vim.api.nvim_create_autocmd("ColorScheme", {
 -- 	pattern = "*",
@@ -98,3 +99,10 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e1e1e" })
 -- 		vim.api.nvim_set_hl(0, "EasyMotionIncSearch", { guifg = "#9cdcfe", ctermfg = "blue" })
 -- 	end,
 -- })
+
+require("pounce").setup({
+	accept_keys = "SDJFGKLEUIO",
+	accept_best_key = "<Tab>",
+	multi_window = true,
+	debug = false,
+})

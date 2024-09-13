@@ -85,11 +85,6 @@ aug END
 
 ]])
 
--- vim.api.nvim_create_autocmd("BufEnter", {
--- 	command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
--- 	nested = true,
--- })
-
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		vim.defer_fn(function()
@@ -97,7 +92,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			local condition = #bufinfo == 0 or (#bufinfo == 1 and vim.fn.bufname(bufinfo[1].bufnr) == "")
 			if condition then
 				vim.cmd("SessionLoad")
-				-- print("No session file found at: " .. session_file)
 			end
 		end, 100) -- 100ms delay
 	end,
@@ -106,20 +100,18 @@ vim.api.nvim_create_autocmd("VimEnter", {
 vim.cmd([[
 augroup custom_highlight
 	au!
-	au VimEnter,ColorScheme * highlight PounceGap cterm=none ctermfg=none ctermbg=none guifg=none guibg=none
-	au VimEnter,ColorScheme * highlight PounceUnmatched guifg=#919191 guibg=none
-	au VimEnter,ColorScheme * highlight PounceAccept ctermfg=none ctermbg=none guifg=#9cdcfe guibg=none
-	au VimEnter,ColorScheme * highlight PounceAcceptBest ctermfg=none ctermbg=none guifg=#9cdcfe guibg=none
+	au VimEnter * highlight PounceGap cterm=none ctermfg=none ctermbg=none guifg=none guibg=none
+	au VimEnter * highlight PounceUnmatched guifg=#919191 guibg=none
+	au VimEnter * highlight PounceAccept ctermfg=none ctermbg=none guifg=#9cdcfe guibg=none
+	au VimEnter * highlight PounceAcceptBest ctermfg=none ctermbg=none guifg=#9cdcfe guibg=none
 augroup END
 ]])
 
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e1e1e" })
-vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "#1e1e1e" })
-
 vim.cmd([[
-augroup custom_highlight
+augroup custom_highlight_2
     autocmd!
     autocmd VimEnter,User VeryLast lua vim.defer_fn(function() SetCustomHighlights() end, 100)
+	autocmd BufNewFile * startinsert
 augroup END
 ]])
 

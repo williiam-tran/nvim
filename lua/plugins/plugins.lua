@@ -1,4 +1,5 @@
 return {
+	"gelguy/wilder.nvim",
 	{
 		"echasnovski/mini.files",
 		version = "*",
@@ -407,12 +408,12 @@ return {
 	-- "unblevable/quick-scope", -- highlight the first letter of the word you are searching for
 	"tpope/vim-repeat",
 	"karb94/neoscroll.nvim",
-	{
-		"ggandor/leap.nvim",
-		config = function()
-			require("leap").create_default_mappings()
-		end,
-	},
+	-- {
+	-- 	"ggandor/leap.nvim",
+	-- 	config = function()
+	-- 		require("leap").create_default_mappings()
+	-- 	end,
+	-- },
 
 	-- tab out of parenthesis
 	"abecodes/tabout.nvim",
