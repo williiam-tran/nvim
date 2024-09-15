@@ -19,11 +19,8 @@ if not vim.g.vscode then
 	require("user.toggleterm")
 	require("user.persisted")
 	require("user.smoothscrolling")
-	require("user.autocmds")
 	require("user.illuminate")
 	require("user.pounce")
-	require("user.codecompanion")
-	-- require("user.legendary")
 else
 	require("user.vscode.options")
 	require("user.vscode.smoothscrolling")
