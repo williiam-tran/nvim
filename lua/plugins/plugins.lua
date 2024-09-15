@@ -1,4 +1,59 @@
 return {
+	{
+		"zbirenbaum/copilot-cmp",
+		config = function()
+			require("copilot_cmp").setup({
+				-- event = { "InsertEnter", "LspAttach" },
+				-- fix_pairs = true,
+			})
+		end,
+		event = { "InsertEnter", "CmdlineEnter" },
+		lazy = false,
+	},
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot", -- Load on command
+		event = "InsertEnter", -- Load when entering insert mode
+		config = function()
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
+		end,
+	},
+	{
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"hrsh7th/nvim-cmp", -- Optional: For using slash commands and variables in the chat buffer
+			{
+				"stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
+				opts = {},
+			},
+			"nvim-telescope/telescope.nvim", -- Optional: For using slash commands
+		},
+		config = true,
+	},
+	-- {
+	-- 	"mrjones2014/legendary.nvim",
+	-- 	priority = 10000,
+	-- 	lazy = false,
+	-- },
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		keys = {
+			{
+				"s",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").treesitter()
+				end,
+				desc = "Flash Treesitter",
+			},
+		},
+	},
 	"gelguy/wilder.nvim",
 	{
 		"echasnovski/mini.files",
@@ -183,8 +238,7 @@ return {
 	-- "nathom/filetype.nvim",
 	"kyazdani42/nvim-web-devicons",
 	"BurntSushi/ripgrep",
-	"ahmedkhalf/project.nvim",
-	"lewis6991/impatient.nvim",
+	-- "ahmedkhalf/project.nvim",
 	{
 		"goolord/alpha-nvim",
 		-- dependencies = { 'echasnovski/mini.icons' },
@@ -371,11 +425,6 @@ return {
 	-- "vim-airline/vim-airline-themes",
 
 	"ryanoasis/vim-devicons",
-
-	-- {
-	-- 	"github/copilot.vim",
-	-- 	branch = "release",
-	-- },
 
 	{
 		"tpope/vim-surround",

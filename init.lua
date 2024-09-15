@@ -22,8 +22,9 @@ if not vim.g.vscode then
 	require("user.autocmds")
 	require("user.illuminate")
 	require("user.pounce")
+	require("user.codecompanion")
+	-- require("user.legendary")
 else
-	vim.opt.cmdheight = 2
 	require("user.vscode.options")
 	require("user.vscode.smoothscrolling")
 end

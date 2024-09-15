@@ -111,7 +111,7 @@ telescope.setup({
 	},
 	defaults = {
 		initial_mode = "insert",
-		file_ignore_patterns = { "node_modules" },
+		file_ignore_patterns = { "node_modules", ".gitignore", ".ignore", ".git" },
 		-- fzf = {
 		-- 	vimgrep_arguments = {
 		-- 		"rg",
@@ -120,16 +120,6 @@ telescope.setup({
 		-- 		"--with-filename",
 		-- 		"--smart-case",
 		-- 	},
-		-- },
-		-- vimgrep_arguments = {
-		-- 	"rg",
-		-- 	"--color=never",
-		-- 	"--no-heading",
-		-- 	"--with-filename",
-		-- 	-- "--line-number",
-		-- 	-- "--column",
-		-- 	"--smart-case",
-		-- 	-- "--trim", -- add this value
 		-- },
 
 		mappings = {
@@ -186,21 +176,25 @@ telescope.setup({
 		},
 		layout_config = {
 			horizontal = {
-				preview_cutoff = 1,
+				width = 0.8,
+				height = 0.8,
+				preview_cutoff = 20,
 				width_padding = 0.04,
 				height_padding = 0.01,
-				preview_width = 0.6,
+				preview_width = 0.8,
+				preview_height = 0.8,
 				prompt_position = "top",
 			},
 			vertical = {
+				preview_cutoff = 20,
 				width_padding = 0.05,
-				height_padding = 1,
-				preview_height = 0.5,
+				width = 0.8,
+				height = 0.8,
+				preview_height = 0.8,
 			},
 		},
 	},
 	pickers = {
-		previewer = false,
 		file_browser = {
 			previewer = false,
 		},
@@ -223,7 +217,12 @@ telescope.setup({
 			initial_mode = "normal",
 		},
 		find_files = {
-			previewer = false,
+			layout_config = {
+				height = 0.8,
+				width = 0.8,
+				prompt_position = "top",
+			},
+			previewer = true,
 			mappings = {
 				n = {
 					["<Tab>"] = actions.select_default,
@@ -238,7 +237,7 @@ telescope.setup({
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local conf = require("telescope.config").values
-local actions = require("telescope.actions")
+actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
 vim.keymap.set("n", "gl", function()
@@ -296,25 +295,4 @@ require("telescope").load_extension("ui-select")
 require("telescope").load_extension("noice")
 require("telescope").load_extension("persisted")
 
-require("goto-preview").setup({
-	-- width = 120, -- Width of the floating window
-	-- height = 15, -- Height of the floating window
-	-- border = { "↖", "─", "┐", "│", "┘", "─", "└", "│" }, -- Border characters of the floating window
-	-- default_mappings = false, -- Bind default mappings
-	-- debug = false, -- Print debug information
-	-- opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
-	-- resizing_mappings = false, -- Binds arrow keys to resizing the floating window.
-	-- post_open_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
-	-- post_close_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
-	-- references = { -- Configure the telescope UI for slowing the references cycling window.
-	-- 	telescope = require("telescope.themes").get_dropdown({ hide_preview = false }),
-	-- },
-	-- -- These two configs can also be passed down to the goto-preview definition and implementation calls for one off "peak" functionality.
-	-- focus_on_open = true, -- Focus the floating window when opening it.
-	-- dismiss_on_move = false, -- Dismiss the floating window when moving the cursor.
-	-- force_close = true, -- passed into vim.api.nvim_win_close's second argument. See :h nvim_win_close
-	-- bufhidden = "wipe", -- the bufhidden option to set on the floating window. See :h bufhidden
-	-- stack_floating_preview_windows = true, -- Whether to nest floating windows
-	-- preview_window_title = { enable = true, position = "left" }, -- Whether to set the preview window title as the filename
-	-- zindex = 1, -- Starting zindex for the stack of floating windows
-})
+require("goto-preview").setup({})

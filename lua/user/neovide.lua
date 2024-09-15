@@ -9,7 +9,15 @@ vim.g.neovide_padding_right = 10
 vim.g.neovide_padding_left = 10
 vim.g.neovide_input_ime = true
 
--- vim.keymap.set("n", "<C-v>", '"+P') -- Paste normal mode
+vim.api.nvim_create_user_command("Fullscreen", function()
+	-- Toggle the fullscreen setting in Lua directly
+	if vim.g.neovide_fullscreen == nil then
+		vim.g.neovide_fullscreen = false
+	end
+	vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
+end, {})
+
+vim.keymap.set("n", "fs", "<cmd>Fullscreen<CR>") -- Paste normal mode
 -- vim.api.nvim_create_autocmd("QuitPre", {
 -- 	callback = function()
 -- 		local invalid_win = {}

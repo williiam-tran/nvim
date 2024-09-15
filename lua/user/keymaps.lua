@@ -17,8 +17,8 @@ if not is_windows() then
 end
 
 keymap("n", "<CR>", "<CR>", opts)
+keymap("n", "i", "<Nop>", opts)
 keymap("n", "<C-d>", "<Nop>", opts)
--- keymap("n", "s", '<cmd>PounceReg "<cr>', opts)
 keymap("n", "<C-S-d>", "<Nop>", opts)
 -- keymap("n", "<C-r>", "<Nop>", opts)
 keymap("n", "<Space>", "<Nop>", opts)
@@ -42,6 +42,7 @@ end
 
 keymap("n", "$", "%", opts)
 keymap("i", "jk", "<esc>", opts)
+keymap("i", "kj", "<esc>", opts)
 keymap("v", "$", "%", opts)
 keymap("v", "<A-k>", "<Cmd>m '<-2<CR>gv=gv", opts) -- move line down(v)
 
@@ -90,8 +91,8 @@ nnoremap <leader>q :bp<cr>:bd #<cr>
 ]])
 
 -- Git
-keymap("n", "<leader>gs", "<cmd>Neogit<CR>", opts)
-keymap("n", "<leader>gp", "<cmd>Neogit pull<CR>", opts)
+keymap("n", "gs", "<cmd>Neogit<CR>", opts)
+keymap("n", "gp", "<cmd>Neogit pull<CR>", opts)
 
 -- Custom command to edit a new file with pre-filled path
 -- Custom command to edit a new file with pre-filled path
@@ -165,7 +166,7 @@ if not vim.g.vscode then
 	keymap("n", "<C-l>", "<Esc><C-W>l", opts)
 	keymap("n", "<C-h>", "<Esc><C-W>h", opts)
 	keymap("n", "<C-k>", "<Esc><C-W>k", opts)
-	keymap("n", "<C-j>", "<Esc><C-W>j", opts)
+	-- keymap("n", "<C-j>", "<Esc><C-W>j", opts)
 
 	keymap("v", "<C-c>", "y", opts)
 	keymap("n", "<C-z>", "<cmd>red<CR>", opts)
@@ -175,10 +176,10 @@ if not vim.g.vscode then
 	keymap("n", "Q", "<cmd>quitall<CR>", opts)
 	keymap("n", "<C-A>", "ggVG", opts)
 
-	-- keymap("n", "<M-i>", ":resize -2<CR>", opts)
-	-- keymap("n", "<M-k>", ":resize +2<CR>", opts)
-	-- keymap("n", "<M-j>", ":vertical resize -2<CR>", opts)
-	-- keymap("n", "<M-l>", ":vertical resize +2<CR>", opts)
+	-- keymap("n", "<M-h>", ":resize -2<CR>", opts)
+	-- keymap("n", "<M-l>", ":resize +2<CR>", opts)
+	keymap("n", "<C-S-h>", ":vertical resize -2<CR>", opts)
+	keymap("n", "<C-S-l>", ":vertical resize +2<CR>", opts)
 
 	-- Visual --
 	-- Stay in indent mode
@@ -282,18 +283,19 @@ if not vim.g.vscode then
 	keymap(
 		"i",
 		"<A-p>",
-		'<cmd>lua require("telescope.builtin").find_files(require"telescope.themes".get_dropdown({previewer=false}))<CR>',
+		'<cmd>lua require("telescope.builtin").find_files(require"telescope.themes".get_dropdown({previewer=true}))<CR>',
 		opts
 	)
 	keymap(
 		"n",
 		"<A-p>",
-		'<cmd>lua require("telescope.builtin").find_files(require"telescope.themes".get_dropdown({previewer=false}))<CR>',
+		'<cmd>lua require("telescope.builtin").find_files(require"telescope.themes".get_dropdown({previewer=true}))<CR>',
 		opts
 	)
 
 	-- Lazy
 	keymap("n", "<C-x>", "<cmd>Lazy<cr>", opts)
+	keymap("n", "rl", "<cmd>luafile %<cr>", opts)
 
 	-- Debugger
 	keymap("n", "dp", "<cmd>GoBreakToggle<CR>", opts)
@@ -397,4 +399,4 @@ let g:EasyMotion_verbose = 0
 ]])
 
 keymap("n", "P", "<CR><C-w>p", opts)
-vim.keymap.set("n", "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true })
+-- vim.keymap.set("n", "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true })
