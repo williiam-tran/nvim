@@ -78,10 +78,10 @@ autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTa
 "     autocmd!
 "     autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
 " augroup END
-aug QFClose
-  au!
-  au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
-aug END
+augroup QFClose
+  autocmd!
+  autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix" | if getqflist({'size': 0}).size == 0 | quit | else | cclose | endif | endif
+augroup END
 
 ]])
 

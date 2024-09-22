@@ -60,7 +60,7 @@ vnoremap : ;
 cnoremap <C-v> <c-r>+
 ]])
 
-vim.keymap.set("v", "<C-r>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "change selection" })
+-- vim.keymap.set("v", "<C-r>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "change selection" })
 
 keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
@@ -75,8 +75,9 @@ keymap("n", "<c-v>", "<Esc>p", opts)
 
 keymap("n", "<C-S-e>", "<cmd>lua MiniFiles.open()<CR>", opts)
 keymap("n", "<A-S-e>", "<cmd>lua require('oil').toggle_float()<CR>", opts)
--- keymap("n", "<A-S-e>", "<cmd>NvimTreeToggleNoFocus<CR>", opts)
+-- keymap("n", "<A-S-e>", "<cmd>NvimTreeToggleFindFile<CR>", opts)
 keymap("n", "<A-b>", "<cmd>NvimTreeFindFileToggle<CR>", opts)
+keymap("n", "<C-b>", "<cmd>NvimTreeFindFileToggle<CR>", opts)
 keymap("t", "<Esc>", "<C-\\><C-n>", opts)
 
 keymap("v", "<A-j>", "<Cmd>m '>+1<CR>gv=gv", opts) -- move line up(v)
@@ -133,29 +134,76 @@ keymap("n", "<M-U>", "<C-O>", opts)
 keymap("n", "<M-O>", "<C-I>", opts)
 keymap("n", "<C-U>", "<C-O>", opts)
 keymap("n", "<C-O>", "<C-I>", opts)
-keymap("o", "a", "i", opts)
+-- keymap("o", "a", "i", opts)
+keymap("o", "i", "s", { noremap = false })
 
 -- Ctrl+Backspace to delete word
 keymap("i", "<C-BS>", "<C-W>", opts)
 keymap("n", "@", "*", opts)
 
-function ReplaceInQuickfix()
-	local old_word = vim.fn.expand("<cword>")
-	local new_word = vim.fn.input("Replace " .. old_word .. " with: ", old_word)
+local function get_visual_selection()
+	local s_start = vim.fn.getpos("'<")
+	local s_end = vim.fn.getpos("'>")
+	local n_lines = math.abs(s_end[2] - s_start[2]) + 1
+	local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+	lines[1] = string.sub(lines[1], s_start[3], -1)
+	if n_lines == 1 then
+		lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
+	else
+		lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
+	end
+	return table.concat(lines, "\n")
+end
 
-	if new_word ~= "" and new_word ~= old_word then
-		vim.cmd("cdo %s/\\<" .. old_word .. "\\>/" .. new_word .. "/gc")
+function ReplaceInQuickfixVisual()
+	vim.cmd("normal! gv") -- Reselect the last visual selection
+	ReplaceInQuickfix()
+end
+
+function ReplaceInQuickfix()
+	-- Check if the quickfix list is empty
+	if vim.fn.getqflist({ size = 0 }).size == 0 then
+		print("Quickfix list is empty")
+		return
+	end
+
+	local old_text
+
+	-- Check if there's a visual selection
+	if vim.fn.mode() == "n" then
+		-- Normal mode: get word under cursor
+		old_text = vim.fn.expand("<cword>")
+	else
+		-- Visual mode: get selected text
+		old_text = get_visual_selection()
+	end
+
+	old_text = old_text:gsub("\n", " "):gsub("%s+", " "):gsub("^%s*(.-)%s*$", "%1") -- Replace newlines with spaces, collapse multiple spaces, and trim
+
+	local new_text = vim.fn.input("Replace " .. old_text .. " with: ", old_text)
+
+	if new_text ~= "" and new_text ~= old_text then
+		-- Use pcall to catch any errors during execution
+		local success, error_msg = pcall(function()
+			-- Escape special characters for Vim's regex
+			local escaped_old_text = old_text:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "\\%1")
+			-- Use word boundaries only if it's a single word
+			local pattern = old_text:find("%s") and escaped_old_text or "\\<" .. escaped_old_text .. "\\>"
+			vim.cmd(string.format("cdo %%s/%s/%s/gc | update", pattern, vim.fn.escape(new_text, "/\\")))
+		end)
+
+		if not success then
+			print("Error occurred: " .. error_msg)
+		else
+			print("Replacement complete. Files have been updated.")
+		end
 	end
 end
 
--- function OilLeft()
--- 	vim.cmd("vsplit | wincmd l")
--- 	require("oil").toggle_float()
--- end
---
--- keymap("n", "<Leader>f", [[:lua OilLeft()<CR>]], opts)
+keymap("n", ":", "<cmd>Telescope commands<CR>", opts)
 
 vim.api.nvim_set_keymap("n", "<C-r>", [[:lua ReplaceInQuickfix()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<C-r>", [[:lua ReplaceInQuickfixVisual()<CR>]], { noremap = true, silent = true })
 
 if not vim.g.vscode then
 	-- jump between buffers
@@ -187,7 +235,7 @@ if not vim.g.vscode then
 	keymap("v", ">", ">gv", opts)
 
 	-- Treesitter
-	keymap("n", "<A-r>", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", opts)
+	keymap("n", "<A-r>", "<cmd>Telescope live_grep<CR>", opts)
 
 	vim.keymap.set("n", "<C-S-b>", function()
 		require("telescope.builtin").buffers({
@@ -241,7 +289,7 @@ if not vim.g.vscode then
 	keymap("n", "<C-_>", "<Plug>(comment_toggle_linewise_current)", opts)
 	keymap("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", opts)
 
-	-- else between tabs of current buffer.
+	-- What next? between tabs of current buffer.
 	keymap("n", "<leader>1", "1gt", opts)
 	keymap("n", "<leader>2", "2gt", opts)
 	keymap("n", "<leader>3", "3gt", opts)
@@ -264,7 +312,7 @@ if not vim.g.vscode then
 	-- vim.keymap.set("c", "<C-i>", "<cmd>lua require('cmp').mapping.select_prev_item()<cr>", { silent = true })
 	-- vim.keymap.set("o", "<C-i>", "<cmd>lua require('cmp').mapping.select_prev_item()<cr>", { silent = true })
 	--
-	-- else up and down in dropdown list.
+	-- What next? now? up and down in dropdown list.
 	-- keymap("c", "<M-i>", "<C-p>", opts)
 	-- keymap("o", "<M-i>", "<C-p>", opts)
 	-- keymap("c", "<M-k>", "<C-n>", opts)

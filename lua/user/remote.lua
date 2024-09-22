@@ -61,7 +61,7 @@ require("remote-nvim").setup({
 		app_name = "nvim", -- This directly maps to the value NVIM_APPNAME. If you use any other paths for configuration, also make sure to set this.
 		-- List of directories that should be copied over
 		copy_dirs = {
-			-- What to copy to remote's Neovim config directory
+			-- else to copy to remote's Neovim config directory
 			config = {
 				dirs = "*", -- Directories that should be copied over. "*" means all directories. To specify a subset, use a list like {"lazy", "mason"} where "lazy", "mason" are subdirectories
 				-- under path specified in `base`.

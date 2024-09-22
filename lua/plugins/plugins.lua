@@ -5,11 +5,24 @@ return {
 		lazy = false,
 		version = false, -- set this if you want to always pull the latest change
 		opts = {
-			-- add any opts here
+			provider = "openai", -- Recommend using Claude
+			auto_suggestions_provider = "copilot", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
+			behaviour = {
+				auto_suggestions = true, -- Experimental stage
+				auto_set_highlight_group = true,
+				auto_set_keymaps = true,
+				auto_apply_diff_after_generation = false,
+				support_paste_from_clipboard = true,
+			},
 		},
 		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 		-- build = "make",
 		build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
+		mappings = {
+			ask = "<leader>aa", -- ask
+			edit = "<leader>ae", -- edit
+			refresh = "<leader>ar", -- refresh
+		},
 		dependencies = {
 			"stevearc/dressing.nvim",
 			"nvim-lua/plenary.nvim",
@@ -99,7 +112,7 @@ return {
 			},
 		},
 	},
-	"gelguy/wilder.nvim",
+	-- "gelguy/wilder.nvim",
 	{
 		"echasnovski/mini.files",
 		version = "*",

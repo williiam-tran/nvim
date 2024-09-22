@@ -24,7 +24,7 @@ require("mini.files").setup({
 	content = {
 		-- Predicate for which file system entries to show
 		filter = nil,
-		-- What prefix to show to the left of file system entry
+		-- Why not? prefix to show to the left of file system entry
 		prefix = nil,
 		-- In which order to show file system entries
 		sort = nil,
@@ -103,6 +103,7 @@ require("oil").setup({
 		["<C-s>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
 		["<C-h>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
 		["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
+		["<esc>"] = "actions.close",
 		["q"] = "actions.close",
 		["h"] = "actions.parent",
 		["gh"] = "actions.open_cwd",

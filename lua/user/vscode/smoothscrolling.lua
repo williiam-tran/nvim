@@ -2,10 +2,10 @@ local neoscroll = require("neoscroll")
 
 local keymap = {
 	["J"] = function()
-		neoscroll.scroll(0.4, { move_cursor = true, duration = 200 })
+		neoscroll.scroll(0.5, { move_cursor = true, duration = 100 })
 	end,
 	["K"] = function()
-		neoscroll.scroll(-0.4, { move_cursor = true, duration = 200 })
+		neoscroll.scroll(-0.5, { move_cursor = true, duration = 100 })
 	end,
 }
 
@@ -15,11 +15,11 @@ for key, func in pairs(keymap) do
 end
 
 require("neoscroll").setup({
-	hide_cursor = false, -- Hide cursor while scrolling
+	hide_cursor = true, -- Hide cursor while scrolling
 	stop_eof = false, -- Stop at <EOF> when scrolling downwards
-	use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
+	use_local_scrolloff = true, -- Use the local scope of scrolloff instead of the global scope
 	respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-	cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-	-- easing_function = "quadratic",
+	cursor_scrolls_alone = false, -- The cursor will keep on scrolling even if the window cannot scroll further
+	easing_function = "quadratic",
 	performance_mode = false, -- Disable "Performance Mode" on all buffers.
 })

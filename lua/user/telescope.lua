@@ -48,6 +48,8 @@ telescope.setup({
 			layout_config = { mirror = true }, -- mirror preview pane
 			file_ignore_patterns = {
 				"lazy-lock.json",
+				"node_modules",
+				"e2e",
 			},
 		},
 		file_browser = {
@@ -111,7 +113,7 @@ telescope.setup({
 	},
 	defaults = {
 		initial_mode = "insert",
-		file_ignore_patterns = { "node_modules", ".gitignore", ".ignore", ".git" },
+		file_ignore_patterns = { "node_modules", ".gitignore", ".ignore", ".git", "e2e" },
 		-- fzf = {
 		-- 	vimgrep_arguments = {
 		-- 		"rg",
@@ -195,6 +197,14 @@ telescope.setup({
 		},
 	},
 	pickers = {
+		live_grep = {
+			previewer = true,
+			theme = "dropdown", -- use dropdown theme
+			layout_config = { mirror = true }, -- mirror preview pane
+		},
+		commands = {
+			previewer = false,
+		},
 		file_browser = {
 			previewer = false,
 		},
