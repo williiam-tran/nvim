@@ -100,7 +100,8 @@ require("oil").setup({
 	keymaps = {
 		["<Tab>"] = { "actions.select", opts = { tab = false }, desc = "Open the entry in new tab" },
 		["<CR>"] = { "actions.select", opts = { tab = false }, desc = "Open the entry in new tab" },
-		["<C-s>"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+		["<C-s>"] = "<cmd>w<CR>",
+		["<C-d>"] = "<Esc>dd",
 		["<C-h>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
 		["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
 		["<esc>"] = "actions.close",
