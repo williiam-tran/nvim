@@ -131,3 +131,18 @@ end
 vim.defer_fn(function()
 	vim.cmd("doautocmd User VeryLast")
 end, 100)
+
+local cfg = vim.fn.stdpath("config")
+Flush = function()
+	local s = vim.api.nvim_buf_get_name(0)
+	if string.match(s, "^" .. cfg .. "*") == nil then
+		return
+	end
+	s = string.sub(s, 6 + string.len(cfg), -5)
+	local val = string.gsub(s, "%/", ".")
+	package.loaded[val] = nil
+end
+
+vim.cmd([[
+autocmd BufWrite *.lua,*vim call v:lua.Flush()
+]])

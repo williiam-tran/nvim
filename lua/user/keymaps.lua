@@ -16,7 +16,7 @@ if not is_windows() then
 	end, { silent = true })
 end
 
-keymap("n", "<CR>", "<CR>", opts)
+keymap("n", "m", "q", opts)
 keymap("n", "i", "<Nop>", opts)
 keymap("n", "<C-d>", "<Nop>", opts)
 keymap("n", "<C-S-d>", "<Nop>", opts)
@@ -29,7 +29,7 @@ keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 keymap("i", "<C-e>", "<C-o>de", opts)
 -- \"zy<cmd>PounceReg z<cr> "
 -- <cmd>PounceExpand <cword><cr> "
-keymap("n", "m", "<cmd>PounceExpand <cword><cr>", opts)
+-- keymap("n", "m", "<cmd>PounceExpand <cword><cr>", opts)
 
 if not vim.g.vscode then
 	keymap("n", "t", "<cmd>Pounce<CR>", opts)
@@ -95,33 +95,11 @@ nnoremap <leader>q :bp<cr>:bd #<cr>
 keymap("n", "gs", "<cmd>Neogit<CR>", opts)
 keymap("n", "gp", "<cmd>Neogit pull<CR>", opts)
 
--- Custom command to edit a new file with pre-filled path
--- Custom command to edit a new file with pre-filled path
--- vim.api.nvim_create_user_command("E", function(opts)
--- 	local current_dir = vim.fn.expand("%:h")
--- 	local new_file = current_dir .. "/" .. opts.args
--- 	vim.cmd("edit " .. new_file)
--- end, { nargs = 1, complete = "file" })
---
--- -- Remap :e to the new command
--- vim.cmd([[cnoreabbrev <expr> e getcmdtype() == ":" && getcmdline() == 'e' ? 'E' : 'e']])
--- Basic Navigation File
--- keymap("n", "j", "h", opts)
--- keymap("n", "k", "j", opts)
--- keymap("n", "i", "k", opts)
--- keymap("v", "j", "h", opts)
--- keymap("v", "k", "j", opts)
--- keymap("x", "j", "h", opts)
--- keymap("x", "k", "j", opts)
-
--- keymap("x", "i", "k", opts)
--- keymap("n", "h", "a", opts)
 keymap("n", "y", '"+y', opts)
 keymap("n", "p", '"+p', opts)
 keymap("n", "a", "<Nop>", opts)
 keymap("n", "<C-Z>", "<Esc>u", opts)
 keymap("n", "a", "i", opts)
--- keymap("n", "gi", "<Nop>", opts)
 
 keymap("n", "0", "^", opts)
 keymap("n", "ge", "g_", opts)
@@ -135,11 +113,11 @@ keymap("n", "<M-O>", "<C-I>", opts)
 keymap("n", "<C-U>", "<C-O>", opts)
 keymap("n", "<C-O>", "<C-I>", opts)
 -- keymap("o", "a", "i", opts)
-keymap("o", "i", "s", { noremap = false })
+-- keymap("o", "i", "s", { noremap = false })
 
 -- Ctrl+Backspace to delete word
 keymap("i", "<C-BS>", "<C-W>", opts)
-keymap("n", "@", "*", opts)
+-- keymap("n", "@", "*", opts)
 
 local function get_visual_selection()
 	local s_start = vim.fn.getpos("'<")
@@ -204,6 +182,14 @@ keymap("n", ":", "<cmd>Telescope commands<CR>", opts)
 
 vim.api.nvim_set_keymap("n", "<C-r>", [[:lua ReplaceInQuickfix()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<C-r>", [[:lua ReplaceInQuickfixVisual()<CR>]], { noremap = true, silent = true })
+
+-- Set up the keymap
+vim.api.nvim_set_keymap(
+	"n",
+	"rl",
+	'<cmd>lua require("user.reload").reload_config()<CR>',
+	{ noremap = true, silent = true }
+)
 
 if not vim.g.vscode then
 	-- jump between buffers
@@ -342,8 +328,8 @@ if not vim.g.vscode then
 	)
 
 	-- Lazy
+
 	keymap("n", "<C-x>", "<cmd>Lazy<cr>", opts)
-	keymap("n", "rl", "<cmd>luafile %<cr>", opts)
 
 	-- Debugger
 	keymap("n", "dp", "<cmd>GoBreakToggle<CR>", opts)
@@ -368,8 +354,8 @@ if not vim.g.vscode then
 
 	keymap("n", "gi", "<cmd>lua vim.lsp.bui.implementation()<CR>", opts)
 
-	keymap("n", "ri'", "ci'<Esc>p", opts)
-	keymap("n", 'ri"', 'ci"<Esc>p', opts)
+	keymap("n", "rq", "viqp", opts)
+	-- keymap("n", 'ri"', "viq<Esc>p", opts)
 
 	keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 else

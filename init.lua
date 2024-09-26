@@ -21,6 +21,7 @@ if not vim.g.vscode then
 	require("user.smoothscrolling")
 	require("user.illuminate")
 	require("user.pounce")
+	require("user.reload")
 else
 	require("user.vscode.options")
 	require("user.vscode.smoothscrolling")
