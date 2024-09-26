@@ -112,8 +112,6 @@ keymap("n", "<M-U>", "<C-O>", opts)
 keymap("n", "<M-O>", "<C-I>", opts)
 keymap("n", "<C-U>", "<C-O>", opts)
 keymap("n", "<C-O>", "<C-I>", opts)
--- keymap("o", "a", "i", opts)
--- keymap("o", "i", "s", { noremap = false })
 
 -- Ctrl+Backspace to delete word
 keymap("i", "<C-BS>", "<C-W>", opts)
@@ -263,7 +261,7 @@ if not vim.g.vscode then
 	keymap(
 		"n",
 		"<A-n>",
-		"<cmd>lua require('telescope').extensions.file_browser.file_browser(require('telescope.themes').get_dropdownhello())<CR>",
+		"<cmd>lua require('telescope').extensions.file_browser.file_browser(require('telescope.themes').get_dropdown())<CR>",
 		opts
 	)
 
