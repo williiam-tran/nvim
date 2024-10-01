@@ -3,10 +3,12 @@ if not cmp_status_ok then
 	return
 end
 
--- local snip_status_ok, luasnip = pcall(require, "luasnip")
--- if not snip_status_ok then
--- 	return
--- end
+local lsp_kind = require("lspkind")
+
+local snip_status_ok, luasnip = pcall(require, "luasnip")
+if not snip_status_ok then
+	return
+end
 --
 -- require("luasnip/loaders/from_vscode").lazy_load()
 --
@@ -43,9 +45,23 @@ local kind_icons = {
 	Operator = "",
 	TypeParameter = "",
 }
+
 -- find more here: https://www.nerdfonts.com/cheat-sheet
+-- use icons for lsp_kind
 
 cmp.setup({
+	formatting = {
+		format = lsp_kind.cmp_format({
+			mode = "symbol_text", -- show only symbol annotations
+			show_labelDetails = true,
+			maxwidth = 50,
+		}),
+	},
+	snippet = {
+		expand = function(args)
+			require("luasnip").lsp_expand(args.body)
+		end,
+	},
 	mapping = {
 		-- ["<C-p>"] = cmp.mapping.select_prev_item(),
 

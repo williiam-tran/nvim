@@ -200,7 +200,7 @@ telescope.setup({
 		live_grep = {
 			previewer = true,
 			theme = "dropdown", -- use dropdown theme
-			layout_config = { mirror = true }, -- mirror preview pane
+			-- layout_config = { mirror = true }, -- mirror preview pane
 		},
 		commands = {
 			previewer = false,

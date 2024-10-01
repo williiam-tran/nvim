@@ -106,7 +106,7 @@ require("oil").setup({
 		["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
 		["<esc>"] = "actions.close",
 		["q"] = "actions.close",
-		["h"] = "actions.parent",
+		["H"] = "actions.parent",
 		["gh"] = "actions.open_cwd",
 		["cd"] = "actions.cd",
 		["~"] = { "actions.cd", opts = { scope = "tab" }, desc = ":tcd to the current oil directory" },

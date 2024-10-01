@@ -1,6 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "gopls", "cssls" },
+	ensure_installed = { "lua_ls", "gopls", "cssls", "eslint", "tailwindcss" },
 })
 
 require("lazydev").setup({
@@ -41,6 +41,10 @@ require("lspconfig").lua_ls.setup({
 	-- 	client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
 	-- 	return true
 	-- end,
+})
+
+require("lspconfig").tailwindcss.setup({
+	capabilities = capabilities,
 })
 
 require("lspconfig").gopls.setup({
@@ -180,7 +184,7 @@ require("typescript-tools").setup({
 		-- that maybe have a conflict if enable this feature. )
 		jsx_close_tag = {
 			enable = false,
-			filetypes = { "javascriptreact", "typescriptreact" },
+			filetypes = { "javascriptreact", "typescriptreact", "typescript.tsx" },
 		},
 	},
 })

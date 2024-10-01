@@ -3,6 +3,7 @@ require("user.options")
 require("user.keymaps")
 
 if not vim.g.vscode then
+	-- require("user.avante")
 	require("user.autocmds")
 	require("user.noice")
 	require("user.cmp")
@@ -21,7 +22,10 @@ if not vim.g.vscode then
 	require("user.smoothscrolling")
 	require("user.illuminate")
 	require("user.pounce")
+	require("user.typescript")
 	require("user.reload")
+	require("user.colorscheme")
+	require("user.colorizer")
 else
 	require("user.vscode.options")
 	require("user.vscode.smoothscrolling")

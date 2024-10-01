@@ -20,12 +20,13 @@ function M.reload_config()
 	local lua_files = vim.fn.glob(user_dir .. "\\*.lua", false, true)
 	vim.list_extend(lua_files, vim.fn.glob(user_dir .. "\\**\\*.lua", false, true))
 
-	--print("Scanning directory: " .. user_dir)
-	--print("Found " .. #lua_files .. " Lua files")
+	-- print("Scanning directory: " .. user_dir)
+	-- print("Found " .. #lua_files .. " Lua files")
 
 	-- List of modules to ignore
 	local ignore_modules = {
-		"user.avante",
+		"plugins",
+		"user.autocmds",
 		"user.lazy",
 		"user.codecompanion",
 		"user.mason",
@@ -34,8 +35,6 @@ function M.reload_config()
 		"user.project",
 		"user.youcompleteme",
 		"user.colorizer",
-		"user.colorscheme",
-		"user.comments",
 		"user.copilot",
 		"user.debugger",
 		"user.filetype",
@@ -45,9 +44,9 @@ function M.reload_config()
 		"user.go",
 		"user.illuminate",
 		"user.indentline",
+		"user.options",
 		"user.tabout",
 		"user.toggleterm",
-		"user.typescript",
 		"user.reload", -- Add this to ignore the reload module itself
 	}
 
@@ -65,7 +64,7 @@ function M.reload_config()
 			-- Check if the module should be ignored
 			if not vim.tbl_contains(ignore_modules, full_module_name) then
 				table.insert(modules, full_module_name)
-				--print("Found module: " .. full_module_name)
+				-- print("Found module: " .. full_module_name)
 			else
 				--print("Ignoring module: " .. full_module_name)
 			end
@@ -78,7 +77,7 @@ function M.reload_config()
 	for _, module in ipairs(modules) do
 		pcall(function()
 			--print("Reloading module: " .. module)
-			reload.reload_module(module)
+			reload.reload_module(module, false)
 			require(module)
 		end)
 	end

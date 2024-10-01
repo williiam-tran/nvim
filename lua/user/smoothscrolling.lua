@@ -20,7 +20,7 @@ require("neoscroll").setup({
 	stop_eof = false, -- Stop at <EOF> when scrolling downwards
 	use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
 	respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-	cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+	cursor_scrolls_alone = false, -- The cursor will keep on scrolling even if the window cannot scroll further
 	easing_function = "quadratic",
 	performance_mode = false, -- Disable "Performance Mode" on all buffers.
 })

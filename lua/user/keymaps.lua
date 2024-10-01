@@ -16,20 +16,25 @@ if not is_windows() then
 	end, { silent = true })
 end
 
-keymap("n", "m", "q", opts)
-keymap("n", "i", "<Nop>", opts)
 keymap("n", "<C-d>", "<Nop>", opts)
+
+vim.api.nvim_set_keymap("n", "caq", [[:lua Append_end_of_quote()<CR>]], { noremap = true, silent = true })
+keymap("i", "<C-BS>", "<C-w>", opts)
+keymap("n", "m", "q", opts)
+
 keymap("n", "<C-S-d>", "<Nop>", opts)
+-- keymap("n", "i", "<Nop>", opts)
 -- keymap("n", "<C-r>", "<Nop>", opts)
 keymap("n", "<Space>", "<Nop>", opts)
-keymap("i", "<C-BS>", "<C-w>", opts)
-keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 -- keymap("n", "<c-n>", "<Nop>", opts)
 -- keymap("i", "<C-h>", "<C-w>", opts)
 keymap("i", "<C-e>", "<C-o>de", opts)
--- \"zy<cmd>PounceReg z<cr> "
--- <cmd>PounceExpand <cword><cr> "
--- keymap("n", "m", "<cmd>PounceExpand <cword><cr>", opts)
+
+function Append_end_of_quote()
+	-- Try double quotes first
+	vim.cmd([[normal! vaq]])
+	vim.cmd([[startinsert]])
+end
 
 if not vim.g.vscode then
 	keymap("n", "t", "<cmd>Pounce<CR>", opts)
@@ -44,7 +49,6 @@ keymap("n", "$", "%", opts)
 keymap("i", "jk", "<esc>", opts)
 keymap("i", "kj", "<esc>", opts)
 keymap("v", "$", "%", opts)
-keymap("v", "<A-k>", "<Cmd>m '<-2<CR>gv=gv", opts) -- move line down(v)
 
 -- keymap("n", ":", ";", opts)
 -- keymap("n", ";", ":", opts)
@@ -60,7 +64,7 @@ vnoremap : ;
 cnoremap <C-v> <c-r>+
 ]])
 
--- vim.keymap.set("v", "<C-r>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "change selection" })
+vim.keymap.set("v", "<C-r>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "change selection" })
 
 keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
 keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
@@ -80,10 +84,12 @@ keymap("n", "<A-b>", "<cmd>NvimTreeFindFileToggle<CR>", opts)
 keymap("n", "<C-b>", "<cmd>NvimTreeFindFileToggle<CR>", opts)
 keymap("t", "<Esc>", "<C-\\><C-n>", opts)
 
-keymap("v", "<A-j>", "<Cmd>m '>+1<CR>gv=gv", opts) -- move line up(v)
-
 -- keymap("n", "<A-k>", ":m .-2<CR>==", opts) -- move line down(n)
+keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts) -- move line up(v)
+keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", opts) -- move line up(v)
+
 -- keymap("n", "<A-j>", ":m .+1<CR>==", opts) -- move line up(n)
+
 vim.cmd([[
 nnoremap <silent> <c-d> <Cmd>let @/='\<'.expand('<cword>').'\>'<CR>cgn
 xnoremap <silent> <c-d> "sy<Cmd>let @/=@s<CR>cgn
@@ -178,8 +184,25 @@ end
 
 keymap("n", ":", "<cmd>Telescope commands<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "<C-r>", [[:lua ReplaceInQuickfix()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<C-r>", [[:lua ReplaceInQuickfixVisual()<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<C-r>", [[:lua ReplaceInQuickfix()<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("v", "<C-r>", [[:lua ReplaceInQuickfixVisual()<CR>]], { noremap = true, silent = true })
+
+local function setup_quickfix_keymaps()
+	vim.api.nvim_set_keymap("n", "<C-r>", [[:lua ReplaceInQuickfix()<CR>]], { noremap = true, silent = true })
+	vim.api.nvim_buf_set_keymap(
+		0,
+		"v",
+		"<C-r>",
+		[[:lua ReplaceInQuickfixVisual()<CR>]],
+		{ noremap = true, silent = true }
+	)
+end
+
+-- Autocommand to set up keymaps when entering quickfix buffer
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "qf",
+	callback = setup_quickfix_keymaps,
+})
 
 -- Set up the keymap
 vim.api.nvim_set_keymap(
@@ -265,14 +288,11 @@ if not vim.g.vscode then
 		opts
 	)
 
-	-- Comment Toggle
-	keymap("i", "<C-/>", "<Plug>(comment_toggle_linewise_current)", opts)
-	keymap("x", "<C-/>", "<Plug>(comment_toggle_linewise_current)", opts)
-	keymap("n", "<C-/>", "<Plug>(comment_toggle_linewise_current)", opts)
-	keymap("v", "<C-/>", "<Plug>(comment_toggle_linewise_visual)", opts)
-	keymap("n", "<C-_>", "<Plug>(comment_toggle_linewise_current)", opts)
-	keymap("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", opts)
-
+	-- keymap("n", "<C-/>", "<cmd>gcc<CR>", opts)
+	-- keymap("x", "<C-/>", "<Plug>(comment_toggle_linewise_current)", opts)
+	-- keymap("n", "<C-/>", "<Plug>(comment_toggle_linewise_current)", opts)
+	-- keymap("v", "<C-/>", "<Plug>(comment_toggle_linewise_visual)", opts)
+	-- keymap("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", opts)
 	-- What next? between tabs of current buffer.
 	keymap("n", "<leader>1", "1gt", opts)
 	keymap("n", "<leader>2", "2gt", opts)
@@ -313,6 +333,12 @@ if not vim.g.vscode then
 
 	-- Telescope
 	keymap(
+		"v",
+		"<A-p>",
+		'<cmd>lua require("telescope.builtin").find_files(require"telescope.themes".get_dropdown({previewer=true}))<CR>',
+		opts
+	)
+	keymap(
 		"i",
 		"<A-p>",
 		'<cmd>lua require("telescope.builtin").find_files(require"telescope.themes".get_dropdown({previewer=true}))<CR>',
@@ -341,8 +367,6 @@ if not vim.g.vscode then
 	keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
 	keymap("n", "<leader>s", "<cmd>w<CR> <cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
-	-- keymap("n", "<Bslash>", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
 	keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 

@@ -1,62 +1,69 @@
 return {
 	{
-		"yetone/avante.nvim",
+		"folke/ts-comments.nvim",
+		opts = {},
 		event = "VeryLazy",
-		lazy = false,
-		version = false, -- set this if you want to always pull the latest change
-		opts = {
-			provider = "openai", -- Recommend using Claude
-			auto_suggestions_provider = "copilot", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
-			behaviour = {
-				auto_suggestions = true, -- Experimental stage
-				auto_set_highlight_group = true,
-				auto_set_keymaps = true,
-				auto_apply_diff_after_generation = false,
-				support_paste_from_clipboard = true,
-			},
-		},
-		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-		-- build = "make",
-		build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
-		mappings = {
-			ask = "<leader>aa", -- ask
-			edit = "<leader>ae", -- edit
-			refresh = "<leader>ar", -- refresh
-		},
-		dependencies = {
-			"stevearc/dressing.nvim",
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			--- The below dependencies are optional,
-			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-			"zbirenbaum/copilot.lua", -- for providers='copilot'
-			{
-				-- support for image pasting
-				"HakonHarnes/img-clip.nvim",
-				event = "VeryLazy",
-				opts = {
-					-- recommended settings
-					default = {
-						embed_image_as_base64 = false,
-						prompt_for_file_name = false,
-						drag_and_drop = {
-							insert_mode = true,
-						},
-						-- required for Windows users
-						use_absolute_path = true,
-					},
-				},
-			},
-			{
-				-- Make sure to set this up properly if you have lazy=true
-				"MeanderingProgrammer/render-markdown.nvim",
-				opts = {
-					file_types = { "markdown", "Avante" },
-				},
-				ft = { "markdown", "Avante" },
-			},
-		},
+		enabled = vim.fn.has("nvim-0.10.0") == 1,
 	},
+	{ "echasnovski/mini.comment", version = false, lazy = false },
+	-- {
+	-- 	"yetone/avante.nvim",
+	-- 	event = "VeryLazy",
+	-- 	lazy = false,
+	-- 	version = false, -- set this if you want to always pull the latest change
+	-- 	opts = {
+	-- 		provider = "copilot", -- Recommend using Claude
+	-- 		auto_suggestions_provider = "copilot", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
+	-- 		behaviour = {
+	-- 			auto_suggestions = true, -- Experimental stage
+	-- 			auto_set_highlight_group = true,
+	-- 			auto_set_keymaps = true,
+	-- 			auto_apply_diff_after_generation = false,
+	-- 			support_paste_from_clipboard = true,
+	-- 		},
+	-- 	},
+	-- 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+	-- 	-- build = "make",
+	-- 	build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
+	-- 	mappings = {
+	-- 		ask = "<leader>aa", -- ask
+	-- 		edit = "<leader>ae", -- edit
+	-- 		refresh = "<leader>ar", -- refresh
+	-- 	},
+	-- 	dependencies = {
+	-- 		"stevearc/dressing.nvim",
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		--- The below dependencies are optional,
+	-- 		"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+	-- 		"zbirenbaum/copilot.lua", -- for providers='copilot'
+	-- 		{
+	-- 			-- support for image pasting
+	-- 			"HakonHarnes/img-clip.nvim",
+	-- 			event = "VeryLazy",
+	-- 			opts = {
+	-- 				-- recommended settings
+	-- 				default = {
+	-- 					embed_image_as_base64 = false,
+	-- 					prompt_for_file_name = false,
+	-- 					drag_and_drop = {
+	-- 						insert_mode = true,
+	-- 					},
+	-- 					-- required for Windows users
+	-- 					use_absolute_path = true,
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 		{
+	-- 			-- Make sure to set this up properly if you have lazy=true
+	-- 			"MeanderingProgrammer/render-markdown.nvim",
+	-- 			opts = {
+	-- 				file_types = { "markdown", "Avante" },
+	-- 			},
+	-- 			ft = { "markdown", "Avante" },
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"zbirenbaum/copilot-cmp",
 		config = function()
@@ -79,25 +86,6 @@ return {
 			})
 		end,
 	},
-	-- {
-	-- 	"olimorris/codecompanion.nvim",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"nvim-treesitter/nvim-treesitter",
-	-- 		"hrsh7th/nvim-cmp", -- Optional: For using slash commands and variables in the chat buffer
-	-- 		{
-	-- 			"stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
-	-- 			opts = {},
-	-- 		},
-	-- 		"nvim-telescope/telescope.nvim", -- Optional: For using slash commands
-	-- 	},
-	-- 	config = true,
-	-- },
-	-- {
-	-- 	"mrjones2014/legendary.nvim",
-	-- 	priority = 10000,
-	-- 	lazy = false,
-	-- },
 	{
 		"folke/flash.nvim",
 		event = "VeryLazy",
@@ -112,7 +100,6 @@ return {
 			},
 		},
 	},
-	-- "gelguy/wilder.nvim",
 	{
 		"echasnovski/mini.files",
 		version = "*",
@@ -159,7 +146,13 @@ return {
 		config = true,
 	},
 	"lewis6991/gitsigns.nvim",
-	"chrisgrieser/nvim-various-textobjs",
+
+	{
+		"chrisgrieser/nvim-various-textobjs",
+		event = "UIEnter",
+		opts = { useDefaultKeymaps = true },
+	},
+
 	{
 		"nvim-tree/nvim-tree.lua",
 		version = "*",
@@ -265,6 +258,7 @@ return {
 		lazy = true,
 	},
 
+	-- around, inside, next, previous navigation
 	{
 		"wellle/targets.vim",
 		priority = 1000,
@@ -280,13 +274,11 @@ return {
 	-- 	event = { "VimEnter" },
 	-- },
 
-	{
-		"numToStr/Comment.nvim",
-		opts = {
-			-- add any options here
-		},
-		lazy = false,
-	},
+	-- {
+	-- 	"numToStr/Comment.nvim",
+	-- 	opts = {},
+	-- lazy = false,
+	-- },
 
 	{
 		"https://github.com/chaoren/vim-wordmotion",
@@ -296,7 +288,6 @@ return {
 	-- "nathom/filetype.nvim",
 	"kyazdani42/nvim-web-devicons",
 	"BurntSushi/ripgrep",
-	-- "ahmedkhalf/project.nvim",
 	{
 		"goolord/alpha-nvim",
 		-- dependencies = { 'echasnovski/mini.icons' },
@@ -309,31 +300,10 @@ return {
 			require("alpha").setup(startify.config)
 		end,
 	},
-	-- "antoinemadec/FixCursorHold.nvim", -- This is needed to fix lsp doc highlight
 	"sharkdp/fd",
-	-- Colorschemes
-	-- {
-	-- 	"lunarvim/darkplus.nvim",
-	-- 	priority = 1000,
-	-- 	event = "BufReadPre",
-	-- },
-	-- {
-	"tomasiser/vim-code-dark",
-	-- 	priority = 1000,
-	-- 	event = "BufReadPre",
-	-- 	config = function()
-	-- 		vim.g["codedark_term256"] = 1
-	-- 		vim.cmd([[
-	--               colorscheme codedark
-	-- 		  hi Comment guifg=#dbaf84
-	-- 		  hi String guifg=#efa29b
-	-- 		  hi! link Sneak Search
-	-- 		  hi Search guibg=#658da1
-	-- 		  let g:sneak#label = 1
-	-- 		  let g:highlightedyank_highlight_in_visual = 0
-	-- 		  ]])
-	-- 	end,
-	-- },
+	-- colorscheme
+	"Mofiqul/vscode.nvim",
+	-- "tomasiser/vim-code-dark",
 
 	{
 		"stevearc/dressing.nvim",
@@ -372,6 +342,7 @@ return {
 	{
 		"hrsh7th/nvim-cmp", -- The completion plugin
 		dependencies = {
+			"onsails/lspkind.nvim",
 			"hrsh7th/cmp-buffer",
 			{
 				"hrsh7th/cmp-path",
@@ -391,6 +362,7 @@ return {
 
 			"saadparwaiz1/cmp_luasnip",
 			"VonHeikemen/lsp-zero.nvim",
+			"L3MON4D3/LuaSnip",
 		},
 		event = { "InsertEnter", "CmdlineEnter" },
 		opts = function(_, opts)
@@ -404,7 +376,6 @@ return {
 	},
 
 	-- snippets
-
 	"rafamadriz/friendly-snippets", -- a bunch of snippets to use
 
 	-- LSP
