@@ -112,6 +112,7 @@ telescope.setup({
 		},
 	},
 	defaults = {
+		-- path_display = { "shorten" },
 		initial_mode = "insert",
 		file_ignore_patterns = { "node_modules", ".gitignore", ".ignore", ".git", "e2e" },
 		-- fzf = {

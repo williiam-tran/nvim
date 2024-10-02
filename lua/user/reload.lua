@@ -10,7 +10,7 @@ function M.reload_config()
 	if vim.fn.filereadable(init_path) == 1 then
 		dofile(init_path)
 		vim.cmd("source " .. init_path)
-		--print("init.lua reloaded")
+		print("init.lua reloaded")
 	else
 		--print("init.lua not found or not readable")
 	end
@@ -50,7 +50,7 @@ function M.reload_config()
 		"user.reload", -- Add this to ignore the reload module itself
 	}
 
-	local modules = {}
+	local modules = { "user.keymaps" }
 	for _, file in ipairs(lua_files) do
 		local relative_path = file:sub(#user_dir + 2, -5) -- Remove user_dir and .lua extension
 		-- Skip files in the lsp folder

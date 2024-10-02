@@ -1,6 +1,6 @@
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
-
+local textObj = require("various-textobjs")
 local function is_windows()
 	---@diagnostic disable-next-line: undefined-field
 	return vim.loop.os_uname().sysname == "Windows_NT"
@@ -16,9 +16,8 @@ if not is_windows() then
 	end, { silent = true })
 end
 
+keymap("n", "eq", 'ciq<C-r>"', opts)
 keymap("n", "<C-d>", "<Nop>", opts)
-
-vim.api.nvim_set_keymap("n", "caq", [[:lua Append_end_of_quote()<CR>]], { noremap = true, silent = true })
 keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("n", "m", "q", opts)
 
@@ -30,12 +29,6 @@ keymap("n", "<Space>", "<Nop>", opts)
 -- keymap("i", "<C-h>", "<C-w>", opts)
 keymap("i", "<C-e>", "<C-o>de", opts)
 
-function Append_end_of_quote()
-	-- Try double quotes first
-	vim.cmd([[normal! vaq]])
-	vim.cmd([[startinsert]])
-end
-
 if not vim.g.vscode then
 	keymap("n", "t", "<cmd>Pounce<CR>", opts)
 	keymap("v", "t", '"zy<cmd>PounceReg z<cr>', opts)
@@ -44,18 +37,23 @@ else
 	-- keymap("n", "t", "<cmd>Pounce<CR>", opts)
 	-- keymap("v", "t", '"zy<cmd>PounceReg z<cr>', opts)
 end
-
 keymap("n", "$", "%", opts)
 keymap("i", "jk", "<esc>", opts)
 keymap("i", "kj", "<esc>", opts)
 keymap("v", "$", "%", opts)
 
--- keymap("n", ":", ";", opts)
--- keymap("n", ";", ":", opts)
+keymap("n", ";", ":", opts)
 
+function AppendToQuote()
+	-- after this function called, already in insert mode and deleted everything inside the quote.
+	require("various-textobjs").anyQuote("inner")
+	local keys = vim.api.nvim_replace_termcodes('<c-r>"', true, false, true)
+	vim.api.nvim_feedkeys(keys, "i", false)
+end
+
+vim.api.nvim_set_keymap("o", "eq", [[:lua AppendToQuote()<CR>]], { noremap = true, silent = true })
 vim.cmd([[
 nnoremap > .
-
 nnoremap ; :
 nnoremap : ;
 
@@ -361,7 +359,7 @@ if not vim.g.vscode then
 	keymap("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>', opts)
 
 	-- Renamer
-	keymap("n", "rn", '<cmd>lua require("renamer").rename()<cr>', opts)
+	-- keymap("n", "rn", '<cmd>lua require("renamer").rename()<cr>', opts)
 
 	keymap("n", "`", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)

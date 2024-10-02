@@ -51,9 +51,8 @@ require("vscode").setup({
 
 -- require("vscode").load()
 
-vim.cmd.colorscheme("vscode")
-
 vim.cmd([[
+colorscheme vscode
 hi Comment guifg=#dbaf84
 hi String guifg=#efa29b
 " hi! link Sneak Search
@@ -71,3 +70,15 @@ let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_space_jump_first = 1
 let g:EasyMotion_verbose = 0
 ]])
+
+vim.api.nvim_set_hl(0, "PounceGap", { fg = "NONE", bg = "NONE" })
+vim.api.nvim_set_hl(0, "PounceMatch", { fg = "NONE", bg = "NONE" })
+vim.api.nvim_set_hl(0, "PounceUnmatched", { fg = "#919191", bg = "NONE" })
+vim.api.nvim_set_hl(0, "PounceAccept", { fg = "#9cdcfe", bg = "NONE" })
+vim.api.nvim_set_hl(0, "PounceAcceptBest", { fg = "#9cdcfe", bg = "NONE" })
+
+vim.api.nvim_set_hl(0, "FlashMatch", { fg = "NONE", bg = "NONE" })
+vim.api.nvim_set_hl(0, "FlashCurrent", { fg = "NONE", bg = "NONE" })
+vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#9cdcfe", bg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e1e1e" })
+vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "#1e1e1e" })
