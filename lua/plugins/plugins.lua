@@ -148,12 +148,6 @@ return {
 	"lewis6991/gitsigns.nvim",
 
 	{
-		"chrisgrieser/nvim-various-textobjs",
-		event = "UIEnter",
-		opts = { useDefaultKeymaps = true },
-	},
-
-	{
 		"nvim-tree/nvim-tree.lua",
 		version = "*",
 		lazy = false,
@@ -259,6 +253,11 @@ return {
 	},
 
 	-- around, inside, next, previous navigation
+	{
+		"chrisgrieser/nvim-various-textobjs",
+		event = "UIEnter",
+		opts = { useDefaultKeymaps = false },
+	},
 	{
 		"wellle/targets.vim",
 		priority = 1000,
@@ -441,6 +440,7 @@ return {
 
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		"JoosepAlviste/nvim-ts-context-commentstring",
+		"RRethy/nvim-treesitter-textsubjects",
 	},
 
 	-- -- coc-nvims

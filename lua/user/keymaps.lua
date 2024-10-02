@@ -20,6 +20,7 @@ keymap("n", "eq", 'ciq<C-r>"', opts)
 keymap("n", "<C-d>", "<Nop>", opts)
 keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("n", "m", "q", opts)
+keymap("n", "V", "0vg_", opts)
 
 keymap("n", "<C-S-d>", "<Nop>", opts)
 -- keymap("n", "i", "<Nop>", opts)
@@ -44,14 +45,36 @@ keymap("v", "$", "%", opts)
 
 keymap("n", ";", ":", opts)
 
-function AppendToQuote()
+function ToAnyNumber()
+	-- after this function called, already in insert mode and deleted everything inside the quote.
+	require("various-textobjs").number("inner")
+end
+
+keymap("o", "n", "<cmd>lua ToAnyNumber()<CR>", opts) --5, 6
+
+function AppendToAnyBracket()
+	-- after this function called, already in insert mode and deleted everything inside the quote.
+	require("various-textobjs").anyBracket("inner")
+	local keys = vim.api.nvim_replace_termcodes('<c-r>"', true, false, true)
+	vim.api.nvim_feedkeys(keys, "i", false)
+end
+
+function AppendToAnyQuote()
 	-- after this function called, already in insert mode and deleted everything inside the quote.
 	require("various-textobjs").anyQuote("inner")
 	local keys = vim.api.nvim_replace_termcodes('<c-r>"', true, false, true)
 	vim.api.nvim_feedkeys(keys, "i", false)
 end
 
-vim.api.nvim_set_keymap("o", "eq", [[:lua AppendToQuote()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+	"o",
+	"q",
+	[[:lua require("various-textobjs").toNextQuotationMark()<CR>]],
+	{ noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap("o", "eq", [[:lua AppendToAnyQuote()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("o", "eo", [[:lua AppendToAnyBracket()<CR>]], { noremap = true, silent = true })
+
 vim.cmd([[
 nnoremap > .
 nnoremap ; :

@@ -112,7 +112,12 @@ telescope.setup({
 		},
 	},
 	defaults = {
-		-- path_display = { "shorten" },
+		path_display = {
+			filename_first = {
+				reverse_directories = true,
+			},
+		},
+
 		initial_mode = "insert",
 		file_ignore_patterns = { "node_modules", ".gitignore", ".ignore", ".git", "e2e" },
 		-- fzf = {
@@ -228,12 +233,21 @@ telescope.setup({
 			initial_mode = "normal",
 		},
 		find_files = {
+			hidden = true,
 			layout_config = {
-				height = 0.8,
-				width = 0.8,
+				height = 1,
+				width = 1,
 				prompt_position = "top",
 			},
 			previewer = true,
+			find_command = {
+				"rg",
+				"--files",
+				"--glob",
+				"!{.git/*,.svelte-kit/*,target/*,node_modules/*}",
+				"--path-separator",
+				"/",
+			},
 			mappings = {
 				n = {
 					["<Tab>"] = actions.select_default,
