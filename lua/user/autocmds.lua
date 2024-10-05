@@ -85,18 +85,6 @@ augroup END
 
 ]])
 
-vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		vim.defer_fn(function()
-			local bufinfo = vim.fn.getbufinfo({ buflisted = 1 })
-			local condition = #bufinfo == 0 or (#bufinfo == 1 and vim.fn.bufname(bufinfo[1].bufnr) == "")
-			if condition then
-				vim.cmd("SessionLoad")
-			end
-		end, 100) -- 100ms delay
-	end,
-})
-
 vim.cmd([[
 augroup custom_highlight
 	au!
@@ -147,12 +135,3 @@ vim.cmd([[
 autocmd BufWrite *.lua,*vim call v:lua.Flush()
 ]])
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-	group = vim.api.nvim_create_augroup("TS_add_missing_imports", { clear = true }),
-	desc = "TS_add_missing_imports",
-	pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
-	callback = function()
-		vim.cmd([[TSToolsAddMissingImports]])
-		vim.cmd("write")
-	end,
-})

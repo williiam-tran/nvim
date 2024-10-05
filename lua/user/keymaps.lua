@@ -248,7 +248,7 @@ if not vim.g.vscode then
 	keymap("n", "<C-z>", "<cmd>red<CR>", opts)
 
 	keymap("x", "<C-c>", "y", opts)
-	keymap("n", "q", "<cmd>w | bd<CR>", opts)
+	keymap("n", "q", "<cmd>wq<CR>", opts)
 	keymap("n", "Q", "<cmd>quitall<CR>", opts)
 	keymap("n", "<C-A>", "ggVG", opts)
 

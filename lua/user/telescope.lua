@@ -43,7 +43,7 @@ telescope.setup({
 			auto_quoting = false, -- enable/disable auto-quoting
 			-- define mappings, e.g.
 			-- ... also accepts theme settings, for example:
-			theme = "dropdown", -- use dropdown theme
+			theme = "dropdown",       -- use dropdown theme
 			-- theme = "ivy",
 			layout_config = { mirror = true }, -- mirror preview pane
 			file_ignore_patterns = {
@@ -318,6 +318,3 @@ require("telescope").load_extension("file_browser")
 require("telescope").load_extension("live_grep_args")
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("noice")
-require("telescope").load_extension("persisted")
-
-require("goto-preview").setup({})

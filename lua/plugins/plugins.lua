@@ -1,521 +1,255 @@
 return {
-	{
-		"folke/ts-comments.nvim",
-		opts = {},
-		event = "VeryLazy",
-		enabled = vim.fn.has("nvim-0.10.0") == 1,
-	},
-	{ "echasnovski/mini.comment", version = false, lazy = false },
-	-- {
-	-- 	"yetone/avante.nvim",
-	-- 	event = "VeryLazy",
-	-- 	lazy = false,
-	-- 	version = false, -- set this if you want to always pull the latest change
-	-- 	opts = {
-	-- 		provider = "copilot", -- Recommend using Claude
-	-- 		auto_suggestions_provider = "copilot", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
-	-- 		behaviour = {
-	-- 			auto_suggestions = true, -- Experimental stage
-	-- 			auto_set_highlight_group = true,
-	-- 			auto_set_keymaps = true,
-	-- 			auto_apply_diff_after_generation = false,
-	-- 			support_paste_from_clipboard = true,
-	-- 		},
-	-- 	},
-	-- 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-	-- 	-- build = "make",
-	-- 	build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
-	-- 	mappings = {
-	-- 		ask = "<leader>aa", -- ask
-	-- 		edit = "<leader>ae", -- edit
-	-- 		refresh = "<leader>ar", -- refresh
-	-- 	},
-	-- 	dependencies = {
-	-- 		"stevearc/dressing.nvim",
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"MunifTanjim/nui.nvim",
-	-- 		--- The below dependencies are optional,
-	-- 		"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-	-- 		"zbirenbaum/copilot.lua", -- for providers='copilot'
-	-- 		{
-	-- 			-- support for image pasting
-	-- 			"HakonHarnes/img-clip.nvim",
-	-- 			event = "VeryLazy",
-	-- 			opts = {
-	-- 				-- recommended settings
-	-- 				default = {
-	-- 					embed_image_as_base64 = false,
-	-- 					prompt_for_file_name = false,
-	-- 					drag_and_drop = {
-	-- 						insert_mode = true,
-	-- 					},
-	-- 					-- required for Windows users
-	-- 					use_absolute_path = true,
-	-- 				},
-	-- 			},
-	-- 		},
-	-- 		{
-	-- 			-- Make sure to set this up properly if you have lazy=true
-	-- 			"MeanderingProgrammer/render-markdown.nvim",
-	-- 			opts = {
-	-- 				file_types = { "markdown", "Avante" },
-	-- 			},
-	-- 			ft = { "markdown", "Avante" },
-	-- 		},
-	-- 	},
-	-- },
-	{
-		"zbirenbaum/copilot-cmp",
-		config = function()
-			require("copilot_cmp").setup({
-				-- event = { "InsertEnter", "LspAttach" },
-				-- fix_pairs = true,
-			})
-		end,
-		event = { "InsertEnter", "CmdlineEnter" },
-		lazy = false,
-	},
-	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot", -- Load on command
-		event = "InsertEnter", -- Load when entering insert mode
-		config = function()
-			require("copilot").setup({
-				suggestion = { enabled = false },
-				panel = { enabled = false },
-			})
-		end,
-	},
-	{
-		"folke/flash.nvim",
-		event = "VeryLazy",
-		keys = {
-			{
-				"s",
-				mode = { "n", "x", "o" },
-				function()
-					require("flash").treesitter()
-				end,
-				desc = "Flash Treesitter",
-			},
-		},
-	},
-	{
-		"echasnovski/mini.files",
-		version = "*",
-		dependencies = {
-			{ "echasnovski/mini.icons", version = false },
-		},
-	},
-	{
-		"rmagatti/goto-preview",
-		event = "BufEnter",
-		config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
-	},
-	{
-		"olimorris/persisted.nvim",
-		lazy = false, -- make sure the plugin is always loaded at startup
-		config = true,
-	},
-	{ "akinsho/toggleterm.nvim", version = "*", config = true },
-	{
-		"rlane/pounce.nvim",
-		lazy = false,
-	},
-	{
-		"amitds1997/remote-nvim.nvim",
-		version = "*", -- Pin to GitHub releases
-		dependencies = {
-			"nvim-lua/plenary.nvim", -- For standard functions
-			"MunifTanjim/nui.nvim", -- To build the plugin UI
-			"nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
-		},
-		config = true,
-	},
-	{
-		"NeogitOrg/neogit",
-		lazy = false,
-		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"sindrets/diffview.nvim", -- optional - Diff integration
+{ 'echasnovski/mini.comment', version = '*' },
+     {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+  { -- optional completion source for require statements and module annotations
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+      opts.sources = opts.sources or {}
+      table.insert(opts.sources, {
+        name = "lazydev",
+        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+      })
+    end,
+  },
+    {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        keys = {
+            {
+                "s",
+                mode = { "n", "x", "o" },
+                function()
+                    require("flash").treesitter()
+                end,
+                desc = "Flash Treesitter",
+            },
+        },
+    },
+    {
+        "echasnovski/mini.files",
+        version = "*",
+        dependencies = {
+            { "echasnovski/mini.icons", version = false },
+        },
+    },
 
-			-- Only one of these is needed, not both.
-			"nvim-telescope/telescope.nvim", -- optional
-			"ibhagwan/fzf-lua", -- optional
-		},
-		config = true,
-	},
-	"lewis6991/gitsigns.nvim",
+    "rlane/pounce.nvim",
+    {
+        "stevearc/oil.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+    },
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
+    { "nvim-telescope/telescope-ui-select.nvim" },
+    "kiyoon/telescope-insert-path.nvim",
+    { "junegunn/fzf",                             dir = "~/.fzf", build = "./install --all" },
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            "nvim-telescope/telescope-live-grep-args.nvim",
+        },
+        config = function()
+            require("telescope").setup({})
+            require("telescope").load_extension("live_grep_args")
+        end,
+    },
+    {
+        "mg979/vim-visual-multi",
+        priority = 1000,
+        event = { "VimEnter" },
+    },
+    {
+        "nvim-lua/plenary.nvim", -- ful lua functions used ny lots of plugins
+        -- lazy = true,
+    },
 
-	{
-		"nvim-tree/nvim-tree.lua",
-		version = "*",
-		lazy = false,
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-	},
-	{
-		"stevearc/oil.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-	},
-	-- {
-	-- 	"chipsenkbeil/distant.nvim",
-	-- 	branch = "v0.3",
-	-- 	config = function()
-	-- 		require("distant"):setup({
-	-- 			{
-	-- 				buffer = {
-	-- 					watch = {
-	-- 						enabled = true,
-	-- 					},
-	-- 				},
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- 	lazy = false,
-	-- },
-	"windwp/nvim-ts-autotag",
-	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
-	},
-	{
-		"ThePrimeagen/harpoon",
-		branch = "harpoon2",
-		dependencies = { "nvim-lua/plenary.nvim" },
-	},
-	-- { "ojroques/vim-oscyank", branch = "main" },
-	{
-		"mikesmithgh/kitty-scrollback.nvim",
-		enabled = true,
-		lazy = true,
-		cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
-		event = { "User KittyScrollbackLaunch" },
-	},
-	-- {
-	-- 	"m00qek/baleia.nvim",
-	-- 	version = "*",
-	-- 	config = function()
-	-- 		vim.g.baleia = require("baleia").setup({})
-	--
-	-- 		-- Command to colorize the current buffer
-	-- 		vim.api.nvim_create_user_command("BaleiaColorize", function()
-	-- 			vim.g.baleia.once(vim.api.nvim_get_current_buf())
-	-- 		end, { bang = true })
-	--
-	-- 		-- Command to show logs
-	-- 		vim.api.nvim_create_user_command("BaleiaLogs", vim.g.baleia.logger.show, { bang = true })
-	-- 	end,
-	-- },
-	{ "Bilal2453/luvit-meta", lazy = true },
-	{ "nvim-telescope/telescope-ui-select.nvim" },
-	"kiyoon/telescope-insert-path.nvim",
-	{ "junegunn/fzf", dir = "~/.fzf", build = "./install --all" },
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			"nvim-telescope/telescope-live-grep-args.nvim",
-		},
-		config = function()
-			require("telescope").setup({})
-			require("telescope").load_extension("live_grep_args")
-		end,
-	},
-	{
-		"mg979/vim-visual-multi",
-		priority = 1000,
-		event = { "VimEnter" },
-	},
-	{
-		"ray-x/go.nvim",
-		dependencies = { -- optional packages
-			"ray-x/lsp_signature.nvim",
-			"ray-x/guihua.lua",
-			"neovim/nvim-lspconfig",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		event = { "CmdlineEnter" },
-		ft = { "go", "gomod" },
-		build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
-	},
-	{
-		"nvim-lua/plenary.nvim", -- ful lua functions used ny lots of plugins
-		-- lazy = true,
-	},
+    {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        opts = {},
+        lazy = true,
+    },
 
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		opts = {},
-		lazy = true,
-	},
+    -- around, inside, next, previous navigation
+    {
+        "chrisgrieser/nvim-various-textobjs",
+        event = "UIEnter",
+        opts = { useDefaultKeymaps = false },
+    },
+    {
+        "wellle/targets.vim",
+        priority = 1000,
+        event = { "VimEnter" },
+    },
+    {
+        "https://github.com/chaoren/vim-wordmotion",
+        lazy = false,
+    },
 
-	-- around, inside, next, previous navigation
-	{
-		"chrisgrieser/nvim-various-textobjs",
-		event = "UIEnter",
-		opts = { useDefaultKeymaps = false },
-	},
-	{
-		"wellle/targets.vim",
-		priority = 1000,
-		event = { "VimEnter" },
-	},
+    -- "nathom/filetype.nvim",
+    "kyazdani42/nvim-web-devicons",
+    "BurntSushi/ripgrep",
+    "sharkdp/fd",
+    -- colorscheme
+    "Mofiqul/vscode.nvim",
+    {
+        "stevearc/dressing.nvim",
+        opts = {},
+    },
 
-	{
-		"vscode-neovim/vscode-neovim",
-	},
+    {
+        "hrsh7th/nvim-cmp", -- The completion plugin
+        dependencies = {
+            "onsails/lspkind.nvim",
+            "hrsh7th/cmp-buffer",
+            {
+                "hrsh7th/cmp-path",
+                event = { "InsertEnter", "CmdlineEnter" },
+                lazy = false,
+            },
+            {
+                "hrsh7th/cmp-cmdline",
+                event = { "InsertEnter", "CmdlineEnter" },
+                lazy = false,
+            },
+            {
+                "hrsh7th/cmp-nvim-lsp",
+                event = { "InsertEnter", "CmdlineEnter" },
+                lazy = false,
+            },
 
-	-- {
-	-- 	"justinmk/vim-sneak",
-	-- 	event = { "VimEnter" },
-	-- },
+            "saadparwaiz1/cmp_luasnip",
+            "VonHeikemen/lsp-zero.nvim",
+            "L3MON4D3/LuaSnip",
+        },
+        event = { "InsertEnter", "CmdlineEnter" },
+        opts = function(_, opts)
+            opts.sources = opts.sources or {}
+            table.insert(opts.sources, {
+                name = "lazydev",
+                group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+            })
+        end,
+        lazy = false,
+    },
 
-	-- {
-	-- 	"numToStr/Comment.nvim",
-	-- 	opts = {},
-	-- lazy = false,
-	-- },
+    -- snippets
+    "rafamadriz/friendly-snippets", -- a bunch of snippets to use
 
-	{
-		"https://github.com/chaoren/vim-wordmotion",
-		lazy = false,
-	},
+    -- LSP
+    {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+    },
 
-	-- "nathom/filetype.nvim",
-	"kyazdani42/nvim-web-devicons",
-	"BurntSushi/ripgrep",
-	{
-		"goolord/alpha-nvim",
-		-- dependencies = { 'echasnovski/mini.icons' },
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			local startify = require("alpha.themes.startify")
-			-- available: devicons, mini, default is mini
-			-- if provider not loaded and enabled is true, it will try to use another provider
-			startify.file_icons.provider = "devicons"
-			require("alpha").setup(startify.config)
-		end,
-	},
-	"sharkdp/fd",
-	-- colorscheme
-	"Mofiqul/vscode.nvim",
-	-- "tomasiser/vim-code-dark",
+    "lukas-reineke/lsp-format.nvim",
 
-	{
-		"stevearc/dressing.nvim",
-		opts = {},
-	},
+    -- "brymer-meneses/grammar-guard.nvim",
+    "jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
 
-	{
-		"folke/lazydev.nvim",
-		ft = "lua", -- only load on lua files
-		opts = {
-			library = {
-				-- See the configuration section for more details
-				-- Load luvit types when the `vim.uv` word is found
-				{ path = "luvit-meta/library", words = { "vim%.uv" } },
-			},
-		},
-	},
+    {
+        "stevearc/conform.nvim",
+        opts = {},
+    },
+    {
+        "RRethy/vim-illuminate",
+        lazy = true,
+    },
 
-	{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
-	{ -- optional completion source for require statements and module annotations
-		"hrsh7th/nvim-cmp",
-		opts = function(_, opts)
-			opts.sources = opts.sources or {}
-			table.insert(opts.sources, {
-				name = "lazydev",
-				group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-			})
-		end,
-	},
+    -- Telescope
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            -- "nvim-telescope/telescope-media-files.nvim",
+            -- event = "VeryLazy",
+            -- lazy = true,
+            -- module = "telescope",
+            -- config = function()
+            -- 	require("telescope").load_extension("media_files")
+            -- end,
+        },
+        -- event = "VeryLazy",
+        -- lazy = true,
+    },
 
-	-- color for css.
-	"folke/lsp-colors.nvim",
-	"chrisbra/colorizer",
-	"norcalli/nvim-colorizer.lua",
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+    },
 
-	{
-		"hrsh7th/nvim-cmp", -- The completion plugin
-		dependencies = {
-			"onsails/lspkind.nvim",
-			"hrsh7th/cmp-buffer",
-			{
-				"hrsh7th/cmp-path",
-				event = { "InsertEnter", "CmdlineEnter" },
-				lazy = false,
-			},
-			{
-				"hrsh7th/cmp-cmdline",
-				event = { "InsertEnter", "CmdlineEnter" },
-				lazy = false,
-			},
-			{
-				"hrsh7th/cmp-nvim-lsp",
-				event = { "InsertEnter", "CmdlineEnter" },
-				lazy = false,
-			},
+    {
+        "folke/noice.nvim",
+        commit = "d9328ef",
+        opts = {},
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            -- "rcarriga/nvim-notify",
+        },
+        event = "VeryLazy",
+    },
 
-			"saadparwaiz1/cmp_luasnip",
-			"VonHeikemen/lsp-zero.nvim",
-			"L3MON4D3/LuaSnip",
-		},
-		event = { "InsertEnter", "CmdlineEnter" },
-		opts = function(_, opts)
-			opts.sources = opts.sources or {}
-			table.insert(opts.sources, {
-				name = "lazydev",
-				group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-			})
-		end,
-		lazy = false,
-	},
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
-	-- snippets
-	"rafamadriz/friendly-snippets", -- a bunch of snippets to use
+    -- Treesitter
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
 
-	-- LSP
-	{
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-		"neovim/nvim-lspconfig",
-	},
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        "RRethy/nvim-treesitter-textsubjects",
+    },
 
-	"lukas-reineke/lsp-format.nvim",
+    -- -- coc-nvims
+    -- { "neoclide/coc.nvim", branch = "release" },
 
-	-- "brymer-meneses/grammar-guard.nvim",
-	"jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
+    -- airline
+    -- {
+    -- 	"vim-airline/vim-airline",
+    -- 	event = "BufReadPre",
+    -- },
+    -- "vim-airline/vim-airline-themes",
 
-	{
-		"stevearc/conform.nvim",
-		opts = {},
-	},
-	{
-		"RRethy/vim-illuminate",
-		lazy = true,
-	},
+    "ryanoasis/vim-devicons",
 
-	-- Telescope
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			-- "nvim-telescope/telescope-media-files.nvim",
-			-- event = "VeryLazy",
-			-- lazy = true,
-			-- module = "telescope",
-			-- config = function()
-			-- 	require("telescope").load_extension("media_files")
-			-- end,
-		},
-		-- event = "VeryLazy",
-		-- lazy = true,
-	},
+    {
+        "tpope/vim-surround",
+        event = "BufReadPre",
+    },
 
-	{
-		"nvim-telescope/telescope-file-browser.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-	},
+    "tpope/vim-eunuch",
+    -- "unblevable/quick-scope", -- highlight the first letter of the word you are searching for
+    "tpope/vim-repeat",
+    "karb94/neoscroll.nvim",
+    -- {
+    -- 	"ggandor/leap.nvim",
+    -- 	config = function()
+    -- 		require("leap").create_default_mappings()
+    -- 	end,
+    -- },
 
-	{
-		"folke/noice.nvim",
-		commit = "d9328ef",
-		opts = {},
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			-- "rcarriga/nvim-notify",
-		},
-		event = "VeryLazy",
-	},
-
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-
-	-- Treesitter
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		"JoosepAlviste/nvim-ts-context-commentstring",
-		"RRethy/nvim-treesitter-textsubjects",
-	},
-
-	-- -- coc-nvims
-	-- { "neoclide/coc.nvim", branch = "release" },
-
-	-- airline
-	-- {
-	-- 	"vim-airline/vim-airline",
-	-- 	event = "BufReadPre",
-	-- },
-	-- "vim-airline/vim-airline-themes",
-
-	"ryanoasis/vim-devicons",
-
-	{
-		"tpope/vim-surround",
-		event = "BufReadPre",
-	},
-
-	--
-	-- "haya14busa/incsearch-easymotion.vim",
-
-	-- nerdtree
-	"tpope/vim-eunuch",
-
-	-- dashboard
-	-- "mhinz/vim-startify",
-
-	{
-		"easymotion/vim-easymotion",
-		dependencies = {
-			"haya14busa/incsearch.vim",
-			"haya14busa/incsearch-easymotion.vim",
-			"haya14busa/incsearch-fuzzy.vim",
-		},
-
-		priority = 1200,
-		event = { "VimEnter" },
-		lazy = false,
-	},
-
-	-- Todo plugins
-	-- "unblevable/quick-scope", -- highlight the first letter of the word you are searching for
-	"tpope/vim-repeat",
-	"karb94/neoscroll.nvim",
-	-- {
-	-- 	"ggandor/leap.nvim",
-	-- 	config = function()
-	-- 		require("leap").create_default_mappings()
-	-- 	end,
-	-- },
-
-	-- tab out of parenthesis
-	"abecodes/tabout.nvim",
-	{
-		"filipdutescu/renamer.nvim",
-		branch = "master",
-		dependencies = { "nvim-lua/plenary.nvim" },
-	},
-
-	-- "rcarriga/nvim-notify",
-	-- syntax highlighting
-	{
-		"sheerun/vim-polyglot",
-		-- event = { "BufReadPre" },
-		lazy = true,
-		event = "VeryLazy",
-	},
-
-	-- Git plugin for neovim
-	-- "tpope/vim-fugitive",
-
-	-- Debugger for neovim
-	"mfussenegger/nvim-dap",
-	"theHamsta/nvim-dap-virtual-text",
-	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
-	"leoluz/nvim-dap-go",
+    -- tab out of parenthesis
+    "abecodes/tabout.nvim",
+    {
+        "sheerun/vim-polyglot",
+        -- event = { "BufReadPre" },
+        lazy = true,
+        event = "VeryLazy",
+    },
 }
