@@ -6,25 +6,26 @@ function M.reload_config()
 	--print("Starting configuration reload...")
 
 	-- Reload init.lua
-	local init_path = vim.fn.stdpath("config") .. "\\init.lua"
+	local init_path = vim.fn.stdpath("config") .. "init.lua"
 	if vim.fn.filereadable(init_path) == 1 then
 		dofile(init_path)
 		vim.cmd("source " .. init_path)
-		print("init.lua reloaded")
+		-- print("init.lua reloaded")
 	else
 		--print("init.lua not found or not readable")
 	end
 
 	-- Get all Lua files in the user directory and its subdirectories
-	local user_dir = vim.fn.stdpath("config") .. "\\lua\\user"
-	local lua_files = vim.fn.glob(user_dir .. "\\*.lua", false, true)
-	vim.list_extend(lua_files, vim.fn.glob(user_dir .. "\\**\\*.lua", false, true))
+	local user_dir = vim.fn.stdpath("config") .. "/lua/user"
+	local lua_files = vim.fn.glob(user_dir .. "/*.lua", false, true)
+	vim.list_extend(lua_files, vim.fn.glob(user_dir .. "/**/*.lua", false, true))
 
 	-- print("Scanning directory: " .. user_dir)
 	-- print("Found " .. #lua_files .. " Lua files")
 
 	-- List of modules to ignore
 	local ignore_modules = {
+		"user.lsp",
 		"plugins",
 		"user.autocmds",
 		"user.lazy",

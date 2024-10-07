@@ -34,51 +34,38 @@ M.setup = function()
 	}
 
 	vim.diagnostic.config(config)
-
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "rounded",
-	})
-
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "rounded",
-	})
 end
 
-local function lsp_highlight_document(client)
-	-- Set autocommands conditional on server_capabilities
-	if client.resolved_capabilities.document_highlight then
-		vim.api.nvim_exec(
-			[[
-      hi LspReferenceRead ctermbg=237 guibg=#45403d
-      hi LspReferenceText ctermbg=237 guibg=#45403d
-      hi LspReferenceWrite ctermbg=237 guibg=#45403d
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-      ]],
-			false
-		)
-	end
-end
+-- local function lsp_highlight_document(client)
+-- 	-- Set autocommands conditional on server_capabilities
+-- 	if client.resolved_capabilities.document_highlight then
+-- 		vim.api.nvim_exec(
+-- 			[[
+--       hi LspReferenceRead ctermbg=237 guibg=#45403d
+--       hi LspReferenceText ctermbg=237 guibg=#45403d
+--       hi LspReferenceWrite ctermbg=237 guibg=#45403d
+--       augroup lsp_document_highlight
+--         autocmd! * <buffer>
+--         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+--         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+--       augroup END
+--       ]],
+-- 			false
+-- 		)
+-- 	end
+-- end
 
 M.on_attach = function(client)
 	require("illuminate").on_attach(client)
-
-	if client.name == "lua_ls" then
-		client.resolved_capabilities.document_formatting = false
-	end
-
 	-- lsp_keymaps(bufnr)
-	lsp_highlight_document(client)
+	-- lsp_highlight_document(client)
 
-	if client.resolved_capabilities.document_formatting then
-		vim.api.nvim_command([[augroup Format]])
-		vim.api.nvim_command([[autocmd! * <buffer>]])
-		vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]])
-		vim.api.nvim_command([[augroup END]])
-	end
+	-- if client.resolved_capabilities.document_formatting then
+	-- 	vim.api.nvim_command([[augroup Format]])
+	-- 	vim.api.nvim_command([[autocmd! * <buffer>]])
+	-- 	vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]])
+	-- 	vim.api.nvim_command([[augroup END]])
+	-- end
 end
 
 local what = vim.lsp.protocol.make_client_capabilities()

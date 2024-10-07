@@ -1,6 +1,11 @@
 return {
-{ 'echasnovski/mini.comment', version = '*' },
-     {
+  {
+    "olimorris/persisted.nvim",
+    lazy = false, -- make sure the plugin is always loaded at startup
+    config = true,
+  },
+  { 'echasnovski/mini.comment', version = '*' },
+  {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
     opts = {
@@ -11,8 +16,8 @@ return {
       },
     },
   },
-  { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
-  { -- optional completion source for require statements and module annotations
+  { "Bilal2453/luvit-meta",     lazy = true }, -- optional `vim.uv` typings
+  {                                            -- optional completion source for require statements and module annotations
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
       opts.sources = opts.sources or {}
@@ -22,234 +27,234 @@ return {
       })
     end,
   },
-    {
-        "folke/flash.nvim",
-        event = "VeryLazy",
-        keys = {
-            {
-                "s",
-                mode = { "n", "x", "o" },
-                function()
-                    require("flash").treesitter()
-                end,
-                desc = "Flash Treesitter",
-            },
-        },
-    },
-    {
-        "echasnovski/mini.files",
-        version = "*",
-        dependencies = {
-            { "echasnovski/mini.icons", version = false },
-        },
-    },
-
-    "rlane/pounce.nvim",
-    {
-        "stevearc/oil.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-    },
-    {
-        "ThePrimeagen/harpoon",
-        branch = "harpoon2",
-        dependencies = { "nvim-lua/plenary.nvim" },
-    },
-    { "nvim-telescope/telescope-ui-select.nvim" },
-    "kiyoon/telescope-insert-path.nvim",
-    { "junegunn/fzf",                             dir = "~/.fzf", build = "./install --all" },
-    {
-        "nvim-telescope/telescope.nvim",
-        dependencies = {
-            "nvim-telescope/telescope-live-grep-args.nvim",
-        },
-        config = function()
-            require("telescope").setup({})
-            require("telescope").load_extension("live_grep_args")
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").treesitter()
         end,
+        desc = "Flash Treesitter",
+      },
     },
-    {
-        "mg979/vim-visual-multi",
-        priority = 1000,
-        event = { "VimEnter" },
+  },
+  {
+    "echasnovski/mini.files",
+    version = "*",
+    dependencies = {
+      { "echasnovski/mini.icons", version = false },
     },
-    {
-        "nvim-lua/plenary.nvim", -- ful lua functions used ny lots of plugins
-        -- lazy = true,
-    },
+  },
 
-    {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        opts = {},
-        lazy = true,
+  "rlane/pounce.nvim",
+  {
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+  },
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+  { "nvim-telescope/telescope-ui-select.nvim" },
+  "kiyoon/telescope-insert-path.nvim",
+  { "junegunn/fzf",                           dir = "~/.fzf", build = "./install --all" },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-telescope/telescope-live-grep-args.nvim",
     },
+    config = function()
+      require("telescope").setup({})
+      require("telescope").load_extension("live_grep_args")
+    end,
+  },
+  {
+    "mg979/vim-visual-multi",
+    priority = 1000,
+    event = { "VimEnter" },
+  },
+  {
+    "nvim-lua/plenary.nvim", -- ful lua functions used ny lots of plugins
+    -- lazy = true,
+  },
 
-    -- around, inside, next, previous navigation
-    {
-        "chrisgrieser/nvim-various-textobjs",
-        event = "UIEnter",
-        opts = { useDefaultKeymaps = false },
-    },
-    {
-        "wellle/targets.vim",
-        priority = 1000,
-        event = { "VimEnter" },
-    },
-    {
-        "https://github.com/chaoren/vim-wordmotion",
-        lazy = false,
-    },
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    opts = {},
+    lazy = true,
+  },
 
-    -- "nathom/filetype.nvim",
-    "kyazdani42/nvim-web-devicons",
-    "BurntSushi/ripgrep",
-    "sharkdp/fd",
-    -- colorscheme
-    "Mofiqul/vscode.nvim",
-    {
-        "stevearc/dressing.nvim",
-        opts = {},
-    },
+  -- around, inside, next, previous navigation
+  {
+    "chrisgrieser/nvim-various-textobjs",
+    event = "UIEnter",
+    opts = { useDefaultKeymaps = false },
+  },
+  {
+    "wellle/targets.vim",
+    priority = 1000,
+    event = { "VimEnter" },
+  },
+  {
+    "https://github.com/chaoren/vim-wordmotion",
+    lazy = false,
+  },
 
-    {
-        "hrsh7th/nvim-cmp", -- The completion plugin
-        dependencies = {
-            "onsails/lspkind.nvim",
-            "hrsh7th/cmp-buffer",
-            {
-                "hrsh7th/cmp-path",
-                event = { "InsertEnter", "CmdlineEnter" },
-                lazy = false,
-            },
-            {
-                "hrsh7th/cmp-cmdline",
-                event = { "InsertEnter", "CmdlineEnter" },
-                lazy = false,
-            },
-            {
-                "hrsh7th/cmp-nvim-lsp",
-                event = { "InsertEnter", "CmdlineEnter" },
-                lazy = false,
-            },
+  -- "nathom/filetype.nvim",
+  "kyazdani42/nvim-web-devicons",
+  "BurntSushi/ripgrep",
+  "sharkdp/fd",
+  -- colorscheme
+  "Mofiqul/vscode.nvim",
+  {
+    "stevearc/dressing.nvim",
+    opts = {},
+  },
 
-            "saadparwaiz1/cmp_luasnip",
-            "VonHeikemen/lsp-zero.nvim",
-            "L3MON4D3/LuaSnip",
-        },
+  {
+    "hrsh7th/nvim-cmp", -- The completion plugin
+    dependencies = {
+      "onsails/lspkind.nvim",
+      "hrsh7th/cmp-buffer",
+      {
+        "hrsh7th/cmp-path",
         event = { "InsertEnter", "CmdlineEnter" },
-        opts = function(_, opts)
-            opts.sources = opts.sources or {}
-            table.insert(opts.sources, {
-                name = "lazydev",
-                group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-            })
-        end,
         lazy = false,
+      },
+      {
+        "hrsh7th/cmp-cmdline",
+        event = { "InsertEnter", "CmdlineEnter" },
+        lazy = false,
+      },
+      {
+        "hrsh7th/cmp-nvim-lsp",
+        event = { "InsertEnter", "CmdlineEnter" },
+        lazy = false,
+      },
+
+      "saadparwaiz1/cmp_luasnip",
+      "VonHeikemen/lsp-zero.nvim",
+      "L3MON4D3/LuaSnip",
     },
+    event = { "InsertEnter", "CmdlineEnter" },
+    opts = function(_, opts)
+      opts.sources = opts.sources or {}
+      table.insert(opts.sources, {
+        name = "lazydev",
+        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+      })
+    end,
+    lazy = false,
+  },
 
-    -- snippets
-    "rafamadriz/friendly-snippets", -- a bunch of snippets to use
+  -- snippets
+  "rafamadriz/friendly-snippets", -- a bunch of snippets to use
 
-    -- LSP
-    {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "neovim/nvim-lspconfig",
+  -- LSP
+  {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+  },
+
+  "lukas-reineke/lsp-format.nvim",
+
+  -- "brymer-meneses/grammar-guard.nvim",
+  "jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
+
+  {
+    "stevearc/conform.nvim",
+    opts = {},
+  },
+  {
+    "RRethy/vim-illuminate",
+    lazy = true,
+  },
+
+  -- Telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      -- "nvim-telescope/telescope-media-files.nvim",
+      -- event = "VeryLazy",
+      -- lazy = true,
+      -- module = "telescope",
+      -- config = function()
+      -- 	require("telescope").load_extension("media_files")
+      -- end,
     },
+    -- event = "VeryLazy",
+    -- lazy = true,
+  },
 
-    "lukas-reineke/lsp-format.nvim",
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+  },
 
-    -- "brymer-meneses/grammar-guard.nvim",
-    "jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
-
-    {
-        "stevearc/conform.nvim",
-        opts = {},
+  {
+    "folke/noice.nvim",
+    commit = "d9328ef",
+    opts = {},
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      -- "rcarriga/nvim-notify",
     },
-    {
-        "RRethy/vim-illuminate",
-        lazy = true,
-    },
+    event = "VeryLazy",
+  },
 
-    -- Telescope
-    {
-        "nvim-telescope/telescope.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            -- "nvim-telescope/telescope-media-files.nvim",
-            -- event = "VeryLazy",
-            -- lazy = true,
-            -- module = "telescope",
-            -- config = function()
-            -- 	require("telescope").load_extension("media_files")
-            -- end,
-        },
-        -- event = "VeryLazy",
-        -- lazy = true,
-    },
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
-    {
-        "nvim-telescope/telescope-file-browser.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-    },
+  -- Treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
 
-    {
-        "folke/noice.nvim",
-        commit = "d9328ef",
-        opts = {},
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            -- "rcarriga/nvim-notify",
-        },
-        event = "VeryLazy",
-    },
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    "RRethy/nvim-treesitter-textsubjects",
+  },
 
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  -- -- coc-nvims
+  -- { "neoclide/coc.nvim", branch = "release" },
 
-    -- Treesitter
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
+  -- airline
+  -- {
+  -- 	"vim-airline/vim-airline",
+  -- 	event = "BufReadPre",
+  -- },
+  -- "vim-airline/vim-airline-themes",
 
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        "RRethy/nvim-treesitter-textsubjects",
-    },
+  "ryanoasis/vim-devicons",
 
-    -- -- coc-nvims
-    -- { "neoclide/coc.nvim", branch = "release" },
+  {
+    "tpope/vim-surround",
+    event = "BufReadPre",
+  },
 
-    -- airline
-    -- {
-    -- 	"vim-airline/vim-airline",
-    -- 	event = "BufReadPre",
-    -- },
-    -- "vim-airline/vim-airline-themes",
+  "tpope/vim-eunuch",
+  -- "unblevable/quick-scope", -- highlight the first letter of the word you are searching for
+  "tpope/vim-repeat",
+  -- "karb94/neoscroll.nvim",
+  -- {
+  -- 	"ggandor/leap.nvim",
+  -- 	config = function()
+  -- 		require("leap").create_default_mappings()
+  -- 	end,
+  -- },
 
-    "ryanoasis/vim-devicons",
-
-    {
-        "tpope/vim-surround",
-        event = "BufReadPre",
-    },
-
-    "tpope/vim-eunuch",
-    -- "unblevable/quick-scope", -- highlight the first letter of the word you are searching for
-    "tpope/vim-repeat",
-    "karb94/neoscroll.nvim",
-    -- {
-    -- 	"ggandor/leap.nvim",
-    -- 	config = function()
-    -- 		require("leap").create_default_mappings()
-    -- 	end,
-    -- },
-
-    -- tab out of parenthesis
-    "abecodes/tabout.nvim",
-    {
-        "sheerun/vim-polyglot",
-        -- event = { "BufReadPre" },
-        lazy = true,
-        event = "VeryLazy",
-    },
+  -- tab out of parenthesis
+  "abecodes/tabout.nvim",
+  {
+    "sheerun/vim-polyglot",
+    -- event = { "BufReadPre" },
+    lazy = true,
+    event = "VeryLazy",
+  },
 }
