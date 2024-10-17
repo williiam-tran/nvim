@@ -16,11 +16,13 @@ if not is_windows() then
 	end, { silent = true })
 end
 
+keymap("n", "K", "<C-u>", opts)
+keymap("n", "J", "<C-d>", opts)
 keymap("n", "eq", 'ciq<C-r>"', opts)
-keymap("n", "<C-d>", "<Nop>", opts)
+-- keymap("n", "<C-d>", "<Nop>", opts)
 keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("n", "m", "q", opts)
-keymap("n", "V", "0vg_", opts)
+-- keymap("n", "V", "0vg_", opts)
 
 keymap("n", "<C-S-d>", "<Nop>", opts)
 -- keymap("n", "i", "<Nop>", opts)
@@ -29,6 +31,7 @@ keymap("n", "<Space>", "<Nop>", opts)
 -- keymap("n", "<c-n>", "<Nop>", opts)
 -- keymap("i", "<C-h>", "<C-w>", opts)
 keymap("i", "<C-e>", "<C-o>de", opts)
+keymap("n", "t", '<cmd>require("cinnamon").scroll("<C-]>")<CR>', opts)
 
 if not vim.g.vscode then
 	keymap("n", "t", "<cmd>Pounce<CR>", opts)
@@ -112,8 +115,8 @@ keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", opts) -- move line up(v)
 -- keymap("n", "<A-j>", ":m .+1<CR>==", opts) -- move line up(n)
 
 vim.cmd([[
-nnoremap <silent> <c-d> <Cmd>let @/='\<'.expand('<cword>').'\>'<CR>cgn
-xnoremap <silent> <c-d> "sy<Cmd>let @/=@s<CR>cgn
+" nnoremap <silent> <c-d> <Cmd>let @/='\<'.expand('<cword>').'\>'<CR>cgn
+" xnoremap <silent> <c-d> "sy<Cmd>let @/=@s<CR>cgn
 nnoremap <leader>q :bp<cr>:bd #<cr>
 " inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
 ]])
@@ -469,8 +472,8 @@ end
 
 vim.cmd([[
 let g:VM_maps = {}
-let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
-let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
+" let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
+" let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 let g:EasyMotion_space_jump_first = 1
 let g:EasyMotion_verbose = 0
 ]])
