@@ -48,13 +48,13 @@ local kind_icons = {
 
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 -- use icons for lsp_kind
-
+local cmp_action = require("lsp-zero").cmp_action()
 cmp.setup({
 	formatting = {
 		format = lsp_kind.cmp_format({
-			mode = "symbol_text", -- show only symbol annotations
+			mode = "symbol", -- show only symbol annotations
 			show_labelDetails = true,
-			maxwidth = 50,
+			maxwidth = 60,
 		}),
 	},
 	snippet = {
@@ -72,7 +72,6 @@ cmp.setup({
 
 		["<C-k>"] = cmp.mapping.select_prev_item(),
 		["<C-j>"] = cmp.mapping.select_next_item(),
-
 		["<C-e>"] = cmp.mapping({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
@@ -82,7 +81,7 @@ cmp.setup({
 		-- 	behavior = cmp.ConfirmBehavior.Insert,
 		-- 	select = true,
 		-- }),
-
+		-- ["<Tab>"] = cmp_action.luasnip_supertab(),
 		["<Tab>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Insert,
 			select = true,
@@ -120,10 +119,10 @@ cmp.setup({
 	},
 
 	sources = {
-		{ name = "copilot" },
 		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
 		{ name = "buffer" },
+		-- { name = "copilot" },
+		{ name = "luasnip" },
 		{ name = "path" },
 	},
 

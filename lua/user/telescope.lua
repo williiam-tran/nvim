@@ -33,8 +33,8 @@ telescope.setup({
 			initial_mode = "normal",
 			sorting_strategy = "ascending",
 			layout_config = {
-				height = 0.5,
-				width = 0.5,
+				height = 0.9,
+				width = 0.9,
 				prompt_position = "top",
 			},
 		},
@@ -120,16 +120,6 @@ telescope.setup({
 
 		initial_mode = "insert",
 		file_ignore_patterns = { "node_modules", ".gitignore", ".ignore", ".git", "e2e" },
-		-- fzf = {
-		-- 	vimgrep_arguments = {
-		-- 		"rg",
-		-- 		"--color=never",
-		-- 		"--no-heading",
-		-- 		"--with-filename",
-		-- 		"--smart-case",
-		-- 	},
-		-- },
-
 		mappings = {
 			i = {
 				-- ["<Esc>"] = actions.close,
@@ -215,9 +205,50 @@ telescope.setup({
 			previewer = false,
 		},
 
+		persisted = {
+			layout_config = {
+				horizontal = {
+					width = 0.8,
+					height = 0.8,
+					preview_cutoff = 20,
+					width_padding = 0.04,
+					height_padding = 0.01,
+					preview_width = 0.8,
+					preview_height = 0.8,
+					prompt_position = "top",
+				},
+				vertical = {
+					preview_cutoff = 20,
+					width_padding = 0.05,
+					width = 0.8,
+					height = 0.8,
+					preview_height = 0.8,
+				},
+			},
+		},
 		buffers = {
 			theme = "dropdown",
 			previewer = false,
+			layout_config = {
+				horizontal = {
+					width = 0.8,
+					height = 0.8,
+					preview_cutoff = 20,
+					width_padding = 0.04,
+					height_padding = 0.01,
+					preview_width = 0.8,
+					preview_height = 0.8,
+					prompt_position = "top",
+				},
+				vertical = {
+					preview_cutoff = 20,
+					width_padding = 0.05,
+					width = 0.8,
+					height = 0.8,
+					preview_height = 0.8,
+				},
+			},
+
 			show_all_buffers = true,
 			sort_mru = true,
 			mappings = {

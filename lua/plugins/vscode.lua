@@ -1,10 +1,16 @@
 return {
-	"chrisgrieser/nvim-various-textobjs",
+	{
+		"chrisgrieser/nvim-various-textobjs",
+		event = "UIEnter",
+		opts = { useDefaultKeymaps = true },
+	},
+
 	"abecodes/tabout.nvim",
 	{
 		"rlane/pounce.nvim",
 		lazy = false,
 	},
+
 	"karb94/neoscroll.nvim",
 	"tpope/vim-repeat",
 

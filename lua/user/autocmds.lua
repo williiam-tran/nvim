@@ -119,6 +119,7 @@ function SetCustomHighlights()
 	vim.api.nvim_set_hl(0, "PounceGap", { fg = "NONE", bg = "NONE" })
 	vim.api.nvim_set_hl(0, "PounceUnmatched", { fg = "#919191", bg = "NONE" })
 	vim.api.nvim_set_hl(0, "PounceAccept", { fg = "#9cdcfe", bg = "NONE" })
+	vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#919191", bg = "NONE", italic = true })
 	vim.api.nvim_set_hl(0, "FlashMatch", { fg = "NONE", bg = "NONE" })
 	vim.api.nvim_set_hl(0, "FlashCurrent", { fg = "NONE", bg = "NONE" })
 	vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#9cdcfe", bg = "NONE" })
@@ -127,6 +128,8 @@ function SetCustomHighlights()
 	vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "#1e1e1e" })
 end
 
+-- highglight default link CopilotSuggestion Normal
+--
 -- At the end of your init.lua or after all other configurations
 vim.defer_fn(function()
 	vim.cmd("doautocmd User VeryLast")

@@ -15,12 +15,23 @@ if not is_windows() then
 		end, 50)
 	end, { silent = true })
 end
+-- In your init.lua
+vim.api.nvim_set_keymap("i", "<CR>", "v:lua.copilot_accept_or_normal()", { expr = true, noremap = true })
+
+function _G.copilot_accept_or_normal()
+	if require("copilot.suggestion").is_visible() then
+		return require("copilot.suggestion").accept_line()
+	else
+		return "<CR>"
+	end
+end
 
 keymap("n", "eq", 'ciq<C-r>"', opts)
 keymap("n", "<C-d>", "<Nop>", opts)
 keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("n", "m", "q", opts)
-keymap("n", "V", "0vg_", opts)
+
+-- keymap("n", "V", "0vg_", opts)
 
 keymap("n", "<C-S-d>", "<Nop>", opts)
 -- keymap("n", "i", "<Nop>", opts)
@@ -38,6 +49,7 @@ else
 	-- keymap("n", "t", "<cmd>Pounce<CR>", opts)
 	-- keymap("v", "t", '"zy<cmd>PounceReg z<cr>', opts)
 end
+
 keymap("n", "$", "%", opts)
 keymap("i", "jk", "<esc>", opts)
 keymap("i", "kj", "<esc>", opts)
@@ -46,21 +58,19 @@ keymap("v", "$", "%", opts)
 keymap("n", ";", ":", opts)
 
 function ToAnyNumber()
-	-- after this function called, already in insert mode and deleted everything inside the quote.
 	require("various-textobjs").number("inner")
 end
 
-keymap("o", "n", "<cmd>lua ToAnyNumber()<CR>", opts) --5, 6
+keymap("o", "n", "<cmd>lua ToAnyNumber()<CR>", opts) --, 6
 
+-- textObjects
 function AppendToAnyBracket()
-	-- after this function called, already in insert mode and deleted everything inside the quote.
 	require("various-textobjs").anyBracket("inner")
 	local keys = vim.api.nvim_replace_termcodes('<c-r>"', true, false, true)
 	vim.api.nvim_feedkeys(keys, "i", false)
 end
 
 function AppendToAnyQuote()
-	-- after this function called, already in insert mode and deleted everything inside the quote.
 	require("various-textobjs").anyQuote("inner")
 	local keys = vim.api.nvim_replace_termcodes('<c-r>"', true, false, true)
 	vim.api.nvim_feedkeys(keys, "i", false)
@@ -72,8 +82,9 @@ vim.api.nvim_set_keymap(
 	[[:lua require("various-textobjs").toNextQuotationMark()<CR>]],
 	{ noremap = true, silent = true }
 )
+
 vim.api.nvim_set_keymap("o", "eq", [[:lua AppendToAnyQuote()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("o", "eo", [[:lua AppendToAnyBracket()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("o", "eo", [[:lua AppendToAnyBracket()<CR>]], { noremap = true, silent = true }) -- 5
 
 vim.cmd([[
 nnoremap > .
@@ -94,7 +105,6 @@ keymap("n", "<c-v>", "<Esc>p", opts)
 -- keymap("c", "<C-v>", "<c-r>+", opts)
 -- Key mapping to use the custom function
 -- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
-
 -- keymap("n", "<C-`>", "<cmd>term<CR>", opts)
 -- keymap("n", "<A-`>", "<cmd>term<CR>", opts)
 
@@ -383,24 +393,30 @@ if not vim.g.vscode then
 
 	-- Renamer
 	-- keymap("n", "rn", '<cmd>lua require("renamer").rename()<cr>', opts)
+	vim.api.nvim_create_autocmd("LspAttach", {
+		desc = "LSP actions",
+		callback = function(event)
+			opts = { buffer = event.buf }
+			vim.keymap.set("n", "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+			vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
-	keymap("n", "`", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+			vim.keymap.set("n", "<leader>s", "<cmd>w<CR> <cmd>lua vim.lsp.buf.format({async =true})<CR>", opts)
 
-	keymap("n", "<leader>s", "<cmd>w<CR> <cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+			vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 
-	keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+			vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 
-	keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+			vim.keymap.set("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 
-	keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+			vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+			vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 
-	keymap("n", "gi", "<cmd>lua vim.lsp.bui.implementation()<CR>", opts)
+			vim.keymap.set("n", "rq", "viqp", opts)
+			-- vim.keymap.set("n", 'ri"', "viq<Esc>p", opts)
 
-	keymap("n", "rq", "viqp", opts)
-	-- keymap("n", 'ri"', "viq<Esc>p", opts)
-
-	keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+			vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+		end,
+	})
 else
 	-- harpoon
 	keymap("n", "<leader>a", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
@@ -420,14 +436,15 @@ else
 
 	keymap("n", "dp", "<cmd>lua require('vscode-neovim').action('editor.debug.action.toggleBreakpoint')<CR>", opts)
 	keymap("n", "gd", "<cmd>lua require('vscode-neovim').action('editor.action.revealDefinition')<CR>", opts)
-	keymap("n", "gD", "<cmd>lua require('vscode-neovim').action('editor.action.revealDeclaration')<CR>", opts)
-	keymap("n", "gi", "<cmd>lua require('vscode-neovim').action('editor.action.goToImplementation')<CR>", opts)
+	keymap("n", "gD", "<cmd>lua require('vscode-neovim').action('editor.action.goToTypeDefinition')<CR>", opts)
+	-- keymap("n", "gi", "<cmd>lua require('vscode-neovim').action('editor.action.goToImplementation')<CR>", opts)
 	keymap("n", "gr", "<cmd>lua require('vscode-neovim').action('references-view.findReferences')<CR>", opts)
 	keymap("n", "rn", "<cmd>lua require('vscode-neovim').action('editor.action.rename')<CR>", opts)
 
 	keymap("n", "H", "<cmd>lua require('vscode-neovim').action('editor.action.showHover')<CR>", opts)
 end
 
+opts = { noremap = true, silent = true }
 keymap("c", "<C-i>", "", opts)
 -- keymap("c", "gi", "", opts)
 
@@ -465,9 +482,8 @@ if not vim.g.vscode then
 	vim.keymap.set("n", "gR", function()
 		require("trouble").toggle("lsp_references")
 	end)
-end
 
-vim.cmd([[
+	vim.cmd([[
 let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
@@ -475,5 +491,7 @@ let g:EasyMotion_space_jump_first = 1
 let g:EasyMotion_verbose = 0
 ]])
 
-keymap("n", "P", "<CR><C-w>p", opts)
+	keymap("n", "P", "<CR><C-w>p", opts)
+end
+
 -- vim.keymap.set("n", "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true })

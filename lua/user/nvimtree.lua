@@ -174,6 +174,22 @@ require("oil").setup({
 local constants = require("oil.constants")
 local FIELD_TYPE = constants.FIELD_TYPE
 local FIELD_META = constants.FIELD_META
+-- default config
+require("various-textobjs").setup({
+	-- set to 0 to only look in the current line
+	lookForwardSmall = 20,
+	lookForwardBig = 30,
+
+	-- use suggested keymaps (see overview table in README)
+	useDefaultKeymaps = false,
+
+	-- disable only some default keymaps, e.g. { "ai", "ii" }
+	disabledKeymaps = {},
+
+	-- display notification if a text object is not found
+	notifyNotFound = true,
+})
+
 require("oil.columns").register("simple_icon", {
 	render = function(entry, conf)
 		local field_type = entry[FIELD_TYPE]
