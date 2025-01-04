@@ -406,6 +406,8 @@ if not vim.g.vscode then
 	keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 else
 	-- harpoon
+	keymap("n", "K", "10k", opts)
+	keymap("n", "J", "10j", opts)
 	keymap("n", "<leader>a", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
 	keymap("n", "<A-a>", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
 	-- keymap("n", "<A-e>", "<cmd>lua require('vscode').action('vscode-harpoon.editorQuickPick')<CR>", opts)
@@ -437,6 +439,8 @@ keymap("c", "<C-i>", "", opts)
 -- vim.keymap.set("o", "<tab>", "<C-z>", { silent = false })
 
 keymap("n", "L", "g_", opts)
+keymap("v", "L", "g_", opts)
+keymap("x", "L", "g_", opts)
 
 local function ChangeWorkingDir()
 	vim.cmd([[cd %:h]])
