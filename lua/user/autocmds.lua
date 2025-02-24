@@ -134,4 +134,3 @@ end
 vim.cmd([[
 autocmd BufWrite *.lua,*vim call v:lua.Flush()
 ]])
-
