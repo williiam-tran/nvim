@@ -36,6 +36,8 @@ require("oil").setup({
 		["<C-s>"] = "<cmd>w<CR>",
 		["<C-d>"] = "<Esc>dd",
 		["<C-h>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+		["<D-h>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+		["<D-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
 		["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" },
 		["<esc>"] = "actions.close",
 		["q"] = "actions.close",

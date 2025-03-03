@@ -1,3 +1,7 @@
+-- require("user.pounce")
+-- require("user.pounce")
+-- require("user.pounce")
+-- require("user.pounce")
 return function(INPUT_LINE_NUMBER)
     vim.opt.encoding = 'utf-8'
     -- Prevent auto-centering on click

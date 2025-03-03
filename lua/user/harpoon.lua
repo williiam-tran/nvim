@@ -65,8 +65,11 @@ harpoon:extend({
 		vim.keymap.set("n", "<C-s>", function()
 			harpoon.ui:select_menu_item({ vsplit = true })
 		end, { buffer = cx.bufnr })
-		vim.keymap.set("n", "<A-v>", function()
+		vim.keymap.set("n", "<D-s>", function()
 			harpoon.ui:select_menu_item({ vsplit = true })
+		end, { buffer = cx.bufnr })
+		vim.keymap.set("n", "<D-t>", function()
+			harpoon.ui:select_menu_item({ tabedit = true })
 		end, { buffer = cx.bufnr })
 
 		vim.keymap.set("n", "<A-t>", function()
@@ -90,6 +93,11 @@ end)
 vim.keymap.set("n", "i4", function()
 	harpoon:list():select(4)
 end)
+
+vim.keymap.set("n", "<D-e>", function()
+	toggle_telescope(harpoon:list())
+end, { desc = "Open harpoon window" })
+
 vim.keymap.set("n", "<A-e>", function()
 	toggle_telescope(harpoon:list())
 end, { desc = "Open harpoon window" })
@@ -98,7 +106,7 @@ vim.keymap.set("n", "<C-e>", function()
 	toggle_telescope(harpoon:list())
 end, { desc = "Open harpoon window" })
 
-vim.keymap.set("n", "<A-a>", function()
+vim.keymap.set("n", "<D-a>", function()
 	harpoon:list():add()
 end)
 

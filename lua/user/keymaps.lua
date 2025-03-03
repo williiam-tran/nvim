@@ -15,9 +15,15 @@ if not is_windows() then
         end, 50)
     end, { silent = true })
 end
-
-keymap("n", "K", "<C-u>", opts)
-keymap("n", "J", "<C-d>", opts)
+keymap("v", "t", "k", opts)
+keymap("v", "h", "j", opts)
+keymap("n", "t", "k", opts)
+keymap("n", "h", "j", opts)
+keymap("n", "T", "<C-u>", opts)
+keymap("n", "H", "<C-d>", opts)
+keymap("n", "<S-Up>", "<C-u>", opts)
+keymap("n", "<S-Down>", "<C-d>", opts)
+-- htns ciea
 keymap("n", "eq", 'ciq<C-r>"', opts)
 -- keymap("n", "<C-d>", "<Nop>", opts)
 keymap("i", "<C-BS>", "<C-w>", opts)
@@ -31,22 +37,23 @@ keymap("n", "<Space>", "<Nop>", opts)
 -- keymap("n", "<c-n>", "<Nop>", opts)
 -- keymap("i", "<C-h>", "<C-w>", opts)
 keymap("i", "<C-e>", "<C-o>de", opts)
-keymap("n", "t", '<cmd>require("cinnamon").scroll("<C-]>")<CR>', opts)
 
 if not vim.g.vscode then
-    keymap("n", "t", "<cmd>Pounce<CR>", opts)
-    keymap("v", "t", '"zy<cmd>PounceReg z<cr>', opts)
+    keymap("n", "s", "<cmd>Pounce<CR>", opts)
+    keymap("v", "s", '"zy<cmd>PounceReg z<cr>', opts)
 else
-    keymap("n", "t", "<cmd>Pounce<CR>", opts)
+    keymap("n", "s", "<cmd>Pounce<CR>", opts)
     -- keymap("n", "t", "<cmd>Pounce<CR>", opts)
     -- keymap("v", "t", '"zy<cmd>PounceReg z<cr>', opts)
 end
+
+keymap("n", "n", "w", opts)
+keymap("n", "k", "b", opts)
 keymap("n", "$", "%", opts)
-keymap("i", "jk", "<esc>", opts)
-keymap("i", "kj", "<esc>", opts)
+keymap("i", "ht", "<esc>", opts)
+keymap("i", "th", "<esc>", opts)
 keymap("v", "$", "%", opts)
 
-keymap("n", ";", ":", opts)
 
 function ToAnyNumber()
     -- after this function called, already in insert mode and deleted everything inside the quote.
@@ -80,27 +87,16 @@ vim.api.nvim_set_keymap("o", "eo", [[:lua AppendToAnyBracket()<CR>]], { noremap 
 
 vim.cmd([[
 nnoremap > .
-nnoremap ; :
+nnoremap , :
 nnoremap : ;
 
-vnoremap ; :
+vnoremap , :
 vnoremap : ;
 cnoremap <C-v> <c-r>+
 ]])
 
 -- vim.keymap.set("v", "<C-r>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "change selection" })
 vim.keymap.set("v", "<C-r>", '"hy:%s/<C-r>=escape(@h, "/\\[].*$^~")<CR>//g<left><left>', { desc = "change selection" })
-
-keymap("n", "<Leader>k", "<Plug>(easymotion-j)", opts)
-keymap("n", "<Leader>i", "<Plug>(easymotion-k)", opts)
--- keymap("n", "jk", "<Plug>(easymotion-bd-jk)", opts)
-keymap("n", "<c-v>", "<Esc>p", opts)
--- keymap("c", "<C-v>", "<c-r>+", opts)
--- Key mapping to use the custom function
--- vim.keymap.set("n", "<A-n>", enter_insert_and_run, { noremap = true, silent = true })
-
--- keymap("n", "<C-`>", "<cmd>term<CR>", opts)
--- keymap("n", "<A-`>", "<cmd>term<CR>", opts)
 
 keymap("n", "<C-S-e>", "<cmd>lua MiniFiles.open()<CR>", opts)
 keymap("n", "<D-S-e>", "<cmd>lua require('oil').toggle_float()<CR>", opts)
@@ -138,6 +134,7 @@ keymap("n", "ge", "g_", opts)
 keymap("v", "ge", "g_", opts)
 keymap("v", "0", "^", opts)
 
+
 -- Next/Previous cursor position
 keymap("n", "<A-U>", "<C-O>", opts)
 keymap("n", "<A-O>", "<C-I>", opts)
@@ -149,7 +146,7 @@ keymap("n", "<M-O>", "<C-I>", opts)
 keymap("n", "<C-U>", "<C-O>", opts)
 keymap("n", "<C-O>", "<C-I>", opts)
 
-keymap("n", "<D-o>", "<C-i>", opts)
+keymap("n", "<D-l>", "<C-i>", opts)
 keymap("n", "<D-u>", "<C-o>", opts)
 
 
@@ -249,9 +246,14 @@ vim.api.nvim_set_keymap(
 if not vim.g.vscode then
     -- jump between buffers
     keymap("n", "<A-l>", "<Esc><C-W>l", opts)
+    keymap("n", "<D-l>", "<Esc><C-W>l", opts)
+
     keymap("n", "<A-h>", "<Esc><C-W>h", opts)
+    keymap("n", "<D-h>", "<Esc><C-W>h", opts)
+
     keymap("n", "<A-k>", "<Esc><C-W>k", opts)
     keymap("n", "<A-j>", "<Esc><C-W>j", opts)
+
     keymap("n", "<C-l>", "<Esc><C-W>l", opts)
     keymap("n", "<C-h>", "<Esc><C-W>h", opts)
     keymap("n", "<C-k>", "<Esc><C-W>k", opts)
@@ -267,8 +269,10 @@ if not vim.g.vscode then
     keymap("x", "<D-c>", "y", opts)
     keymap("n", "q", "<cmd>wq<CR>", opts)
     keymap("n", "Q", "<cmd>quitall<CR>", opts)
+
     keymap("n", "<C-A>", "ggVG", opts)
-    keymap("n", "<D-A>", "ggVG", opts)
+    keymap("n", "<A-a>", "ggVG", opts)
+    keymap("n", "<D-a>", "ggVG", opts)
 
     -- keymap("n", "<M-h>", ":resize -2<CR>", opts)
     -- keymap("n", "<M-l>", ":resize +2<CR>", opts)
@@ -284,7 +288,7 @@ if not vim.g.vscode then
     keymap("n", "<D-r>", "<cmd>Telescope live_grep<CR>", opts)
     keymap("n", "<A-r>", "<cmd>Telescope live_grep<CR>", opts)
 
-    vim.keymap.set("n", "<C-S-b>", function()
+    vim.keymap.set("n", "<c-s-b>", function()
         require("telescope.builtin").buffers({
             preview = false,
         })
@@ -329,7 +333,7 @@ if not vim.g.vscode then
     -- keymap("x", "<C-k>", ":move '>+1<CR>gv-gv", opts)
     -- keymap("x", "<C-i>", ":move '<-2<CR>gv-gv", opts)
 
-    keymap("i", "<C-v>", "<Esc>p", opts)
+    -- keymap("i", "<C-v>", "<Esc>p", opts)
     keymap("i", "<D-v>", "<Esc>p", opts)
 
     -- keymap("n", "<C-B>", ":NvimTreeToggleNoFocus<CR>", opts)
@@ -385,6 +389,7 @@ if not vim.g.vscode then
 
     -- save current file.
     keymap("n", "<C-s>", "<cmd>w<CR>", opts)
+    keymap("n", "<D-s>", "<cmd>w<CR>", opts)
 
     -- Telescope
     keymap(
@@ -443,13 +448,15 @@ if not vim.g.vscode then
 
     keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 else
+    keymap("v", "<", "<gv", opts)
+    keymap("v", ">", ">gv", opts)
     -- harpoon
     keymap("n", "K", "10k", opts)
     keymap("n", "J", "10j", opts)
     keymap("n", "<leader>a", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
     keymap("n", "<A-a>", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
     -- keymap("n", "<A-e>", "<cmd>lua require('vscode').action('vscode-harpoon.editorQuickPick')<CR>", opts)
-    keymap("n", "<A-e>", "<cmd>lua require('vscode').action('vscode-harpoon.editEditors')<CR>", opts)
+    keymap("n", "<D-e>", "<cmd>lua require('vscode').action('vscode-harpoon.editEditors')<CR>", opts)
     keymap("n", "i1", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor1')<CR>", opts)
     keymap("n", "i2", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor2')<CR>", opts)
     keymap("n", "i3", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor3')<CR>", opts)
