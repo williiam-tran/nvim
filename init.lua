@@ -1,5 +1,6 @@
 require("user.lazy")
 require("user.options")
+require("user.surround")
 require("user.keymaps")
 
 if vim.g.vscode then
@@ -21,7 +22,7 @@ else
     require("user.nvimtree")
     require("user.colorscheme")
     require("user.reload")
-    require("user.typescript")
+    -- require("user.typescript")
     -- require("user.scrollback")
     require("user.smoothscrolling")
     require("user.illuminate")

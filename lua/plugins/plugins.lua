@@ -32,7 +32,8 @@ return {
         lazy = false, -- make sure the plugin is always loaded at startup
         config = true,
     },
-    { 'echasnovski/mini.comment', version = '*' },
+    { 'echasnovski/mini.surround', version = false },
+    { 'echasnovski/mini.comment',  version = '*' },
     {
         "folke/lazydev.nvim",
         ft = "lua", -- only load on lua files
@@ -44,8 +45,8 @@ return {
             },
         },
     },
-    { "Bilal2453/luvit-meta",     lazy = true }, -- optional `vim.uv` typings
-    {                                          -- optional completion source for require statements and module annotations
+    { "Bilal2453/luvit-meta",                   lazy = true }, -- optional `vim.uv` typings
+    {                                                          -- optional completion source for require statements and module annotations
         "hrsh7th/nvim-cmp",
         opts = function(_, opts)
             opts.sources = opts.sources or {}
@@ -55,20 +56,20 @@ return {
             })
         end,
     },
-    {
-        "folke/flash.nvim",
-        event = "VeryLazy",
-        keys = {
-            {
-                "s",
-                mode = { "n", "x", "o" },
-                function()
-                    require("flash").treesitter()
-                end,
-                desc = "Flash Treesitter",
-            },
-        },
-    },
+    -- {
+    --     "folke/flash.nvim",
+    --     event = "VeryLazy",
+    --     keys = {
+    --         {
+    --             "s",
+    --             mode = { "n", "x", "o" },
+    --             function()
+    --                 require("flash").treesitter()
+    --             end,
+    --             desc = "Flash Treesitter",
+    --         },
+    --     },
+    -- },
     {
         "echasnovski/mini.files",
         version = "*",
@@ -89,7 +90,7 @@ return {
     },
     { "nvim-telescope/telescope-ui-select.nvim" },
     "kiyoon/telescope-insert-path.nvim",
-    { "junegunn/fzf",                           dir = "~/.fzf", build = "./install --all" },
+    { "junegunn/fzf",                             dir = "~/.fzf", build = "./install --all" },
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
