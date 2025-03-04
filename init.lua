@@ -23,7 +23,7 @@ else
     require("user.colorscheme")
     require("user.reload")
     -- require("user.typescript")
-    -- require("user.scrollback")
+    require("user.scrollback")
     require("user.smoothscrolling")
     require("user.illuminate")
     require("user.pounce")

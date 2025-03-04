@@ -3,7 +3,8 @@ require("codecompanion").setup({
 		openai = function()
 			return require("codecompanion.adapters").extend("openai", {
 				env = {
-					api_key = "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",
+					api_key =
+					"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",
 				},
 			})
 		end,
