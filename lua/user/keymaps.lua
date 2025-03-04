@@ -1,5 +1,6 @@
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
+
 local textObj = require("various-textobjs")
 local function is_windows()
     ---@diagnostic disable-next-line: undefined-field
@@ -20,6 +21,7 @@ vim.api.nvim_set_keymap('n', '<Tab>', 'n', { noremap = true, silent = true })
 -- Map Shift+Tab to go to the previous search match
 vim.api.nvim_set_keymap('n', '<S-Tab>', 'N', { noremap = true, silent = true })
 keymap("n", "e", "d", opts)
+keymap("n", "<", ".", opts)
 keymap("v", "e", "d", opts)
 keymap("x", "e", "d", opts)
 keymap("v", "t", "k", opts)
@@ -36,6 +38,7 @@ keymap("n", "eq", 'ciq<C-r>"', opts)
 keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("n", "m", "q", opts)
 keymap("n", ".", "v", opts)
+keymap("n", ">", "V", opts)
 keymap("n", ">", "V", opts)
 -- keymap("n", "V", "0vg_", opts)
 
@@ -68,6 +71,7 @@ keymap("x", "k", "b", opts)
 keymap("i", "ht", "<esc>", opts)
 keymap("i", "th", "<esc>", opts)
 keymap("i", "ea", "<esc>", opts)
+keymap("n", "-", "x", opts)
 
 
 function ToAnyNumber()
