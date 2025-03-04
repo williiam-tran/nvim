@@ -15,7 +15,10 @@ if not is_windows() then
         end, 50)
     end, { silent = true })
 end
-
+-- Map Tab to go to the next search match
+vim.api.nvim_set_keymap('n', '<Tab>', 'n', { noremap = true, silent = true })
+-- Map Shift+Tab to go to the previous search match
+vim.api.nvim_set_keymap('n', '<S-Tab>', 'N', { noremap = true, silent = true })
 keymap("n", "e", "d", opts)
 keymap("v", "e", "d", opts)
 keymap("x", "e", "d", opts)
@@ -64,6 +67,7 @@ keymap("v", "k", "b", opts)
 keymap("x", "k", "b", opts)
 keymap("i", "ht", "<esc>", opts)
 keymap("i", "th", "<esc>", opts)
+keymap("i", "ea", "<esc>", opts)
 
 
 function ToAnyNumber()
@@ -140,6 +144,8 @@ keymap("v", "0", "^", opts)
 keymap("n", "e", "d", opts)
 keymap("o", "e", "d", opts)
 
+keymap("n", "o", "w", opts)
+keymap("o", "o", "w", opts)
 
 -- Next/Previous cursor position
 keymap("n", "<A-U>", "<C-O>", opts)
