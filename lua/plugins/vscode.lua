@@ -1,4 +1,5 @@
 return {
+	{ 'echasnovski/mini.surround', version = false },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",

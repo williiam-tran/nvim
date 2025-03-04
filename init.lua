@@ -30,4 +30,5 @@ else
     require("user.treesitter")
     require("user.autopairs")
     require("user.tabout")
+    require("user.git")
 end

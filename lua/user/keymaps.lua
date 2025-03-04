@@ -17,6 +17,8 @@ if not is_windows() then
 end
 
 keymap("n", "e", "d", opts)
+keymap("v", "e", "d", opts)
+keymap("x", "e", "d", opts)
 keymap("v", "t", "k", opts)
 keymap("v", "h", "j", opts)
 keymap("n", "t", "k", opts)
@@ -432,8 +434,8 @@ else
     keymap("v", "<", "<gv", opts)
     keymap("v", ">", ">gv", opts)
     -- harpoon
-    keymap("n", "K", "10k", opts)
-    keymap("n", "J", "10j", opts)
+    keymap("n", "T", "10k", opts)
+    keymap("n", "H", "10j", opts)
     keymap("n", "<leader>a", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
     keymap("n", "<A-a>", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
     -- keymap("n", "<A-e>", "<cmd>lua require('vscode').action('vscode-harpoon.editorQuickPick')<CR>", opts)
@@ -455,8 +457,7 @@ else
     keymap("n", "gi", "<cmd>lua require('vscode-neovim').action('editor.action.goToImplementation')<CR>", opts)
     keymap("n", "gr", "<cmd>lua require('vscode-neovim').action('references-view.findReferences')<CR>", opts)
     keymap("n", "rn", "<cmd>lua require('vscode-neovim').action('editor.action.rename')<CR>", opts)
-
-    keymap("n", "H", "<cmd>lua require('vscode-neovim').action('editor.action.showHover')<CR>", opts)
+    keymap("i", "ht", "<cmd>lua require('vscode').action('vscode-neovim.escape')<CR>", opts)
 end
 
 keymap("c", "<C-i>", "", opts)
