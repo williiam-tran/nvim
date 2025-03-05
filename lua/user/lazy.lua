@@ -45,4 +45,3 @@ else
 		defaults = { lazy = true },
 	})
 end
-

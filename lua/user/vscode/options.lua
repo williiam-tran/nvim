@@ -20,9 +20,13 @@ vim.api.nvim_set_hl(0, "PounceAccept", { bg = "#1e1e1e" })
 vim.api.nvim_set_hl(0, "PounceAcceptBest", { fg = "#ebffc5", bg = "#1e1e1e" })
 vim.o.cmdheight = 50
 
+require('ts_context_commentstring').setup {
+    enable_autocmd = false,
+}
+
 require("pounce").setup({
     accept_keys = "IJKLSFUOAD",
-    accept_best_key = "<Tab>",
+    accept_best_key = "<Space>",
     multi_window = true,
     debug = false,
 })

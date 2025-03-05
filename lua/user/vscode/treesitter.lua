@@ -25,7 +25,7 @@ configs.setup({
                 goto_definition = "gd",
                 list_definitions = "gD",
                 list_definitions_toc = "gO",
-                goto_next_usage = "<C-n>",
+                -- goto_next_usage = "<C-n>",
                 goto_previous_usage = "<C-p>",
             },
         },

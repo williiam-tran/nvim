@@ -20,7 +20,14 @@ end
 vim.api.nvim_set_keymap('n', '<Tab>', 'n', { noremap = true, silent = true })
 -- Map Shift+Tab to go to the previous search match
 vim.api.nvim_set_keymap('n', '<S-Tab>', 'N', { noremap = true, silent = true })
+
+keymap("v", "b", "<esc>", opts)
+keymap("o", "b", "<esc>", opts)
+keymap("n", "v", "<esc>", opts)
+
 keymap("n", "e", "d", opts)
+keymap("n", "m", "<C-w>", opts)
+
 keymap("n", "<", ".", opts)
 keymap("v", "e", "d", opts)
 keymap("x", "e", "d", opts)
@@ -30,11 +37,9 @@ keymap("n", "t", "k", opts)
 keymap("n", "h", "j", opts)
 keymap("n", "T", "<C-u>", opts)
 keymap("n", "H", "<C-d>", opts)
-keymap("n", "<S-Up>", "<C-u>", opts)
-keymap("n", "<S-Down>", "<C-d>", opts)
--- htns ciea
+
+
 keymap("n", "eq", 'ciq<C-r>"', opts)
--- keymap("n", "<C-d>", "<Nop>", opts)
 keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("n", "m", "q", opts)
 keymap("n", ".", "v", opts)
@@ -46,7 +51,7 @@ keymap("n", "<C-S-d>", "<Nop>", opts)
 -- keymap("n", "i", "<Nop>", opts)
 -- keymap("n", "<C-r>", "<Nop>", opts)
 keymap("n", "<Space>", "<Nop>", opts)
--- keymap("n", "<c-n>", "<Nop>", opts)
+keymap("n", "<c-n>", "<Nop>", opts)
 -- keymap("i", "<C-h>", "<C-w>", opts)
 keymap("i", "<C-e>", "<C-o>de", opts)
 
@@ -73,6 +78,10 @@ keymap("i", "th", "<esc>", opts)
 keymap("i", "ea", "<esc>", opts)
 keymap("n", "-", "x", opts)
 
+keymap("n", "<c-n>", "<Esc><C-W>l", opts)
+keymap("n", "<c-k>", "<Esc><C-W>h", opts)
+keymap("n", "<c-t>", "<Esc><C-W>k", opts)
+keymap("n", "<c-h>", "<Esc><C-W>j", opts)
 
 function ToAnyNumber()
     -- after this function called, already in insert mode and deleted everything inside the quote.
@@ -105,6 +114,10 @@ vim.api.nvim_set_keymap("o", "ep", [[:lua AppendToAnyQuote()<CR>]], { noremap = 
 vim.api.nvim_set_keymap("o", "ew", [[:lua AppendToAnyBracket()<CR>]], { noremap = true, silent = true })
 
 vim.cmd([[
+map <c-up> <C-w><up>
+map <c-down> <C-w><down>
+map <c-left> <C-w><left>
+map <c-right> <C-w><right>
 nnoremap , :
 cnoremap <C-v> <c-r>+
 ]])
@@ -135,11 +148,9 @@ nnoremap <leader>q :bp<cr>:bd #<cr>
 -- Git
 keymap("n", "gs", "<cmd>Neogit<CR>", opts)
 keymap("n", "gp", "<cmd>Neogit pull<CR>", opts)
-
 keymap("n", "y", '"+y', opts)
 keymap("n", "p", '"+p', opts)
 keymap("n", "<C-Z>", "<Esc>u", opts)
-
 keymap("n", "0", "^", opts)
 keymap("n", "ge", "g_", opts)
 
@@ -154,7 +165,6 @@ keymap("o", "o", "w", opts)
 -- Next/Previous cursor position
 keymap("n", "<A-U>", "<C-O>", opts)
 keymap("n", "<A-O>", "<C-I>", opts)
-
 
 
 keymap("n", "<M-U>", "<C-O>", opts)
@@ -375,7 +385,7 @@ if not vim.g.vscode then
     -- keymap("o", "<M-k>", "<C-n>", opts)
 
     -- Next and previous problems.
-    keymap("n", "<C-n>", "<Cmd>lua require('illuminate').goto_next_reference()<cr>", opts)
+    -- keymap("n", "<C-n>", "<Cmd>lua require('illuminate').goto_next_reference()<cr>", opts)
     keymap("n", "<C-p>", "<Cmd>lua require('illuminate').goto_prev_reference()<cr>", opts)
     keymap("n", "<Bslash>", "<Cmd>lua vim.diagnostic.goto_next()<cr>", opts)
     -- keymap("n", "<|>", "<Cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
@@ -513,14 +523,15 @@ end
 
 vim.cmd([[
 let g:VM_maps = {}
-" let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
-" let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
+let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
+let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 let g:EasyMotion_space_jump_first = 1
 let g:EasyMotion_verbose = 0
 ]])
-
+vim.keymap.set('n', '<CR>', 'm`o<Esc>``')
+vim.keymap.set('n', '<S-CR>', 'm`O<Esc>``')
 keymap("n", "P", "<CR><C-w>p", opts)
-vim.keymap.set({ "o", "x" }, "p", '<cmd>lua require("various-textobjs").anyQuote("inner")<CR>')
-vim.keymap.set({ "o", "x" }, "w", '<cmd>lua require("various-textobjs").anyBracket("inner")<CR>')
+vim.keymap.set({ "o" }, "p", '<cmd>lua require("various-textobjs").anyQuote("inner")<CR>')
+vim.keymap.set({ "o" }, "w", '<cmd>lua require("various-textobjs").anyBracket("inner")<CR>')
 vim.api.nvim_set_keymap('n', '=', ':lua vim.api.nvim_command("normal! \\22")<CR>', { noremap = true, silent = true })
 -- vim.keymap.set("n", "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true })
