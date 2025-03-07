@@ -1,7 +1,7 @@
 require("user.lazy")
+require("user.keymaps")
 require("user.options")
 require("user.surround")
-require("user.keymaps")
 
 if vim.g.vscode then
     require("user.vscode.options")
@@ -13,7 +13,6 @@ else
     require("user.mason")
     require("user.formatter")
     require("user.autopairs")
-    require("user.telescope")
     require("user.comments")
     require("user.noice")
     require("user.pounce")
@@ -27,8 +26,8 @@ else
     require("user.smoothscrolling")
     require("user.illuminate")
     require("user.pounce")
+    require("user.telescope")
     require("user.treesitter")
-    require("user.autopairs")
     require("user.tabout")
     require("user.git")
 end

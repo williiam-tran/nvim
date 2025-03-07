@@ -1,4 +1,5 @@
 return {
+	{ "chrisgrieser/nvim-spider",  lazy = true },
 	{ 'echasnovski/mini.surround', version = false },
 	{
 		"nvim-treesitter/nvim-treesitter",

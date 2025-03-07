@@ -1,4 +1,6 @@
 return {
+    -- lazy.nvim
+    { "chrisgrieser/nvim-spider",  lazy = true },
     {
         "lewis6991/gitsigns.nvim"
     },

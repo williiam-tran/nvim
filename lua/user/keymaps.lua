@@ -23,9 +23,11 @@ vim.api.nvim_set_keymap('n', '<S-Tab>', 'N', { noremap = true, silent = true })
 
 keymap("v", "b", "<esc>", opts)
 keymap("o", "b", "<esc>", opts)
-keymap("n", "v", "<esc>", opts)
 
+keymap("n", "w", "o", opts)
+keymap("v", "w", "e", opts)
 keymap("n", "e", "d", opts)
+keymap("n", "a", "i", opts)
 keymap("n", "m", "<C-w>", opts)
 
 keymap("n", "<", ".", opts)
@@ -40,6 +42,9 @@ keymap("n", "H", "<C-d>", opts)
 
 
 keymap("n", "eq", 'ciq<C-r>"', opts)
+keymap("i", "ht", "<Esc><cmd>w<CR>", opts)
+keymap("i", "th", "<Esc><cmd>w<CR>", opts)
+keymap("i", "<C-S>", "<Esc><cmd>w<CR>", opts)
 keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("n", "m", "q", opts)
 keymap("n", ".", "v", opts)
@@ -57,6 +62,7 @@ keymap("i", "<C-e>", "<C-o>de", opts)
 
 if not vim.g.vscode then
     keymap("n", "s", "<cmd>Pounce<CR>", opts)
+    keymap("n", "c", "<cmd>Pounce<CR>", opts)
     -- keymap("v", "s", '"zy<cmd>PounceReg z<cr>', opts)
 else
     keymap("n", "s", "<cmd>Pounce<CR>", opts)
@@ -64,19 +70,18 @@ else
     -- keymap("v", "t", '"zy<cmd>PounceReg z<cr>', opts)
 end
 
-keymap("o", "o", "w", opts)
+-- keymap("o", "o", "w", opts)
 keymap("n", "l", "u", opts)
-keymap("n", "w", "o", opts)
+-- keymap("n", "w", "o", opts)
 keymap("n", "n", "w", opts)
 keymap("v", "n", "w", opts)
 keymap("x", "n", "w", opts)
 keymap("n", "k", "b", opts)
 keymap("v", "k", "b", opts)
 keymap("x", "k", "b", opts)
-keymap("i", "ht", "<esc>", opts)
-keymap("i", "th", "<esc>", opts)
-keymap("i", "ea", "<esc>", opts)
 keymap("n", "-", "x", opts)
+keymap("n", "\"", "x", opts)
+keymap("n", "i", "c", opts)
 
 keymap("n", "<c-n>", "<Esc><C-W>l", opts)
 keymap("n", "<c-k>", "<Esc><C-W>h", opts)
@@ -90,11 +95,23 @@ end
 
 keymap("o", "n", "<cmd>lua ToAnyNumber()<CR>", opts) --, 6
 
+function AroundAnyBracket()
+    -- after this function called, already in insert mode and deleted everything inside the quote.
+    require("various-textobjs").anyBracket("outer")
+end
+
 function AppendToAnyBracket()
     -- after this function called, already in insert mode and deleted everything inside the quote.
     require("various-textobjs").anyBracket("inner")
     local keys = vim.api.nvim_replace_termcodes('<c-r>"', true, false, true)
     vim.api.nvim_feedkeys(keys, "i", false)
+end
+
+function AroundAnyQuote()
+    -- after this function called, already in insert mode and deleted everything inside the quote.
+    require("various-textobjs").anyQuote("outer")
+    -- local keys = vim.api.nvim_replace_termcodes('<c-r>"', true, false, true)
+    -- vim.api.nvim_feedkeys(keys, "i", false)
 end
 
 function AppendToAnyQuote()
@@ -111,6 +128,8 @@ vim.api.nvim_set_keymap(
     { noremap = true, silent = true }
 )
 vim.api.nvim_set_keymap("o", "ep", [[:lua AppendToAnyQuote()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("o", "ap", [[:lua AroundAnyQuote()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("o", "aw", [[:lua AroundAnyBracket()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("o", "ew", [[:lua AppendToAnyBracket()<CR>]], { noremap = true, silent = true })
 
 vim.cmd([[
@@ -453,16 +472,19 @@ if not vim.g.vscode then
 else
     keymap("v", "<", "<gv", opts)
     keymap("v", ">", ">gv", opts)
-    -- harpoon
     keymap("n", "T", "10k", opts)
     keymap("n", "H", "10j", opts)
-    keymap("n", "<leader>a", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
-    keymap("n", "<A-a>", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
+    keymap("n", "me", "<cmd>lua require('vscode-neovim').action('vscode-harpoon.editEditors')<CR>", opts)
+    keymap("n", "ma", "<cmd>lua require('vscode-neovim').action('vscode-harpoon.addEditor')<CR>", opts)
+    keymap("n", "<d-a>", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
+    keymap("n", "<leader>a", "<cmd>lua require('vscode-neovim').action('vscode-harpoon.addGlobalEditor')<CR>", opts)
     -- keymap("n", "<A-e>", "<cmd>lua require('vscode').action('vscode-harpoon.editorQuickPick')<CR>", opts)
     keymap("n", "<D-e>", "<cmd>lua require('vscode').action('vscode-harpoon.editEditors')<CR>", opts)
     keymap("n", "dy", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor1')<CR>", opts)
     keymap("n", "do", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor2')<CR>", opts)
     keymap("n", "du", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor3')<CR>", opts)
+    keymap("n", "du", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor4')<CR>", opts)
+
     keymap("n", "i4", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor4')<CR>", opts)
     keymap("n", "i5", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor5')<CR>", opts)
     keymap("n", "i6", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor6')<CR>", opts)
@@ -477,7 +499,7 @@ else
     keymap("n", "gi", "<cmd>lua require('vscode-neovim').action('editor.action.goToImplementation')<CR>", opts)
     keymap("n", "gr", "<cmd>lua require('vscode-neovim').action('references-view.findReferences')<CR>", opts)
     keymap("n", "rn", "<cmd>lua require('vscode-neovim').action('editor.action.rename')<CR>", opts)
-    keymap("i", "ht", "<cmd>lua require('vscode').action('vscode-neovim.escape')<CR>", opts)
+    keymap("n", "ga", "<cmd>lua require('vscode-neovim').action('editor.action.rename')<CR>", opts)
 end
 
 keymap("c", "<C-i>", "", opts)
@@ -526,12 +548,25 @@ let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 let g:EasyMotion_space_jump_first = 1
+
 let g:EasyMotion_verbose = 0
 ]])
-vim.keymap.set('n', '<CR>', 'm`o<Esc>``')
-vim.keymap.set('n', '<S-CR>', 'm`O<Esc>``')
-keymap("n", "P", "<CR><C-w>p", opts)
-vim.keymap.set({ "o" }, "p", '<cmd>lua require("various-textobjs").anyQuote("inner")<CR>')
-vim.keymap.set({ "o" }, "w", '<cmd>lua require("various-textobjs").anyBracket("inner")<CR>')
+vim.keymap.set('n', '<CR>', 'm`O<Esc>t``')
 vim.api.nvim_set_keymap('n', '=', ':lua vim.api.nvim_command("normal! \\22")<CR>', { noremap = true, silent = true })
--- vim.keymap.set("n", "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true })
+keymap("n", "P", "<CR><C-w>p", opts)
+
+vim.keymap.set({ "o" }, "p", '<cmd>lua require("various-textobjs").anyQuote("inner")<CR>')
+-- vim.keymap.set({ "o" }, "w", '<cmd>lua require("various-textobjs").anyBracket("inner")<CR>')
+
+vim.keymap.set("n", "n", "<cmd>lua require('spider').motion('w')<CR>")
+vim.keymap.set("n", "o", "<cmd>lua require('spider').motion('w')<CR>")
+vim.keymap.set("o", "o", "<cmd>lua require('spider').motion('w')<CR>")
+vim.keymap.set("n", "co", "ce", { remap = true })
+vim.keymap.set("o", "ip", "iq", { noremap = true })
+vim.keymap.set("o", "ilp", "ilq", { noremap = true })
+vim.keymap.set("x", "ip", "iq", { remap = true })
+vim.keymap.set("x", "iw", "ib", { remap = true })
+
+-- OR in one mapping
+vim.keymap.set("n", "co", "c<cmd>lua require('spider').motion('e')<CR>")
+vim.api.nvim_set_keymap('n', 'iw', 'ciw', { noremap = true, silent = true })

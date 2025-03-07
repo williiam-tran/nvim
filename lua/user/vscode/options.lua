@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 vim.cmd([[
 hi Comment guifg=#dbaf84
 hi String guifg=#efa29b

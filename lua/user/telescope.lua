@@ -5,7 +5,6 @@ local fb_actions = require("telescope").extensions.file_browser.actions
 local path_actions = require("telescope_insert_path")
 -- local persisted_actions = require("telescope._extensions.persisted.actions")
 
-
 local function create_and_focus(prompt_bufnr)
 	local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
 	fb_actions.create(prompt_bufnr)

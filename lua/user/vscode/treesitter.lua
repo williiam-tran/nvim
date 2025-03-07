@@ -1,12 +1,16 @@
 require("nvim-treesitter.install").compilers = { "clang", "gcc" }
 require("nvim-treesitter.install").prefer_git = true
-
+require("spider").setup()
 local status_ok, configs = pcall(require, "nvim-treesitter.configs")
 if not status_ok then
     return
 end
 
 configs.setup({
+    sync_install = false,
+    modules = {},
+    ignore_install = { "javascript" },
+    ensure_installed = { "c", "lua", "vimdoc", "vim", "go", "gomod", "gosum", "luadoc", "markdown", "elixir", "eex", "heex", "vue" },
     auto_install = true,
     incremental_selection = {
         enable = true,
@@ -25,7 +29,7 @@ configs.setup({
                 goto_definition = "gd",
                 list_definitions = "gD",
                 list_definitions_toc = "gO",
-                -- goto_next_usage = "<C-n>",
+                goto_next_usage = "<C-n>",
                 goto_previous_usage = "<C-p>",
             },
         },
@@ -50,6 +54,16 @@ configs.setup({
         },
     },
     textobjects = {
+        move = {
+            enable = true,
+            set_jumps = false,
+            goto_next_start = {
+                ["]p"] = "@parameter.inner",
+            },
+            goto_previous_start = {
+                ["[p"] = "@parameter.inner",
+            }
+        },
         swap = {
             enable = true,
             swap_next = {
@@ -101,3 +115,4 @@ configs.setup({
         },
     },
 })
+
