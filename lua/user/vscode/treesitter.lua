@@ -1,6 +1,6 @@
 require("nvim-treesitter.install").compilers = { "clang", "gcc" }
 require("nvim-treesitter.install").prefer_git = true
-require("spider").setup()
+
 local status_ok, configs = pcall(require, "nvim-treesitter.configs")
 if not status_ok then
     return
@@ -115,4 +115,3 @@ configs.setup({
         },
     },
 })
-

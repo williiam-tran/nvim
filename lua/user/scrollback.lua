@@ -1,7 +1,7 @@
 require('kitty-scrollback').setup({
     {
         status_window = {
-            enabled = false,
+            enabled = true,
             autoclose = true
         },
         kitty_get_text = {
@@ -11,7 +11,10 @@ require('kitty-scrollback').setup({
         },
         -- boolean? if true execute :checkhealth kitty-scrollback and skip setup
         paste_window = {
-            yank_register = { '*' },
+            hide_footer = false,
+            -- integer? The winblend setting of the window, see :help winblend
+            winblend = 0,
+            -- yank_register = { '*' },
             yank_register_enabled = true,
         },
     },
