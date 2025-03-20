@@ -65,10 +65,10 @@ keymap("n", "<c-n>", "<Nop>", opts)
 keymap("i", "<C-e>", "<C-o>de", opts)
 
 if not vim.g.vscode then
-    keymap("n", "c", "<cmd>Pounce<CR>", opts)
-    -- keymap("v", "s", '"zy<cmd>PounceReg z<cr>', opts)
+    keymap("n", "s", "<cmd>Pounce<CR>", opts)
+    keymap("v", "s", '"zy<cmd>PounceReg z<cr>', opts)
 else
-    keymap("n", "c", "<cmd>Pounce<CR>", opts)
+    keymap("n", "s", "<cmd>Pounce<CR>", opts)
     -- keymap("n", "t", "<cmd>Pounce<CR>", opts)
     -- keymap("v", "t", '"zy<cmd>PounceReg z<cr>', opts)
 end
@@ -286,13 +286,6 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = setup_quickfix_keymaps,
 })
 
--- Set up the keymap
-vim.api.nvim_set_keymap(
-    "n",
-    "rl",
-    '<cmd>lua require("user.reload").reload_config()<CR>',
-    { noremap = true, silent = true }
-)
 
 if not vim.g.vscode then
     keymap("n", "<C-z>", "<cmd>red<CR>", opts)
@@ -469,7 +462,7 @@ if not vim.g.vscode then
 
     keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 
-    -- keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+    keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 
     keymap("n", "gi", "<cmd>lua vim.lsp.bui.implementation()<CR>", opts)
 

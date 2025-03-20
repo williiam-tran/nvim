@@ -1,6 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "cssls", "eslint", "tailwindcss" },
+    ensure_installed = { "lua_ls", "cssls", "eslint", },
 })
 
 require("lazydev").setup({
@@ -43,9 +43,9 @@ require("lspconfig").lua_ls.setup({
     -- end,
 })
 
-require("lspconfig").tailwindcss.setup({
-    capabilities = capabilities,
-})
+-- require("lspconfig").tailwindcss.setup({
+--     capabilities = capabilities,
+-- })
 
 capabilities = require("user.lsp.handlers").capabilities
 capabilities.textDocument.completion.completionItem.snippetSupport = true

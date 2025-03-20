@@ -23,7 +23,7 @@ else
     require("user.persisted")
     require("user.nvimtree")
     require("user.colorscheme")
-    require("user.reload")
+    -- require("user.reload")
     -- require("user.typescript")
     require("user.scrollback")
     require("user.smoothscrolling")

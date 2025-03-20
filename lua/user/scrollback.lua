@@ -2,10 +2,10 @@ require('kitty-scrollback').setup({
     {
         status_window = {
             enabled = true,
-            autoclose = true
+            autoclose = false
         },
         kitty_get_text = {
-            ansi = false,
+            ansi = true,
             -- Choices: screen, all, first_cmd_output_on_screen, last_cmd_output, last_non_empty_output, last_visited_cmd_output, selection
             extent = 'last_non_empty_output',
         },
