@@ -15,7 +15,8 @@ return {
             "ibhagwan/fzf-lua",              -- optional
             "echasnovski/mini.pick",         -- optional
         },
-        lazy = false,
+        cmd = "Neogit",
+        lazy = true,
         config = false
     },
     {

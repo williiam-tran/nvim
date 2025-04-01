@@ -27,7 +27,6 @@ keymap("o", "b", "<esc>", opts)
 -- keymap("x", "i", "c", opts)
 keymap("o", "i", "i", opts)
 
-keymap("n", ".", "v", opts)
 
 keymap("n", "K", "^", opts)
 keymap("n", "N", "$", opts)
@@ -35,6 +34,10 @@ keymap("n", "w", "o", opts)
 keymap("v", "w", "e", opts)
 keymap("n", "e", "d", opts)
 keymap("n", "a", "i", opts)
+
+keymap("n", "I", "C", opts)
+keymap("v", "I", "C", opts)
+keymap("x", "I", "C", opts)
 keymap("n", "m", "<C-w>", opts)
 
 keymap("v", "e", "d", opts)
@@ -287,6 +290,14 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
+vim.keymap.set("n", "<", "v<<Esc>", { remap = true })
+vim.keymap.set("n", ">", "v><Esc>", { remap = true })
+
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
+keymap("x", "<", "<gv", opts)
+keymap("x", ">", ">gv", opts)
+
 if not vim.g.vscode then
     keymap("n", "<C-z>", "<cmd>red<CR>", opts)
     keymap("n", "<D-z>", "<cmd>red<CR>", opts)
@@ -302,11 +313,7 @@ if not vim.g.vscode then
 
     -- Visual --
     -- Stay in indent mode
-    keymap("v", "<", "<gv", opts)
-    keymap("v", ">", ">gv", opts)
 
-    keymap("x", "<", "<gv", opts)
-    keymap("x", ">", ">gv", opts)
     -- Treesitter
     keymap("n", "<D-r>", "<cmd>Telescope live_grep<CR>", opts)
     keymap("n", "<A-r>", "<cmd>Telescope live_grep<CR>", opts)
@@ -471,13 +478,16 @@ if not vim.g.vscode then
 
     keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 else
-    keymap("v", "<", "<gv", opts)
-    keymap("v", ">", ">gv", opts)
     keymap("n", "T", "10k", opts)
     keymap("n", "H", "10j", opts)
+    keymap("n", "<tab>", "<cmd>lua require('vscode-neovim').action('editor.action.acceptCursorTabSuggestion')<CR>", opts)
+    keymap("v", "<tab>", "<cmd>lua require('vscode-neovim').action('editor.action.acceptCursorTabSuggestion')<CR>", opts)
+    keymap("x", "<tab>", "<cmd>lua require('vscode-neovim').action('editor.action.acceptCursorTabSuggestion')<CR>", opts)
+    keymap("o", "<tab>", "<cmd>lua require('vscode-neovim').action('editor.action.acceptCursorTabSuggestion')<CR>", opts)
     keymap("n", "/", "<cmd>lua require('vscode-neovim').action('swiper.swiper')<CR>", opts)
     keymap("v", "/", "<cmd>lua require('vscode-neovim').action('swiper.swiper-word-at-cursor')<CR>", opts)
     keymap("x", "/", "<cmd>lua require('vscode-neovim').action('swiper.swiper-word-at-cursor')<CR>", opts)
+    keymap("o", "/", "<cmd>lua require('vscode-neovim').action('swiper.swiper-word-at-cursor')<CR>", opts)
     keymap("n", "me", "<cmd>lua require('vscode-neovim').action('vscode-harpoon.editEditors')<CR>", opts)
     keymap("n", "ma", "<cmd>lua require('vscode-neovim').action('vscode-harpoon.addEditor')<CR>", opts)
     keymap("n", "<d-a>", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
@@ -561,28 +571,44 @@ keymap("n", "P", "<CR><C-w>p", opts)
 
 vim.keymap.set({ "o" }, "p", '<cmd>lua require("various-textobjs").anyQuote("inner")<CR>')
 
--- vim.keymap.set({ "o" }, "w", '<cmd>lua require("various-textobjs").anyBracket("inner")<CR>')
+vim.keymap.set({ "o" }, "w", '<cmd>lua require("various-textobjs").anyBracket("inner")<CR>')
 
-vim.keymap.set("n", "n", "<cmd>lua require('spider').motion('w')<CR>")
+vim.keymap.set("v", "n", "<cmd>lua require('spider').motion('e')<CR>")
+vim.keymap.set("x", "n", "<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set("n", "o", "<cmd>lua require('spider').motion('w')<CR>")
 vim.keymap.set("o", "o", "<cmd>lua require('spider').motion('w')<CR>")
+
 vim.keymap.set("n", "co", "ce", { remap = true })
-vim.keymap.set("o", "ip", "iq", { noremap = true })
+
+vim.keymap.set("o", "aw", "ab", { noremap = true })
+vim.keymap.set("o", "iw", "ib", { noremap = true })
 vim.keymap.set("o", "ilp", "ilq", { noremap = true })
 vim.keymap.set("x", "ip", "iq", { remap = true })
 vim.keymap.set("x", "iw", "ib", { remap = true })
 vim.keymap.set("x", "dp", "dq", { remap = true })
-vim.keymap.set("n", "adp", "adq", { remap = true })
-vim.keymap.set("n", "adw", "adb", { remap = true })
-vim.keymap.set("n", "arp", "arq", { remap = true })
-vim.keymap.set("n", "aqp", "aqwq", { remap = true })
-vim.keymap.set("n", ".p", "viq", { remap = true })
-vim.keymap.set("n", ".np", "vinq", { remap = true })
-vim.keymap.set("n", ".lp", "vilq", { remap = true })
+-- vim.keymap.set("n", "adp", "adq", { remap = true })
+-- vim.keymap.set("n", "adw", "adb", { remap = true })
+-- vim.keymap.set("n", "arp", "arq", { remap = true })
+-- vim.keymap.set("n", "aqp", "aqwq", { remap = true })
+-- vim.keymap.set("n", ".p", "viq", { remap = true })
+-- vim.keymap.set("n", ".np", "vinq", { remap = true })
+-- vim.keymap.set("n", ".lp", "vilq", { remap = true })
+vim.keymap.set("n", "inp", "vinqda", { remap = true })
+vim.keymap.set("n", "inw", "vinbda", { remap = true })
 
-vim.keymap.set("n", "\"", "<", { remap = true })
 -- OR in one mapping
 vim.keymap.set("n", "io", "c<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set("n", "co", "c<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set("n", "eo", "d<cmd>lua require('spider').motion('e')<CR>")
 vim.api.nvim_set_keymap('n', 'iw', 'ciw', { noremap = true, silent = true })
+keymap("n", '"', ".", opts)
+keymap("n", ".", "v", opts)
+
+vim.keymap.set("n", "<leader>hi", function()
+    local result = vim.treesitter.get_captures_at_cursor()
+    print("Treesitter: " .. vim.inspect(result))
+    local syntax_id = vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)
+    local syntax_name = vim.fn.synIDattr(syntax_id, "name")
+    local syntax_linked = vim.fn.synIDattr(vim.fn.synIDtrans(syntax_id), "name")
+    print(string.format("Syntax: '%s' -> '%s'", syntax_name, syntax_linked))
+end, { desc = "Show highlight group under cursor" })

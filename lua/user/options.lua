@@ -100,6 +100,8 @@ vim.cmd([[
 	silent! w
 ]])
 
+vim.opt.fillchars:append("diff:╱")
+
 -- Set EasyMotion highlights on ColorScheme
 -- vim.api.nvim_create_autocmd("ColorScheme", {
 -- 	pattern = "*",
