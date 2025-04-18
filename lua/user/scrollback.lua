@@ -7,7 +7,7 @@ require('kitty-scrollback').setup({
         kitty_get_text = {
             ansi = true,
             -- Choices: screen, all, first_cmd_output_on_screen, last_cmd_output, last_non_empty_output, last_visited_cmd_output, selection
-            extent = 'last_non_empty_output',
+            extent = 'last_cmd_output',
         },
         -- boolean? if true execute :checkhealth kitty-scrollback and skip setup
         paste_window = {

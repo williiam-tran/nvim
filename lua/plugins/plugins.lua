@@ -1,6 +1,7 @@
 return {
     -- lazy.nvim
-    { "chrisgrieser/nvim-spider",  lazy = true },
+    { 'mrjones2014/smart-splits.nvim', build = './kitty/install-kittens.bash' },
+    { "chrisgrieser/nvim-spider",      lazy = true },
     {
         "lewis6991/gitsigns.nvim"
     },

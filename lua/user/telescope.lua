@@ -43,7 +43,7 @@ telescope.setup({
             auto_quoting = false, -- enable/disable auto-quoting
             -- define mappings, e.g.
             -- ... also accepts theme settings, for example:
-            theme = "dropdown",       -- use dropdown theme
+            theme = "dropdown",                -- use dropdown theme
             -- theme = "ivy",
             layout_config = { mirror = true }, -- mirror preview pane
             file_ignore_patterns = {
@@ -271,9 +271,11 @@ telescope.setup({
             mappings = {
                 n = {
                     ["<Tab>"] = actions.select_default,
+                    ["<C-g>"] = actions.select_vertical,
                 },
                 i = {
                     ["<Tab>"] = actions.select_default,
+                    ["<C-g>"] = actions.select_vertical,
                 },
             },
         },
