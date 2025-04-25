@@ -90,7 +90,7 @@ keymap("v", "-", "d", opts)
 keymap("x", "-", "d", opts)
 keymap("n", "i", "c", opts)
 
-keymap("n", "<c-n>", "<Esc><C-W>l", opts)
+keymap("n", "<c-s>", "<Esc><C-W>l", opts)
 keymap("n", "<c-k>", "<Esc><C-W>h", opts)
 keymap("n", "<c-t>", "<Esc><C-W>k", opts)
 keymap("n", "<c-h>", "<Esc><C-W>j", opts)
@@ -430,7 +430,7 @@ if not vim.g.vscode then
     -- keymap("n", "<|>", "<Cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
 
     -- save current file.
-    keymap("n", "<C-s>", "<cmd>w<CR>", opts)
+    -- keymap("n", "<C-s>", "<cmd>w<CR>", opts)
     keymap("n", "<D-s>", "<cmd>w<CR>", opts)
 
     -- Telescope
