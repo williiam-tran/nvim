@@ -329,6 +329,7 @@ if not vim.g.vscode then
     -- Treesitter
     keymap("n", "<D-r>", "<cmd>Telescope live_grep<CR>", opts)
     keymap("n", "<A-r>", "<cmd>Telescope live_grep<CR>", opts)
+    keymap("n", "<C-r>", "<cmd>Telescope live_grep<CR>", opts)
 
     vim.keymap.set("n", "<c-s-b>", function()
         require("telescope.builtin").buffers({
@@ -389,12 +390,6 @@ if not vim.g.vscode then
         opts
     )
 
-    -- keymap("n", "<C-/>", "<cmd>gcc<CR>", opts)
-    -- keymap("x", "<C-/>", "<Plug>(comment_toggle_linewise_current)", opts)
-    -- keymap("n", "<C-/>", "<Plug>(comment_toggle_linewise_current)", opts)
-    -- keymap("v", "<C-/>", "<Plug>(comment_toggle_linewise_visual)", opts)
-    -- keymap("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", opts)
-    -- What next? between tabs of current buffer.
     keymap("n", "<leader>1", "1gt", opts)
     keymap("n", "<leader>2", "2gt", opts)
     keymap("n", "<leader>3", "3gt", opts)
@@ -436,7 +431,7 @@ if not vim.g.vscode then
     -- Telescope
     keymap(
         "n",
-        "<D-p>",
+        "<C-p>",
         '<cmd>lua require("telescope.builtin").find_files(require"telescope.themes".get_dropdown({previewer=true}))<CR>',
         opts
     )
@@ -449,7 +444,7 @@ if not vim.g.vscode then
 
     keymap(
         "i",
-        "<A-p>",
+        "<C-p>",
         '<cmd>lua require("telescope.builtin").find_files(require"telescope.themes".get_dropdown({previewer=true}))<CR>',
         opts
     )

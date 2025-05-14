@@ -1,7 +1,7 @@
 require("mini.comment").setup({
 	mappings = {
-		comment = "<D-f>",
-		comment_visual = "<D-/>",
-		comment_line = "<D-/>",
+		comment = "<C-/>",
+		comment_visual = "<C-/>",
+		comment_line = "C-/>",
 	},
 })
