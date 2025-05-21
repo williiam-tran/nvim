@@ -55,7 +55,12 @@ keymap("n", "eq", 'ciq<C-r>"', opts)
 keymap("i", "kh", "<Esc><cmd>w<CR>", opts)
 keymap("i", "jg", "<Esc><cmd>w<CR>", opts)
 keymap("i", "mg", "<Esc><cmd>w<CR>", opts)
+
 keymap("i", "<C-S>", "<Esc><cmd>w<CR>", opts)
+keymap("n", "<C-S>", "<Esc><cmd>w<CR>", opts)
+keymap("i", "<A-s>", "<Esc><cmd>w<CR>", opts)
+keymap("n", "<A-s>", "<Esc><cmd>w<CR>", opts)
+
 keymap("i", "<C-BS>", "<C-w>", opts)
 keymap("n", ":", "V", opts)
 keymap("n", "=", "V", opts)
