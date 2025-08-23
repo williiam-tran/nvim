@@ -1,0 +1,29 @@
+NVIM_CONFIG_DIR="$HOME/.config/nvim"
+
+notify() {
+    local message="$1"
+    /usr/bin/osascript -e "display notification \"$message\" with title \"Neovim Config\"" 2>/dev/null
+}
+
+cd "$NVIM_CONFIG_DIR" || exit 1
+current_branch=$(/usr/bin/git branch --show-current 2>/dev/null)
+
+if ! /usr/bin/git diff --quiet 2>/dev/null || ! /usr/bin/git diff --cached --quiet 2>/dev/null; then
+    /usr/bin/git stash push -m "Auto-stash for toggle - $(date)" 2>/dev/null
+fi
+
+if [[ "$current_branch" == "glove80" ]]; then
+    if /usr/bin/git checkout main 2>/dev/null; then
+        notify "⌨️ Toggled to built-in keyboard configuration"
+        echo "$(date): Toggled to main branch" >> "$NVIM_CONFIG_DIR/.switch-log"
+    else
+        notify "❌ Failed to toggle to built-in configuration"
+    fi
+else
+    if /usr/bin/git checkout glove80 2>/dev/null; then
+        notify "🎯 Toggled to Glove80 configuration"
+        echo "$(date): Toggled to glove80 branch" >> "$NVIM_CONFIG_DIR/.switch-log"
+    else
+        notify "❌ Failed to toggle to Glove80 configuration"
+    fi
+fi
