@@ -22,6 +22,9 @@ vim.api.nvim_set_keymap('n', '<Tab>', 'n', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<S-Tab>', 'N', { noremap = true, silent = true })
 
 
+keymap("n", "c", "i", opts)
+keymap("v", "$", "g_", opts)
+keymap("x", "$", "g_", opts)
 keymap("n", "I", "C", opts)
 keymap("v", "I", "C", opts)
 keymap("x", "I", "C", opts)
@@ -39,7 +42,6 @@ keymap("v", "N", "$", opts)
 keymap("n", "w", "o", opts)
 keymap("v", "w", "e", opts)
 keymap("n", "e", "d", opts)
-keymap("n", "a", "i", opts)
 keymap("v", "e", "d", opts)
 keymap("x", "e", "d", opts)
 
@@ -152,6 +154,7 @@ map <c-down> <C-w><down>
 map <c-left> <C-w><left>
 map <c-right> <C-w><right>
 nnoremap , :
+vnoremap , :
 cnoremap <C-v> <c-r>+
 ]])
 
@@ -208,6 +211,7 @@ keymap("n", "<D-w>", "<C-o>", opts)
 
 -- Ctrl+Backspace to delete word
 keymap("i", "<C-BS>", "<C-W>", opts)
+keymap("i", "<D-w>", "<C-W>", opts)
 -- keymap("n", "@", "*", opts)
 
 local function get_visual_selection()
@@ -325,8 +329,9 @@ if not vim.g.vscode then
     keymap("n", "Q", "<cmd>quitall<CR>", opts)
 
     keymap("n", "<C-A>", "ggVG", opts)
-    keymap("n", "<A-a>", "ggVG", opts)
+    keymap("n", "<A-A>", "ggVG", opts)
     keymap("n", "<D-a>", "ggVG", opts)
+    keymap("n", "<M-a>", "ggVG", opts)
 
     -- Visual --
     -- Stay in indent mode
@@ -436,6 +441,12 @@ if not vim.g.vscode then
     -- Telescope
     keymap(
         "n",
+        "<D-p>",
+        '<cmd>lua require("telescope.builtin").find_files(require"telescope.themes".get_dropdown({previewer=true}))<CR>',
+        opts
+    )
+    keymap(
+        "n",
         "<C-p>",
         '<cmd>lua require("telescope.builtin").find_files(require"telescope.themes".get_dropdown({previewer=true}))<CR>',
         opts
@@ -503,7 +514,6 @@ else
     keymap("o", "/", "<cmd>lua require('vscode-neovim').action('swiper.swiper-word-at-cursor')<CR>", opts)
     keymap("n", "me", "<cmd>lua require('vscode-neovim').action('vscode-harpoon.editEditors')<CR>", opts)
     keymap("n", "ma", "<cmd>lua require('vscode-neovim').action('vscode-harpoon.addEditor')<CR>", opts)
-    keymap("n", "<d-a>", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>", opts)
     keymap("n", "<leader>a", "<cmd>lua require('vscode-neovim').action('vscode-harpoon.addGlobalEditor')<CR>", opts)
     -- keymap("n", "<A-e>", "<cmd>lua require('vscode').action('vscode-harpoon.editorQuickPick')<CR>", opts)
     keymap("n", "<D-e>", "<cmd>lua require('vscode').action('vscode-harpoon.editEditors')<CR>", opts)
@@ -545,7 +555,6 @@ local function ChangeWorkingDir()
     })
 end
 
-vim.keymap.set("n", "cd", ChangeWorkingDir, { silent = true })
 vim.keymap.set("n", "<leader>cd", ChangeWorkingDir, { silent = true })
 
 -- Lua
@@ -588,11 +597,9 @@ vim.keymap.set({ "o" }, "w", '<cmd>lua require("various-textobjs").anyBracket("i
 
 vim.keymap.set("v", "n", "<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set("x", "n", "<cmd>lua require('spider').motion('e')<CR>")
-vim.keymap.set("n", "o", "<cmd>lua require('spider').motion('w')<CR>")
-vim.keymap.set("n", "n", "<cmd>lua require('spider').motion('w')<CR>")
+vim.keymap.set("n", "o", "<cmd>lua require('spider').motion('e')<CR>")
+vim.keymap.set("n", "n", "<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set("o", "o", "<cmd>lua require('spider').motion('w')<CR>")
-
-vim.keymap.set("n", "co", "ce", { remap = true })
 
 vim.keymap.set("o", "aw", "ab", { noremap = true })
 vim.keymap.set("o", "io", "w", { noremap = true })
@@ -602,14 +609,13 @@ vim.keymap.set("x", "ip", "iq", { remap = true })
 vim.keymap.set("x", "iw", "ib", { remap = true })
 vim.keymap.set("x", "dp", "dq", { remap = true })
 
-vim.keymap.set("n", "inp", "vinqda", { remap = true })
-vim.keymap.set("n", "inw", "vinbda", { remap = true })
+vim.keymap.set("n", "inp", "vinqdc", { remap = true })
+vim.keymap.set("n", "inw", "vinbdc", { remap = true })
 vim.keymap.set("n", "iw", "cib", { remap = true })
 vim.keymap.set("n", "mdw", "mdb", { remap = true })
 
 -- OR in one mapping
 vim.keymap.set("n", "io", "c<cmd>lua require('spider').motion('e')<CR>")
-vim.keymap.set("n", "co", "c<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set("n", "eo", "d<cmd>lua require('spider').motion('e')<CR>")
 
 keymap("n", '"', ".", opts)

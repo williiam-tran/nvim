@@ -284,10 +284,10 @@ return {
 
     "ryanoasis/vim-devicons",
 
-    {
-        "tpope/vim-surround",
-        event = "BufReadPre",
-    },
+    -- {
+    --     "tpope/vim-surround",
+    --     event = "BufReadPre",
+    -- },
 
     "tpope/vim-eunuch",
     -- "unblevable/quick-scope", -- highlight the first letter of the word you are searching for

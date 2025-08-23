@@ -37,7 +37,6 @@ return {
 		event = { "VimEnter" },
 	},
 
-	"tpope/vim-surround",
 	"nvim-treesitter",
 	"nvim-treesitter-textobjects",
 	"nvim-ts-context-commentstring",
