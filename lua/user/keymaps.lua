@@ -21,8 +21,6 @@ vim.api.nvim_set_keymap('n', '<Tab>', 'n', { noremap = true, silent = true })
 -- Map Shift+Tab to go to the previous search match
 vim.api.nvim_set_keymap('n', '<S-Tab>', 'N', { noremap = true, silent = true })
 
-
-keymap("n", "c", "i", opts)
 keymap("v", "$", "g_", opts)
 keymap("x", "$", "g_", opts)
 keymap("n", "I", "C", opts)
@@ -52,6 +50,7 @@ keymap("n", "h", "j", opts)
 
 keymap("n", "T", "<C-u>", opts)
 keymap("n", "H", "<C-d>", opts)
+keymap("n", "J", "<C-d>", opts)
 
 keymap("n", "eq", 'ciq<C-r>"', opts)
 keymap("i", "kh", "<Esc><cmd>w<CR>", opts)
@@ -89,7 +88,7 @@ keymap("n", "l", "u", opts)
 keymap("n", "n", "w", opts)
 keymap("v", "n", "w", opts)
 keymap("x", "n", "w", opts)
-keymap("n", "k", "b", opts)
+-- keymap("n", "k", "b", opts)
 keymap("v", "k", "b", opts)
 keymap("x", "k", "b", opts)
 keymap("n", "-", "x", opts)
@@ -138,7 +137,7 @@ end
 vim.api.nvim_set_keymap(
     "o",
     "q",
-    [[:lua require("various-textobjs").toNextQuotationMark()<CR>]],
+    [[:lua require(various-textobjs").AroundAnyQuote()<CR>]],
     { noremap = true, silent = true }
 )
 vim.api.nvim_set_keymap("o", "ep", [[:lua AppendToAnyQuote()<CR>]], { noremap = true, silent = true })
@@ -198,7 +197,8 @@ keymap("o", "o", "w", opts)
 -- Next/Previous cursor position
 keymap("n", "<A-U>", "<C-O>", opts)
 keymap("n", "<A-O>", "<C-I>", opts)
-
+keymap("n", "<d-u>", "<C-O>", opts)
+keymap("n", "<d-o>", "<C-I>", opts)
 
 keymap("n", "<M-U>", "<C-O>", opts)
 keymap("n", "<M-O>", "<C-I>", opts)
@@ -604,6 +604,7 @@ vim.keymap.set("o", "o", "<cmd>lua require('spider').motion('w')<CR>")
 vim.keymap.set("o", "aw", "ab", { noremap = true })
 vim.keymap.set("o", "io", "w", { noremap = true })
 vim.keymap.set("o", "iw", "ib", { noremap = true })
+vim.keymap.set("o", "ip", "iq", { noremap = true })
 vim.keymap.set("o", "ilp", "ilq", { noremap = true })
 vim.keymap.set("x", "ip", "iq", { remap = true })
 vim.keymap.set("x", "iw", "ib", { remap = true })

@@ -5,7 +5,7 @@ require("user.options")
 require("user.wordmotion")
 
 if vim.g.vscode then
-    require("user.vscode.options")
+    require("user.vscode.options") -- gdgdgdgd
     require("user.vscode.smoothscrolling")
     require("user.vscode.treesitter")
     require("user.cmp")

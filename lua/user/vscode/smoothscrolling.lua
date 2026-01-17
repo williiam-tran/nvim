@@ -1,11 +1,17 @@
 local neoscroll = require("neoscroll")
 
 local keymap = {
+	["J"] = function()
+		neoscroll.scroll(0.2, { move_cursor = true, duration = 80 })
+	end,
+	["K"] = function()
+		neoscroll.scroll(-0.2, { move_cursor = true, duration = 80 })
+	end,
 	["H"] = function()
-		neoscroll.scroll(0.5, { move_cursor = true, duration = 100 })
+		neoscroll.scroll(0.2, { move_cursor = true, duration = 80 })
 	end,
 	["T"] = function()
-		neoscroll.scroll(-0.5, { move_cursor = true, duration = 100 })
+		neoscroll.scroll(-0.2, { move_cursor = true, duration = 80 })
 	end,
 }
 

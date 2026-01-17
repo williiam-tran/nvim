@@ -10,16 +10,14 @@ require("mini.surround").setup(
 
         -- Module mappings. Use `''` (empty string) to disable one.
         mappings = {
-            replace = 'mr',        -- Replace surrounding
-            add = 'mp',            -- Add surrounding in Normal and Visual modes
-            delete = 'md',         -- Delete surrounding
-            find = 'f',            -- Find surrounding (to the right)
-            find_left = 'F',       -- Find surrounding (to the left)
-            highlight = 'mh',      -- Highlight surrounding
-            update_n_lines = 'mn', -- Update `n_lines`
+            replace = 'mr',    -- Replace surrounding
+            add = 'ma',        -- Add surrounding in Normal and Visual modes
+            delete = 'md',     -- Delete surrounding
+            find = 'f',        -- Find surrounding (to the right)
+            find_left = 'F',   -- Find surrounding (to the left)
 
-            suffix_last = 'l',     -- Suffix to search with "prev" method
-            suffix_next = 'n',     -- Suffix to search with "next" method
+            suffix_last = 'l', -- Suffix to search with "prev" method
+            suffix_next = 'n', -- Suffix to search with "next" method
         },
 
         -- Number of lines within which surrounding is searched
