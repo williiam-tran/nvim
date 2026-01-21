@@ -16,7 +16,7 @@ else
     require("user.cmp")
     require("user.mason")
     require("user.formatter")
-    require("user.harpoon")
+    -- require("user.harpoon")
     require("user.comments")
     require("user.noice")
     require("user.illuminate")
