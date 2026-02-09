@@ -40,6 +40,11 @@ return {
             vim.o.autoread = true
         end,
     },
+    {
+        "pmizio/typescript-tools.nvim",
+        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+        opts = {},
+    },
     { 'mrjones2014/smart-splits.nvim', build = './kitty/install-kittens.bash' },
     {
         "folke/flash.nvim",
@@ -101,7 +106,11 @@ return {
             -- change default options here
         },
     },
-    "windwp/nvim-ts-autotag",
+    {
+        "windwp/nvim-ts-autotag",
+        event = "InsertEnter",
+        opts = {},
+    },
 
     {
         "folke/ts-comments.nvim",
@@ -130,16 +139,7 @@ return {
 
     { "Bilal2453/luvit-meta",                   lazy = true }, -- optional `vim.uv` typings
 
-    {
-        "hrsh7th/nvim-cmp",
-        opts = function(_, opts)
-            opts.sources = opts.sources or {}
-            table.insert(opts.sources, {
-                name = "lazydev",
-                group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-            })
-        end,
-    },
+    "hrsh7th/nvim-cmp",
     -- {
     --     "folke/flash.nvim",
     --     event = "VeryLazy",
@@ -229,7 +229,7 @@ return {
     },
 
     {
-        "hrsh7th/nvim-cmp", -- The completion plugin
+        "hrsh7th/nvim-cmp",
         dependencies = {
             "onsails/lspkind.nvim",
             "hrsh7th/cmp-buffer",
@@ -248,19 +248,11 @@ return {
                 event = { "InsertEnter", "CmdlineEnter" },
                 lazy = false,
             },
-
             "saadparwaiz1/cmp_luasnip",
             "VonHeikemen/lsp-zero.nvim",
             "L3MON4D3/LuaSnip",
         },
         event = { "InsertEnter", "CmdlineEnter" },
-        opts = function(_, opts)
-            opts.sources = opts.sources or {}
-            table.insert(opts.sources, {
-                name = "lazydev",
-                group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-            })
-        end,
         lazy = false,
     },
 

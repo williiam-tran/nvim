@@ -21,7 +21,7 @@ configs.setup({
         },
     },
     refactor = {
-        ensure_installed = { "c", "lua", "vimdoc", "vim", "go", "gomod", "gosum", "luadoc", "markdown", "elixir", "eex", "heex", "vue" },
+    ensure_installed = { "c", "lua", "vimdoc", "vim", "go", "gomod", "gosum", "luadoc", "markdown", "elixir", "eex", "heex", "vue", "typescript", "tsx", "javascript", "html" },
         navigation = {
             enable = true,
             keymaps = {

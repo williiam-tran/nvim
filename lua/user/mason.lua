@@ -56,18 +56,22 @@ require("lspconfig").tailwindcss.setup({
     capabilities = capabilities,
 })
 
-local lspconfig = require("lspconfig")
-local configs = require("lspconfig.configs")
-if not configs.tsgo then
-    configs.tsgo = {
-        default_config = {
-            cmd = { "tsgo", "--lsp", "--stdio" },
-            filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-            root_dir = lspconfig.util.root_pattern("tsconfig.json", "jsconfig.json", "package.json", ".git"),
-        },
-    }
-end
-lspconfig.tsgo.setup({
+require("typescript-tools").setup({
     capabilities = capabilities,
     on_attach = require("user.lsp.handlers").on_attach,
+    settings = {
+        separate_diagnostic_server = true,
+        publish_diagnostic_on = "insert_leave",
+        expose_as_code_action = "all",
+        complete_function_calls = true,
+        include_completions_with_insert_text = true,
+        tsserver_file_preferences = {
+            includeCompletionsForModuleExports = true,
+            includeCompletionsWithInsertText = true,
+        },
+        jsx_close_tag = {
+            enable = true,
+            filetypes = { "javascriptreact", "typescriptreact" },
+        },
+    },
 })

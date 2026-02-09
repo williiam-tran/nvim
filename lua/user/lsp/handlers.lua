@@ -87,4 +87,22 @@ end
 
 M.capabilities = cmp_nvim_lsp.default_capabilities(what)
 
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function()
+		vim.diagnostic.config({
+			virtual_text = {
+				spacing = 4,
+				prefix = "●",
+				format = function(diagnostic)
+					local msg = diagnostic.message:gsub("\n", " ")
+					if #msg > 80 then
+						msg = msg:sub(1, 77) .. "..."
+					end
+					return msg
+				end,
+			},
+		})
+	end,
+})
+
 return M

@@ -136,6 +136,7 @@ vim.api.nvim_set_keymap(
     { noremap = true, silent = true }
 )
 vim.api.nvim_set_keymap("o", "ep", [[:lua AppendToAnyQuote()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("x", "ep", [[:lua AppendToAnyQuote()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("o", "ap", [[:lua AroundAnyQuote()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "ap", [[:lua AroundAnyQuote()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("x", "ap", [[:lua AroundAnyQuote()<CR>]], { noremap = true, silent = true })
@@ -432,7 +433,10 @@ if not vim.g.vscode then
     -- Next and previous problems.
     -- keymap("n", "<C-n>", "<Cmd>lua require('illuminate').goto_next_reference()<cr>", opts)
     keymap("n", "<C-p>", "<Cmd>lua require('illuminate').goto_prev_reference()<cr>", opts)
-    keymap("n", "<Bslash>", "<Cmd>lua vim.diagnostic.goto_next()<cr>", opts)
+    vim.keymap.set("n", "<Bslash>", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
+        { silent = true })
+    vim.keymap.set("n", "@", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
+        { silent = true })
     -- keymap("n", "<|>", "<Cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
 
     -- save current file.
@@ -591,6 +595,8 @@ vim.keymap.set("n", "<C-t>", function() vim.cmd("wincmd w") end, { silent = true
 vim.keymap.set("n", "<C-h>", function() vim.cmd("wincmd W") end, { silent = true })
 
 vim.keymap.set({ "o" }, "p", '<cmd>lua require("various-textobjs").anyQuote("inner")<CR>')
+vim.keymap.set({ "o", "x" }, "at", "at", { noremap = true })
+vim.keymap.set({ "o", "x" }, "it", "it", { noremap = true })
 
 vim.keymap.set({ "o" }, "w", '<cmd>lua require("various-textobjs").anyBracket("inner")<CR>')
 
@@ -601,8 +607,13 @@ vim.keymap.set("n", "n", "<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set("o", "o", "<cmd>lua require('spider').motion('w')<CR>")
 
 vim.keymap.set("o", "aw", "ab", { noremap = true })
-vim.keymap.set("o", "io", "w", { noremap = true })
+vim.keymap.set("o", "io", "iw", { noremap = true })
+vim.keymap.set("x", "io", "iw", { noremap = true })
+vim.keymap.set("o", "iO", "iW", { noremap = true })
+vim.keymap.set("x", "iO", "iW", { noremap = true })
+
 vim.keymap.set("o", "iw", "ib", { noremap = true })
+vim.keymap.set("x", "iw", "ib", { noremap = true })
 vim.keymap.set("o", "ip", "iq", { noremap = true })
 
 vim.keymap.set("x", "ip", "iq", { remap = true })
