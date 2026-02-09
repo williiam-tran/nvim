@@ -5,7 +5,7 @@ require("user.options")
 require("user.wordmotion")
 
 if vim.g.vscode then
-    require("user.vscode.options") -- gdgdgdgd
+    require("user.vscode.options")
     require("user.vscode.smoothscrolling")
     require("user.vscode.treesitter")
     require("user.cmp")
@@ -16,7 +16,7 @@ else
     require("user.cmp")
     require("user.mason")
     require("user.formatter")
-    -- require("user.harpoon")
+    require("user.harpoon")
     require("user.comments")
     require("user.noice")
     require("user.illuminate")
@@ -25,7 +25,6 @@ else
     require("user.nvimtree")
     require("user.colorscheme")
     -- require("user.reload")
-    -- require("user.typescript")
     require("user.scrollback")
     require("user.smoothscrolling")
     require("user.telescope")

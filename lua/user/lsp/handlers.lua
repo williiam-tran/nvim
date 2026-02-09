@@ -13,8 +13,18 @@ M.setup = function()
 	end
 
 	local config = {
-		-- disable virtual text
-		virtual_text = false,
+		virtual_text = {
+			spacing = 4,
+			prefix = "●",
+			suffix = "",
+			format = function(diagnostic)
+				local msg = diagnostic.message:gsub("\n", " ")
+				if #msg > 80 then
+					msg = msg:sub(1, 77) .. "..."
+				end
+				return msg
+			end,
+		},
 		-- show signs
 		signs = {
 			active = signs,

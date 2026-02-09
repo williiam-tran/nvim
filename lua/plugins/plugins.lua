@@ -1,6 +1,71 @@
 return {
     -- lazy.nvim
+    {
+        "rmagatti/auto-session",
+        lazy = false,
+
+        ---enables autocomplete for opts
+        ---@module "auto-session"
+        ---@type AutoSession.Config
+        opts = {
+            suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+            -- log_level = 'debug',
+        },
+    },
+
+    {
+        "akinsho/bufferline.nvim",
+        version = "*",
+        dependencies = "nvim-tree/nvim-web-devicons",
+        lazy = false,
+        opts = {
+            options = {
+                mode = "buffers",
+                diagnostics = "nvim_lsp",
+                show_buffer_close_icons = true,
+                show_close_icon = false,
+                separator_style = "thin",
+                always_show_bufferline = true,
+            },
+        },
+    },
+    {
+        "nickjvandyke/opencode.nvim",
+        lazy = false,
+        dependencies = {
+            { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
+        },
+        config = function()
+            vim.g.opencode_opts = {}
+            vim.o.autoread = true
+        end,
+    },
     { 'mrjones2014/smart-splits.nvim', build = './kitty/install-kittens.bash' },
+    {
+        "folke/flash.nvim",
+        keys = {
+            { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+        },
+        opts = {
+
+            labels = "CIEAHTNS",
+            modes = {
+                search = {
+
+                    enabled = true,
+                    highlight = { backdrop = false },
+                    jump = { history = true, register = true, nohlsearch = true },
+                },
+                char = {
+                    enabled = false,
+                },
+            },
+            search = {
+                mode = "fuzzy",
+                incremental = true
+            }
+        },
+    },
     { "chrisgrieser/nvim-spider",      lazy = true },
     {
         "lewis6991/gitsigns.nvim"
@@ -13,7 +78,7 @@ return {
 
             -- Only one of these is needed.
             "nvim-telescope/telescope.nvim", -- optional
-            "ibhagwan/fzf-lua",              -- optional
+            "iohagwan/fzf-lua",              -- optional
             "echasnovski/mini.pick",         -- optional
         },
         cmd = "Neogit",
@@ -37,11 +102,7 @@ return {
         },
     },
     "windwp/nvim-ts-autotag",
-    {
-        "pmizio/typescript-tools.nvim",
-        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-        opts = {},
-    },
+
     {
         "folke/ts-comments.nvim",
         opts = {},

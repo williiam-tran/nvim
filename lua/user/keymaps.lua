@@ -72,7 +72,6 @@ keymap("i", "<C-e>", "<C-o>de", opts)
 
 if not vim.g.vscode then
     keymap("n", "s", "<cmd>Pounce<CR>", opts)
-    keymap("v", "s", '"zy<cmd>PounceReg z<cr>', opts)
 else
     keymap("n", "s", "<cmd>Pounce<CR>", opts)
     -- keymap("n", "t", "<cmd>Pounce<CR>", opts)
@@ -92,10 +91,10 @@ keymap("n", "-", "x", opts)
 keymap("v", "-", "d", opts)
 keymap("x", "-", "d", opts)
 
-keymap("n", "<c-s>", "<Esc><C-W>l", opts)
-keymap("n", "<c-k>", "<Esc><C-W>h", opts)
-keymap("n", "<c-t>", "<Esc><C-W>k", opts)
-keymap("n", "<c-h>", "<Esc><C-W>j", opts)
+vim.keymap.set("n", "<d-j>", function() vim.cmd("wincmd j") end, { silent = true })
+vim.keymap.set("n", "<d-k>", function() vim.cmd("wincmd k") end, { silent = true })
+vim.keymap.set("n", "<d-t>", function() vim.cmd("wincmd k") end, { silent = true })
+vim.keymap.set("n", "<d-h>", function() vim.cmd("wincmd j") end, { silent = true })
 
 function ToAnyNumber()
     -- after this function called, already in insert mode and deleted everything inside the quote.
@@ -201,9 +200,13 @@ keymap("n", "<M-O>", "<C-I>", opts)
 keymap("n", "<C-l>", "<C-O>", opts)
 keymap("n", "<C-w>", "<C-I>", opts)
 
-keymap("n", "<D-l>", "<C-i>", opts)
-keymap("n", "<D-w>", "<C-o>", opts)
+keymap("n", "<A-l>", "<C-O>", opts)
+keymap("n", "<A-w>", "<C-I>", opts)
+keymap("n", "<D-l>", "<C-O>", opts)
+keymap("n", "<D-w>", "<C-I>", opts)
 
+keymap("n", "<M-l>", "<C-O>", opts)
+keymap("n", "<M-w>", "<C-I>", opts)
 
 -- Ctrl+Backspace to delete word
 keymap("i", "<C-BS>", "<C-W>", opts)
@@ -283,6 +286,8 @@ local function setup_quickfix_keymaps()
         [[:lua ReplaceInQuickfixVisual()<CR>]],
         { noremap = true, silent = true }
     )
+    vim.api.nvim_buf_set_keymap(0, "n", "p", "<CR><C-w>p", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<CR>", { noremap = true, silent = true })
 end
 
 -- Autocommand to set up keymaps when entering quickfix buffer
@@ -582,6 +587,8 @@ let g:EasyMotion_verbose = 0
 vim.keymap.set('n', '<CR>', 'm`O<Esc>t``')
 vim.api.nvim_set_keymap('n', '+', ':lua vim.api.nvim_command("normal! \\22")<CR>', { noremap = true, silent = true })
 keymap("n", "P", "<CR><C-w>p", opts)
+vim.keymap.set("n", "<C-t>", function() vim.cmd("wincmd w") end, { silent = true })
+vim.keymap.set("n", "<C-h>", function() vim.cmd("wincmd W") end, { silent = true })
 
 vim.keymap.set({ "o" }, "p", '<cmd>lua require("various-textobjs").anyQuote("inner")<CR>')
 
@@ -597,7 +604,7 @@ vim.keymap.set("o", "aw", "ab", { noremap = true })
 vim.keymap.set("o", "io", "w", { noremap = true })
 vim.keymap.set("o", "iw", "ib", { noremap = true })
 vim.keymap.set("o", "ip", "iq", { noremap = true })
-vim.keymap.set("o", "ilp", "ilq", { noremap = true })
+
 vim.keymap.set("x", "ip", "iq", { remap = true })
 vim.keymap.set("x", "iw", "ib", { remap = true })
 vim.keymap.set("x", "dp", "dq", { remap = true })
