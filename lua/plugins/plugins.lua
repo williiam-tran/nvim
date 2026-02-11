@@ -35,8 +35,16 @@ return {
         dependencies = {
             { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
         },
+        init = function()
+            vim.env.PATH = vim.env.PATH .. ":/Users/william/.opencode/bin"
+        end,
         config = function()
-            vim.g.opencode_opts = {}
+            vim.g.opencode_opts = {
+                provider = {
+                    enabled = "kitty",
+                    kitty = {},
+                },
+            }
             vim.o.autoread = true
         end,
     },

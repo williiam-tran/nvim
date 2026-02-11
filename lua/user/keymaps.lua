@@ -40,7 +40,6 @@ keymap("n", "e", "d", opts)
 keymap("v", "e", "d", opts)
 keymap("x", "e", "d", opts)
 
-keymap("v", "t", "k", opts)
 keymap("v", "h", "j", opts)
 keymap("n", "t", "k", opts)
 keymap("n", "h", "j", opts)
@@ -606,9 +605,15 @@ vim.keymap.set("n", "o", "<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set("n", "n", "<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set("o", "o", "<cmd>lua require('spider').motion('w')<CR>")
 
+vim.keymap.set("n", "<s-c-p>", function() require("opencode").command("session.select") end,
+    { desc = "Scroll opencode up" })
+vim.keymap.set("n", "<s-d-p>", function() require("opencode").command("session.select") end,
+    { desc = "Scroll opencode up" })
 vim.keymap.set("o", "aw", "ab", { noremap = true })
 vim.keymap.set("o", "io", "iw", { noremap = true })
 vim.keymap.set("x", "io", "iw", { noremap = true })
+
+vim.keymap.set("v", "iO", "iW", { noremap = true })
 vim.keymap.set("o", "iO", "iW", { noremap = true })
 vim.keymap.set("x", "iO", "iW", { noremap = true })
 
