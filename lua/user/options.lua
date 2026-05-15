@@ -42,7 +42,7 @@ vim.g.netrw_scp_cmd = "scp -q"
 vim.opt.shortmess:append("aAcCFIoOstTWqixm")
 vim.opt.shadafile = "NONE"
 vim.o.shell = "zsh"
-vim.o.shellcmdflag = "-command"
+vim.o.shellcmdflag = "-c"
 vim.o.shellquote = '"'
 vim.opt.title = false
 vim.opt.pumblend = 0
@@ -101,7 +101,25 @@ vim.cmd([[
 ]])
 
 vim.opt.fillchars:append("diff:╱")
-
+local osc52 = require('vim.ui.clipboard.osc52')
+local _clipboard = {}
+vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+        ['+'] = function(lines)
+            _clipboard['+'] = lines
+            osc52.copy('+')(lines)
+        end,
+        ['*'] = function(lines)
+            _clipboard['*'] = lines
+            osc52.copy('*')(lines)
+        end,
+    },
+    paste = {
+        ['+'] = function() return _clipboard['+'] or {} end,
+        ['*'] = function() return _clipboard['*'] or {} end,
+    },
+}
 -- Set EasyMotion highlights on ColorScheme
 -- vim.api.nvim_create_autocmd("ColorScheme", {
 -- 	pattern = "*",

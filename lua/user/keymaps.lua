@@ -605,10 +605,7 @@ vim.keymap.set("n", "o", "<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set("n", "n", "<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set("o", "o", "<cmd>lua require('spider').motion('w')<CR>")
 
-vim.keymap.set("n", "<s-c-p>", function() require("opencode").command("session.select") end,
-    { desc = "Scroll opencode up" })
-vim.keymap.set("n", "<s-d-p>", function() require("opencode").command("session.select") end,
-    { desc = "Scroll opencode up" })
+
 vim.keymap.set("o", "aw", "ab", { noremap = true })
 vim.keymap.set("o", "io", "iw", { noremap = true })
 vim.keymap.set("x", "io", "iw", { noremap = true })

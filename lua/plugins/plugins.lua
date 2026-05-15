@@ -29,25 +29,7 @@ return {
             },
         },
     },
-    {
-        "nickjvandyke/opencode.nvim",
-        lazy = false,
-        dependencies = {
-            { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
-        },
-        init = function()
-            vim.env.PATH = vim.env.PATH .. ":/Users/william/.opencode/bin"
-        end,
-        config = function()
-            vim.g.opencode_opts = {
-                provider = {
-                    enabled = "kitty",
-                    kitty = {},
-                },
-            }
-            vim.o.autoread = true
-        end,
-    },
+
     {
         "pmizio/typescript-tools.nvim",
         dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
@@ -91,7 +73,7 @@ return {
 
             -- Only one of these is needed.
             "nvim-telescope/telescope.nvim", -- optional
-            "iohagwan/fzf-lua",              -- optional
+            "ibhagwan/fzf-lua",              -- optional
             "echasnovski/mini.pick",         -- optional
         },
         cmd = "Neogit",
@@ -310,16 +292,15 @@ return {
         dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     },
 
-    {
-        "folke/noice.nvim",
-        commit = "d9328ef",
-        opts = {},
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            -- "rcarriga/nvim-notify",
-        },
-        event = "VeryLazy",
-    },
+    -- {
+    --     "folke/noice.nvim",
+    --     commit = "d9328ef",
+    --     opts = {},
+    --     dependencies = {
+    --         "MunifTanjim/nui.nvim",
+    --     },
+    --     event = "VeryLazy",
+    -- },
 
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 

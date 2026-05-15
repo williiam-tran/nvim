@@ -32,7 +32,7 @@ function M.reload_config()
 		"user.codecompanion",
 		"user.mason",
 		"user.legendary",
-		"user.noice",
+		-- "user.noice",
 		"user.project",
 		"user.youcompleteme",
 		"user.colorizer",

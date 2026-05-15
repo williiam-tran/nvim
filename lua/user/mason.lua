@@ -11,50 +11,42 @@ require("lazydev").setup({
     },
 })
 
--- local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 local capabilities = require("user.lsp.handlers").capabilities
 
-require("lspconfig").lua_ls.setup({
+vim.lsp.config("lua_ls", {
     capabilities = capabilities,
-    on_init = function(client)
-        client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
-            Lua = {
-                diagnostics = {
-                    globals = { "vim" },
-                },
-                runtime = {
-                    version = "LuaJIT",
-                },
-                -- Make the server aware of Neovim runtime files
-                workspace = {
-                    -- ignoreDir = { "Downloads", "AppData" },
-                    checkThirdParty = false,
-                    library = {
-                        vim.env.VIMRUNTIME,
-                    },
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { "vim" },
+            },
+            runtime = {
+                version = "LuaJIT",
+            },
+            workspace = {
+                checkThirdParty = false,
+                library = {
+                    vim.env.VIMRUNTIME,
                 },
             },
-        })
-    end,
-    --
-    -- 	client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-    -- 	return true
-    -- end,
+        },
+    },
 })
 
 capabilities = require("user.lsp.handlers").capabilities
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-require("lspconfig").cssls.setup({
+vim.lsp.config("cssls", {
     capabilities = capabilities,
 })
 
-require("lspconfig").nil_ls.setup({})
+vim.lsp.config("nil_ls", {})
 
-require("lspconfig").tailwindcss.setup({
+vim.lsp.config("tailwindcss", {
     capabilities = capabilities,
 })
+
+vim.lsp.enable({ "lua_ls", "cssls", "nil_ls", "tailwindcss" })
 
 require("typescript-tools").setup({
     capabilities = capabilities,
